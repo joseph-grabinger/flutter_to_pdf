@@ -131,11 +131,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_web_plugins:
-    dependency: transitive
-    description: flutter
-    source: sdk
-    version: "0.0.0"
   google_fonts:
     dependency: transitive
     description:
@@ -312,14 +307,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.6.2"
-  printing:
-    dependency: transitive
-    description:
-      name: printing
-      sha256: fe654363cd0114b50a0815b24e96957c7e9a60eb4e3b7ccfe71cf3f2b7114cb2
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.10.1"
   process:
     dependency: transitive
     description:
@@ -446,4 +433,4 @@ packages:
     version: "6.2.2"
 sdks:
   dart: ">=3.0.0-196.0.dev <4.0.0"
-  flutter: ">=3.7.0"
+  flutter: ">=3.0.0"

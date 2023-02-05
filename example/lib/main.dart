@@ -1,16 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import 'package:rfw/rfw.dart';
-import 'package:rfw/formats.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
-
-import 'package:example/dynamic_data.dart';
-import 'package:example/rfw/create_widgets.dart';
+import 'package:teaplates/teaplates.dart';
 
 
 void main() {
@@ -20,91 +10,183 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) => MaterialApp(
-    title: 'Teaplate Demo',
-    theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: Colors.deepPurple,
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        // This is the theme of your application.
+        //
+        // TRY THIS: Try running your application with "flutter run". You'll see
+        // the application has a blue toolbar. Then, without quitting the app,
+        // try changing the seedColor in the colorScheme below to Colors.green
+        // and then invoke "hot reload" (save your changes or press the "hot
+        // reload" button in a Flutter-supported IDE, or press "r" if you used
+        // the command line to start the app).
+        //
+        // Notice that the counter didn't reset back to zero; the application
+        // state is not lost during the reload. To reset the state, use hot
+        // restart instead.
+        //
+        // This works for code too, not just values: Most code changes can be
+        // tested with just a hot reload.
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
-      useMaterial3: true,
-    ),
-    home: const MyHomePage(),
-  );
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+  const MyHomePage({super.key, required this.title});
+
+  // This widget is the home page of your application. It is stateful, meaning
+  // that it has a State object (defined below) that contains fields that affect
+  // how it looks.
+
+  // This class is the configuration for the state. It holds the values (in this
+  // case the title) provided by the parent (in this case the App widget) and
+  // used by the build method of the State. Fields in a Widget subclass are
+  // always marked "final".
+
+  final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final Runtime _runtime = Runtime();
-  final FullyQualifiedWidgetName _fullyWidget = const FullyQualifiedWidgetName(LibraryName(<String>['main']), 'root');
-  final DynamicData dyDa = DynamicData(data: {
-    'firstname': 'John',
-  });
+  int _counter = 0;
 
-  final edits = <String, TextEditingController>{};
+  late BuildContext exportContext; 
 
-  dynamic state = {};
-  
-  @override
-  void initState() {
-    super.initState();
-    _update();
+  void visitAllAlt(BuildContext context) {
+    context.visitChildElements((Element element) { 
+      print('Initial: $element');
+      visitAlt(element, 1);
+    });
+  }
+
+  void visitAlt(Element element, int level) {
+    List<Widget> children = [];
+    level++;
+    element.visitChildElements((Element element) {
+      print('Element: ${element.widget}');
+      if (element.widget is MergeSemantics) {
+        return;
+      }
+      children.add(element.widget);
+      visitAlt(element, level);
+    });
+    print('Level: $level: $children');
+  }
+
+  // void visitAll(BuildContext context) {
+  //   int level = 1;
+  //   context.visitChildElements((Element element) {
+  //     print('Initial: $element');
+  //     visit(element, level);
+  //   });
+  // }
+
+  // void visit(Element element, int level) {
+  //   List<Widget> children = [];
+  //   element.visitChildElements((Element element) {
+  //     if (element.widget.runtimeType != MergeSemantics) {
+  //       children.add(element.widget);
+  //       visit(element, level++);
+  //     }
+  //   });
+  //   print('Level: $level: $children');
+  // }
+
+  void _incrementCounter(BuildContext ctx) async {
+    setState(() {
+      _counter++;
+    });
+    // visitAllAlt(ctx);
+    await exportPDF(ctx);
+    // visitAll(ctx);
+    // ctx.visitChildElements((Element element) { 
+    //   print('1: $element');
+    //   element.visitChildElements((element) { 
+    //     print(element);
+    //     element.visitChildElements((Element element) { 
+    //       print(element);
+    //       print('Type: ${element.widget.runtimeType}');
+    //       print('Data: ${element.widget}');
+    //       if (element.widget is Text) {
+    //         Text t = element.widget as Text;
+    //         print('Text: ${t.data}');
+    //       }
+    //       element.visitChildElements((element) {
+    //         print('last: $element');
+    //         print(element.runtimeType);
+    //         print(element.widget.runtimeType);
+    //         print(element.widget);
+    //       });
+    //     });
+    //   });});
   }
 
   @override
-  void reassemble() {
-    super.reassemble();
-    _update();
-  }
-
-
-  void _update() async {
-    _runtime.update(const LibraryName(<String>['widgets']), createWidgets(state));
-    final rfwFile = await rootBundle.loadString('assets/rfw/business_card.rfw');
-    _runtime.update(const LibraryName(<String>['main']), parseLibraryFile(rfwFile));
-
-    dyDa.update('firstname', "Nick3");
-  }
-
-  @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: Text(widget.toStringShort()),
-    ),
-    floatingActionButton: FloatingActionButton(
-      onPressed: () => createPdf(),
-      child: const Icon(Icons.save),
-    ),
-    body: RemoteWidget(
-      runtime: _runtime,
-      data: dyDa.content,
-      widget: _fullyWidget,
-      onEvent: (String name, DynamicMap arguments) {
-        debugPrint('user triggered event "$name" with data: $arguments');
-      },
-    ),
-  );
-
-  void createPdf() async {
-    final DataSource source = state['source'] as DataSource;
-
-    final pdf = pw.Document();
-
-    pdf.addPage(pw.Page(
-      pageFormat: PdfPageFormat.a4,
-      build: (pw.Context ctx) => rfwToPdf(source, dyDa)!),
-    ); // Page
-
-    final output = await getApplicationDocumentsDirectory();
-    final file = File("${output.path}/example.pdf");
-    await file.writeAsBytes(await pdf.save());
-
-    //Share.shareXFiles([XFile(file.path)],);
+  Widget build(BuildContext context) {
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    return Scaffold(
+      appBar: AppBar(
+        // TRY THIS: Try changing the color here to a specific color (to
+        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+        // change color while the other colors stay the same.
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(widget.title),
+      ),
+      body: Column(
+        children: [
+          Builder(
+            builder: (BuildContext ctx) {
+              exportContext = ctx;
+              return Container(
+                // color: Colors.green,
+                child: const Center(
+                  child: Text('Test123'),
+              //     child: Column(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: <Widget>[
+              //     const Text(
+              //       'You have pushed the button this many times:',
+              //       style: TextStyle(
+              //         color: Colors.red,
+              //         fontSize: 16,
+              //         fontWeight: FontWeight.bold,
+              //       ),
+              //     ),
+              //     Text(
+              //       '$_counter',
+              //       style: Theme.of(context).textTheme.headlineMedium,
+              //     ),
+                  
+              //   ],
+              // ),
+                ),
+              );
+            },
+          ),
+          FloatingActionButton(
+                onPressed: () => _incrementCounter(exportContext),
+                tooltip: 'Increment',
+                child: const Icon(Icons.add),
+              )
+        ],
+      ),
+    );
   }
 }
