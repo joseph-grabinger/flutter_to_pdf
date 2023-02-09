@@ -1,38 +1,17 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/widgets.dart' show BoxShadow;
 
-import 'package:pdf/widgets.dart' as pw;
+import 'package:pdf/pdf.dart' show PdfPoint;
+import 'package:pdf/widgets.dart' as pw show BoxShadow;
 
-import 'package:teaplates/page.dart';
-import 'package:teaplates/args/color.dart';
-import 'package:teaplates/args/point.dart';
+import 'color.dart';
 
 
-class PfBoxShadow {
-  const PfBoxShadow({
-    this.color = const PfColor(0xff000000),
-    this.offset = PfPoint.zero,
-    this.blurRadius = 0.0,
-    this.spreadRadius = 0.0,
-  });
-
-  final PfColor color;
-  final PfPoint offset;
-  final double blurRadius;
-  final double spreadRadius;
-
-  BoxShadow toFl() {
-    return BoxShadow(
-      color: color.toFl(),
-      offset: offset.toFl(),
-      blurRadius: blurRadius * pwToFlPx,
-      spreadRadius: spreadRadius * pwToFlPx,
-    );
-  }
-
-  pw.BoxShadow toPw() {
+extension BoxShadowConverter on BoxShadow {
+  pw.BoxShadow toPdfBoxShadow() {
+    print('BoxShadowConverter: $this');
     return pw.BoxShadow(
-      color: color.toPw(),
-      offset: offset.toPw(),
+      color: color.toPdfColor(),
+      offset: PdfPoint(offset.dx, offset.dy),
       blurRadius: blurRadius,
       spreadRadius: spreadRadius,
     );

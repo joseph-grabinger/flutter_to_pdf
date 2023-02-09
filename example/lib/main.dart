@@ -155,27 +155,18 @@ class _MyHomePageState extends State<MyHomePage> {
             builder: (BuildContext ctx) {
               exportContext = ctx;
               return Container(
-                // color: Colors.green,
-                child: const Center(
-                  child: Text('Test123'),
-              //     child: Column(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: <Widget>[
-              //     const Text(
-              //       'You have pushed the button this many times:',
-              //       style: TextStyle(
-              //         color: Colors.red,
-              //         fontSize: 16,
-              //         fontWeight: FontWeight.bold,
-              //       ),
-              //     ),
-              //     Text(
-              //       '$_counter',
-              //       style: Theme.of(context).textTheme.headlineMedium,
-              //     ),
-                  
-              //   ],
-              // ),
+                child: Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.purple,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Text('Test123', style: TextStyle(color: Colors.red),)),
+                    Container(
+                      color: Colors.blueGrey,
+                      child: Text('ACAB', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold,))),
+                  ],
                 ),
               );
             },

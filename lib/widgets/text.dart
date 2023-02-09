@@ -1,33 +1,23 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart' show Text;
 
-import 'package:pdf/widgets.dart' as pw;
+import 'package:pdf/widgets.dart' as pw show Text, TextStyle;
 
-import 'package:teaplates/teaplates.dart';
-import 'package:teaplates/args/text_style.dart';
+import 'package:teaplates/args/color.dart';
+import 'package:teaplates/args/font_style.dart';
+import 'package:teaplates/args/font_weight.dart';
 
 
-class PfText extends PfWidget {
-  const PfText(this.text, {
-    Key? key,
-    this.style,
-  }) : super(key: key);
-
-  final String text;
-  final PfTextStyle? style;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: style?.toFl() ?? PfTextStyle.flStandard,
-    );
-  }
-
-  @override
-  pw.Widget toPw() {
-    return pw.Text(
-      text,
-      style: style?.toPw() ?? PfTextStyle.pwStandard,
-    );
-  }
+extension TextConverter on Text {
+  pw.Text toPDFWidget() => pw.Text(data!,
+    style: style != null ? pw.TextStyle(
+      color: style!.color != null ? style!.color!.toPdfColor() : null,
+      fontSize: style!.fontSize,
+      fontStyle: style!.fontStyle != null ? style!.fontStyle!.toPdfFontStyle() : null,
+      fontWeight: style!.fontWeight != null ? style!.fontWeight!.toPdfFontWeight() : null,
+      height: style!.height,
+      letterSpacing: style!.letterSpacing,
+      wordSpacing: style!.wordSpacing,
+      // TODO add remaining style options
+    ) : null,
+  );
 }

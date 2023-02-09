@@ -1,23 +1,14 @@
-import 'package:flutter/widgets.dart';
-import 'package:pdf/widgets.dart' as pw;
+import 'package:flutter/widgets.dart' show BoxShape;
 
-enum PfBoxShape { circle, rectangle }
+import 'package:pdf/widgets.dart' as pw show BoxShape;
 
-extension PfBoxShapeExt on PfBoxShape {
-  BoxShape toFl() {
+
+extension BoxShapeConverter on BoxShape {
+  pw.BoxShape toPdfBoxShape() {
     switch (this) {
-      case PfBoxShape.circle:
-        return BoxShape.circle;
-      case PfBoxShape.rectangle:
-        return BoxShape.rectangle;
-    }
-  }
-
-  pw.BoxShape toPw() {
-    switch (this) {
-      case PfBoxShape.circle:
+      case BoxShape.circle:
         return pw.BoxShape.circle;
-      case PfBoxShape.rectangle:
+      case BoxShape.rectangle:
         return pw.BoxShape.rectangle;
     }
   }
