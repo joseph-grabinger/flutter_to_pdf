@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'widgets/container.dart';
+import 'widgets/center.dart';
 import 'widgets/text.dart';
 
 
@@ -54,7 +55,8 @@ pw.Widget? visitAll(BuildContext context) {
           return;
         case Center:
           print('Adding Center');
-          children.add(pw.Center(child: visit(element).first));
+          children.add((widget as Center).toPDFWidget(visit(element).first));
+          // children.add(pw.Center(child: visit(element).first));
           break;
         case Container:
           print('Adding Container');

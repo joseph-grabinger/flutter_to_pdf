@@ -1,28 +1,15 @@
+import 'package:flutter/widgets.dart' show FlexFit;
 
-import 'package:flutter/widgets.dart';
-import 'package:pdf/widgets.dart' as pw;
+import 'package:pdf/widgets.dart' as pw show FlexFit;
 
-enum PfFlexFit{
-  loose,
-  tight,
-}
 
-extension PfFlexFitExt on PfFlexFit {
-  pw.FlexFit toPw() {
+extension FlexFitConverter on FlexFit {
+  pw.FlexFit toPdfFlexFit() {
     switch (this) {
-      case PfFlexFit.loose:
+      case FlexFit.loose:
         return pw.FlexFit.loose;
-      case PfFlexFit.tight:
+      case FlexFit.tight:
         return pw.FlexFit.tight;
-    }
-  }
-
-  FlexFit toFl() {
-    switch (this) {
-      case PfFlexFit.loose:
-        return FlexFit.loose;
-      case PfFlexFit.tight:
-        return FlexFit.tight;
     }
   }
 }

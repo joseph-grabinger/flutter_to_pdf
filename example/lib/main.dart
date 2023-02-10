@@ -165,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Text('Test123', style: TextStyle(color: Colors.red),)),
                     Container(
                       color: Colors.blueGrey,
-                      child: Text('ACAB', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold,))),
+                      child: Text('ACAB', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),)),
                   ],
                 ),
               );

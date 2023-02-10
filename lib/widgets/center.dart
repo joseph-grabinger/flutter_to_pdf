@@ -1,29 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart' show Center;
 
-import 'package:pdf/widgets.dart' as pw;
-
-import 'package:teaplates/teaplates.dart';
+import 'package:pdf/widgets.dart' as pw show Center, Widget;
 
 
-class PfCenter extends PfWidget {
-  const PfCenter({
-    Key? key,
-    this.child,
-  }) : super(key: key);
-
-  final PfWidget? child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: child,
-    );
-  }
-
-  @override
-  pw.Widget toPw() {
-    return pw.Center(
-      child: child?.toPw(),
-    );
-  }
+extension CenterConverter on Center {
+  pw.Center toPDFWidget(pw.Widget? child) => pw.Center(
+    heightFactor: heightFactor,
+    widthFactor: widthFactor,
+    child: child,
+  );
 }

@@ -1,33 +1,14 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart' show Expanded;
 
-import 'package:pdf/widgets.dart' as pw;
+import 'package:pdf/widgets.dart' as pw show Expanded, Widget;
 
-import 'package:teaplates/teaplates.dart';
+import '/args/flex_fit.dart';
 
 
-class PfExpanded extends PfWidget {
-  const PfExpanded({
-    Key? key,
-    this.flex = 1,
-    required this.child,
-  }) : super(key: key);
-
-  final int flex;
-  final PfWidget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      flex: flex,
-      child: child,
-    );
-  }
-
-  @override
-  pw.Widget toPw() {
-    return pw.Expanded(
-      flex: flex,
-      child: child.toPw(),
-    );
-  }
+extension ExpandedConverter on Expanded {
+  pw.Expanded toPdfWidget(pw.Widget child) => pw.Expanded(
+    flex: flex,
+    fit: fit.toPdfFlexFit(),
+    child: child,
+  );
 }
