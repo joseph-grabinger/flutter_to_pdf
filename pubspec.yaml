@@ -11,8 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   google_fonts: ^4.0.1
+  path_provider: ^2.0.12
   pdf: ^3.9.0
-  printing: ^5.10.1
 
 dev_dependencies:
   flutter_test:

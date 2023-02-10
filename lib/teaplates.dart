@@ -1,53 +1,84 @@
 library teaplates;
 
+import 'dart:io';
+
 import 'package:flutter/widgets.dart';
 
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-// widgets
-export 'package:teaplates/widgets/align.dart';
-export 'package:teaplates/widgets/center.dart';
-export 'package:teaplates/widgets/column.dart';
-export 'package:teaplates/widgets/container.dart';
-export 'package:teaplates/widgets/divider.dart';
-export 'package:teaplates/widgets/expanded.dart';
-export 'package:teaplates/widgets/flexible.dart';
-export 'package:teaplates/widgets/padding.dart';
-export 'package:teaplates/widgets/row.dart';
-export 'package:teaplates/widgets/sized_box.dart';
-export 'package:teaplates/widgets/text_field.dart';
-export 'package:teaplates/widgets/text.dart';
-
-// args
-export 'package:teaplates/args/alignment.dart';
-export 'package:teaplates/args/border_radius.dart';
-export 'package:teaplates/args/border_side.dart';
-export 'package:teaplates/args/border_style.dart';
-export 'package:teaplates/args/border.dart';
-export 'package:teaplates/args/box_decoration.dart';
-export 'package:teaplates/args/box_fit.dart';
-export 'package:teaplates/args/box_shadow.dart';
-export 'package:teaplates/args/box_shape.dart';
-export 'package:teaplates/args/color.dart';
-export 'package:teaplates/args/cross_axis_alignment.dart';
-export 'package:teaplates/args/edge_insets.dart';
-export 'package:teaplates/args/flex_fit.dart';
-export 'package:teaplates/args/font_style.dart';
-export 'package:teaplates/args/font_weight.dart';
-export 'package:teaplates/args/font.dart';
-export 'package:teaplates/args/google_font.dart';
-export 'package:teaplates/args/main_axis_alignment.dart';
-export 'package:teaplates/args/main_axis_size.dart';
-export 'package:teaplates/args/point.dart';
-export 'package:teaplates/args/radius.dart';
-export 'package:teaplates/args/text_style.dart';
-export 'package:teaplates/args/vertical_direction.dart';
+import 'widgets/container.dart';
+import 'widgets/text.dart';
 
 
-abstract class PfWidget extends StatelessWidget {
-  const PfWidget({
-    Key? key,
-  }) : super(key: key);
+/// Exports the provided [context] to a PDF file.
+Future<void> exportPDF(BuildContext context) async {
+  final pw.Widget? pdfWidget = visitAll(context);
 
-  pw.Widget toPw();
+  final pdf = pw.Document();
+
+  pdf.addPage(pw.Page(
+    build: (pw.Context context) {
+      return pdfWidget!;
+    },
+  ));
+  Directory dir = await getApplicationDocumentsDirectory();
+  final file = File("${dir.path}/example.pdf");
+  await file.writeAsBytes(await pdf.save());
+  print('Path: ${file.path}');
 }
+
+/// Visists all widgets in the widget tree.
+pw.Widget? visitAll(BuildContext context) {
+  pw.Widget? pdfWidget;
+  context.visitChildElements((Element element) {
+    print('Initial: $element');
+    pdfWidget = visit(element).first;
+  });
+  
+  return pdfWidget;
+}
+
+  /// Recursive helper function to visit all widgets in the widget tree.
+  List<pw.Widget> visit(Element element) {
+    List<pw.Widget> children = [];
+
+    element.visitChildElements((Element element) {
+      print('Element ${element.depth}: ${element.widget}');
+
+      Widget widget = element.widget;
+
+      switch (widget.runtimeType) {
+        case MergeSemantics: //anchor: end of widget tree
+          print('Reached Anchor');
+          return;
+        case Center:
+          print('Adding Center');
+          children.add(pw.Center(child: visit(element).first));
+          break;
+        case Container:
+          print('Adding Container');
+          children.add((widget as Container).toPDFWidget(visit(element).first));
+          // children.add(pw.Container(child: visit(element).first));
+          break;
+        case Text:
+          print('Adding Text');
+          children.add((widget as Text).toPDFWidget());
+          break;
+        case Column:
+          print('Adding Column');
+          children.add(pw.Column(children: visit(element)));
+          break;
+        default: 
+          print('Uncaught: ${widget.runtimeType}');
+          children.add(visit(element).first);
+          break;
+      }
+    });
+
+    print('returned: $children');
+
+    return children;
+  }
+
+

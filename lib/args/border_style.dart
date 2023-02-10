@@ -1,26 +1,14 @@
-import 'package:flutter/widgets.dart';
-import 'package:pdf/widgets.dart' as pw;
+import 'package:flutter/widgets.dart' show BorderStyle;
 
-enum PfBorderStyle {
-  none,
-  solid,
-}
+import 'package:pdf/widgets.dart' as pw show BorderStyle;
 
-extension PfBorderStyleExt on PfBorderStyle {
-  BorderStyle toFl() {
+
+extension BoderStyleConverter on BorderStyle {
+  pw.BorderStyle toPdfBorderStyle() {
     switch (this) {
-      case PfBorderStyle.none:
-        return BorderStyle.none;
-      case PfBorderStyle.solid:
-        return BorderStyle.solid;
-    }
-  }
-
-  pw.BorderStyle toPw() {
-    switch (this) {
-      case PfBorderStyle.none:
+      case BorderStyle.none:
         return pw.BorderStyle.none;
-      case PfBorderStyle.solid:
+      case BorderStyle.solid:
         return pw.BorderStyle.solid;
     }
   }

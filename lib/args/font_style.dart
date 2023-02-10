@@ -1,28 +1,15 @@
-import 'package:pdf/widgets.dart' as pw;
-import 'dart:ui';
+import 'package:flutter/widgets.dart' show FontStyle;
+
+import 'package:pdf/widgets.dart' as pw show FontStyle;
 
 
-enum PfFontStyle {
-  normal,
-  italic,
-}
-
-extension PfFontStyleExt on PfFontStyle {
-  pw.FontStyle toPw() {
+extension FontStyleConverter on FontStyle {
+  pw.FontStyle toPdfFontStyle() {
     switch (this) {
-      case PfFontStyle.normal:
+      case FontStyle.normal:
         return pw.FontStyle.normal;
-      case PfFontStyle.italic:
+      case FontStyle.italic:
         return pw.FontStyle.italic;
-    }
-  }
-
-  FontStyle toFl() {
-    switch (this) {
-      case PfFontStyle.normal:
-        return FontStyle.normal;
-      case PfFontStyle.italic:
-        return FontStyle.italic;
     }
   }
 }

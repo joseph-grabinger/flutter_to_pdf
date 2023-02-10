@@ -1,28 +1,19 @@
-import 'package:pdf/widgets.dart' as pw;
-import 'dart:ui';
+import 'package:flutter/widgets.dart' show FontWeight;
+
+import 'package:pdf/widgets.dart' as pw show FontWeight;
 
 
-enum PfFontWeight {
-  normal,
-  bold
-}
-
-extension PfFontWeightExt on PfFontWeight {
-  pw.FontWeight toPw() {
+extension FontWeightConverter on FontWeight {
+  pw.FontWeight toPdfFontWeight() {
     switch (this) {
-      case PfFontWeight.normal:
+      case FontWeight.normal:
         return pw.FontWeight.normal;
-      case PfFontWeight.bold:
+      case FontWeight.bold:
         return pw.FontWeight.bold;
+      // TODO hanlde unsupported values
+      default: 
+        return pw.FontWeight.normal;
     }
   }
 
-  FontWeight toFl() {
-    switch (this) {
-      case PfFontWeight.normal:
-        return FontWeight.normal;
-      case PfFontWeight.bold:
-        return FontWeight.bold;
-    }
-  }
 }
