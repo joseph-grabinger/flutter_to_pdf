@@ -10,7 +10,6 @@ import 'color.dart';
 extension GradientConverter on Gradient {
   pw.Gradient toPdfGradient() {
     print('GradientConverter: $this');
-
     switch (runtimeType) {
       case LinearGradient:
         return (this as LinearGradient).toPdfLinearGradient();
@@ -59,11 +58,9 @@ extension TileModeConverter on TileMode {
     switch (this) {
       case TileMode.clamp:
         return pw.TileMode.clamp;
-      // not supported by pdf package
-      // case TileMode.mirror:
-      //   return pw.TileMode.mirror;
-      // case TileMode.repeated:
-      //   return pw.TileMode.repeated;
+      // not supported by pdf package:
+      // - TileMode.mirror:
+      // - TileMode.repeated:
       default:
         throw Exception('Unsupported TileMode: $this');
     }

@@ -1,7 +1,7 @@
 
-import 'package:flutter/widgets.dart' show TextStyle, TextDecoration;
+import 'package:flutter/widgets.dart' show TextStyle, TextDecoration, TextDecorationStyle;
 
-import 'package:pdf/widgets.dart' as pw show TextStyle, TextDecoration;
+import 'package:pdf/widgets.dart' as pw show TextStyle, TextDecoration, TextDecorationStyle, Font;
 
 import 'color.dart';
 import 'font_style.dart';
@@ -19,8 +19,31 @@ extension TextStyleConverter on TextStyle {
     wordSpacing: wordSpacing,
     decoration: decoration?.toPdfTextDecoration(),
     decorationColor: decorationColor?.toPdfColor(),
+    decorationStyle: decorationStyle?.toPdfTextDecorationStyle(),
+    decorationThickness: decorationThickness,
+    inherit: inherit,
+    font: fontFamily != null ? resolveFont(fontFamily!) : null,
+    fontFallback: fontFamilyFallback?.map<pw.Font>(
+      (String font) => resolveFont(font)).toList() ?? [],
     // TODO add remaining style options
   );
+
+  pw.Font resolveFont(String font) {
+    switch (fontFamily) {
+      case 'Courier':
+        return pw.Font.courier();
+      case 'Helvetica':
+        return pw.Font.helvetica();
+      case 'Times':
+        return pw.Font.times();
+      case 'ZapfDingbats':
+        return pw.Font.zapfDingbats();
+      case 'Symbol':
+        return pw.Font.symbol();
+      default:
+        throw Exception('Unsupported Font: $font');
+    }
+  }
 }
 
 extension TextDecorationConverter on TextDecoration {
@@ -37,5 +60,22 @@ extension TextDecorationConverter on TextDecoration {
     }
 
     return textDecoration;
+  }
+}
+
+extension TextDecorationStyleConverter on TextDecorationStyle {
+  pw.TextDecorationStyle toPdfTextDecorationStyle() {
+    switch (this) {
+      case TextDecorationStyle.solid:
+        return pw.TextDecorationStyle.solid;
+      case TextDecorationStyle.double:
+        return pw.TextDecorationStyle.double;
+      // not supported by pdf package:
+      // - TextDecorationStyle.dotted
+      // - TextDecorationStyle.dashed
+      // - TextDecorationStyle.wavy
+      default:
+        throw Exception('Unsupported TextDecorationStyle: $this');
+    }
   }
 }
