@@ -13,6 +13,9 @@ import 'widgets/expanded.dart';
 import 'widgets/flexible.dart';
 import 'widgets/text.dart';
 import 'widgets/divider.dart';
+import 'widgets/column.dart';
+import 'widgets/row.dart';
+import 'widgets/stack.dart';
 
 
 /// Exports the provided [context] to a PDF file.
@@ -93,9 +96,17 @@ pw.Widget? traverseWidgetTree(BuildContext context) {
           break;
         case Column:
           print('Adding Column');
-          children.add(pw.Column(children: visit(element)));
+          children.add((widget as Column).toPdfWidget(visit(element)));
           break;
-        default: 
+        case Row:
+          print('Adding Row');
+          children.add((widget as Row).toPdfWidget(visit(element)));
+          break;
+        case Stack:
+          print('Adding Stack');
+          children.add((widget as Stack).toPdfWidget(visit(element)));
+          break;
+        default:
           print('Uncaught: ${widget.runtimeType}');
           children.add(visit(element).first);
           break;

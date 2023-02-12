@@ -1,26 +1,14 @@
-import 'package:flutter/widgets.dart';
-import 'package:pdf/widgets.dart' as pw;
+import 'package:flutter/widgets.dart' show VerticalDirection;
 
-enum PfVerticalDirection {
-  up,
-  down,
-}
+import 'package:pdf/widgets.dart' as pw show VerticalDirection;
 
-extension PfVerticalDirectionExt on PfVerticalDirection {
-  VerticalDirection toFl() {
+
+extension VerticalDirectionConverter on VerticalDirection {
+  pw.VerticalDirection toPdfVerticalDirection() {
     switch (this) {
-      case PfVerticalDirection.up:
-        return VerticalDirection.up;
-      case PfVerticalDirection.down:
-        return VerticalDirection.down;
-    }
-  }
-
-  pw.VerticalDirection toPw() {
-    switch (this) {
-      case PfVerticalDirection.up:
+      case VerticalDirection.up:
         return pw.VerticalDirection.up;
-      case PfVerticalDirection.down:
+      case VerticalDirection.down:
         return pw.VerticalDirection.down;
     }
   }

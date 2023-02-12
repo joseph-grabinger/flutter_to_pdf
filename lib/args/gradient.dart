@@ -15,9 +15,8 @@ extension GradientConverter on Gradient {
         return (this as LinearGradient).toPdfLinearGradient();
       case RadialGradient:
         return (this as RadialGradient).toPdfRadialGradient();
-      // not supported by pdf package
-      // case SweepGradient:
-      //   throw Exception('SweepGradient is not supported by pdf package');
+      // not supported by pdf package:
+      // - SweepGradient
       default:
         throw Exception('Unsupported Gradient: $this');
     }
