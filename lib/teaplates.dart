@@ -1,20 +1,23 @@
 library teaplates;
 
-import 'dart:io';
+import 'package:flutter/material.dart';
 
-import 'package:flutter/widgets.dart';
-
-import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'widgets/container.dart';
 import 'widgets/center.dart';
+import 'widgets/sized_box.dart';
+import 'widgets/align.dart';
+import 'widgets/padding.dart';
+import 'widgets/expanded.dart';
+import 'widgets/flexible.dart';
 import 'widgets/text.dart';
+import 'widgets/divider.dart';
 
 
 /// Exports the provided [context] to a PDF file.
-Future<void> exportPDF(BuildContext context) async {
-  final pw.Widget? pdfWidget = visitAll(context);
+Future<pw.Document> exportPDF(BuildContext context) async {
+  final pw.Widget? pdfWidget = traverseWidgetTree(context);
 
   final pdf = pw.Document();
 
@@ -23,14 +26,13 @@ Future<void> exportPDF(BuildContext context) async {
       return pdfWidget!;
     },
   ));
-  Directory dir = await getApplicationDocumentsDirectory();
-  final file = File("${dir.path}/example.pdf");
-  await file.writeAsBytes(await pdf.save());
-  print('Path: ${file.path}');
+
+  return pdf;
 }
 
-/// Visists all widgets in the widget tree.
-pw.Widget? visitAll(BuildContext context) {
+/// Traverses the widget tree of the provided [context]
+/// and returns the corresponding PDF widget tree.
+pw.Widget? traverseWidgetTree(BuildContext context) {
   pw.Widget? pdfWidget;
   context.visitChildElements((Element element) {
     print('Initial: $element');
@@ -40,7 +42,7 @@ pw.Widget? visitAll(BuildContext context) {
   return pdfWidget;
 }
 
-  /// Recursive helper function to visit all widgets in the widget tree.
+  /// Recursive helper to visit all child elements of the provided [element].
   List<pw.Widget> visit(Element element) {
     List<pw.Widget> children = [];
 
@@ -53,19 +55,41 @@ pw.Widget? visitAll(BuildContext context) {
         case MergeSemantics: //anchor: end of widget tree
           print('Reached Anchor');
           return;
-        case Center:
-          print('Adding Center');
-          children.add((widget as Center).toPDFWidget(visit(element).first));
-          // children.add(pw.Center(child: visit(element).first));
-          break;
         case Container:
           print('Adding Container');
-          children.add((widget as Container).toPDFWidget(visit(element).first));
-          // children.add(pw.Container(child: visit(element).first));
+          children.add((widget as Container).toPdfWidget(visit(element).first));
+          break;
+        case Center:
+          print('Adding Center');
+          children.add((widget as Center).toPdfWidget(visit(element).first));
+          break;
+        case SizedBox:
+          print('Adding SizedBox');
+          children.add((widget as SizedBox).toPdfWidget(visit(element).first));
+          break;
+        case Padding:
+          print('Adding Padding');
+          children.add((widget as Padding).toPdfWidget(visit(element).first));
+          break;
+        case Align:
+          print('Adding Align');
+          children.add((widget as Align).toPdfWidget(visit(element).first));
+          break;
+        case Expanded:
+          print('Adding Expanded');
+          children.add((widget as Expanded).toPdfWidget(visit(element).first));
+          break;
+        case Flexible:
+          print('Adding Flexible');
+          children.add((widget as Flexible).toPdfWidget(visit(element).first));
           break;
         case Text:
           print('Adding Text');
-          children.add((widget as Text).toPDFWidget());
+          children.add((widget as Text).toPdfWidget());
+          break;
+        case Divider:
+          print('Adding Divider');
+          children.add((widget as Divider).toPdfWidget());
           break;
         case Column:
           print('Adding Column');
@@ -82,5 +106,3 @@ pw.Widget? visitAll(BuildContext context) {
 
     return children;
   }
-
-

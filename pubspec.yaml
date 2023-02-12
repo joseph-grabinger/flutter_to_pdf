@@ -1,5 +1,5 @@
 name: teaplates
-description: A new Flutter package project.
+description: A package to export any Flutter view to PDF.
 version: 0.0.1
 homepage:
 
@@ -11,7 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
   google_fonts: ^4.0.1
-  path_provider: ^2.0.12
   pdf: ^3.9.0
 
 dev_dependencies:

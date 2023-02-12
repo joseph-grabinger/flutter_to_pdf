@@ -10,7 +10,7 @@ import '../args/edge_insets.dart';
 
 
 extension ContainerConverter on Container {
-  pw.Container toPDFWidget(pw.Widget? child) {
+  pw.Container toPdfWidget(pw.Widget? child) {
     print('ContainerConverter: $this');
     return pw.Container(
       alignment: (alignment as Alignment?)?.toPdfAlignment(),

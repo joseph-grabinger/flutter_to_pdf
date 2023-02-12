@@ -6,7 +6,7 @@ import '/args/text_style.dart';
 
 
 extension TextConverter on Text {
-  pw.Text toPDFWidget() => pw.Text(data!,
+  pw.Text toPdfWidget() => pw.Text(data!,
     maxLines: maxLines,
     softWrap: softWrap,
     textScaleFactor: textScaleFactor ?? 1.0,
