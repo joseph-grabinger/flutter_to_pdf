@@ -1,46 +1,22 @@
-import 'package:flutter/widgets.dart';
-import 'package:pdf/widgets.dart' as pw;
+import 'package:flutter/widgets.dart' show MainAxisAlignment;
 
-enum PfMainAxisAlignment {
-  start,
-  end,
-  center,
-  spaceBetween,
-  spaceAround,
-  spaceEvenly,
-}
+import 'package:pdf/widgets.dart' as pw show MainAxisAlignment;
 
-extension PfMainAxisAlignmentExt on PfMainAxisAlignment {
-  MainAxisAlignment toFl() {
+
+extension MainAxisAlignmentConverter on MainAxisAlignment {
+  pw.MainAxisAlignment toPdfMainAxisAlignment() {
     switch (this) {
-      case PfMainAxisAlignment.start:
-        return MainAxisAlignment.start;
-      case PfMainAxisAlignment.end:
-        return MainAxisAlignment.end;
-      case PfMainAxisAlignment.center:
-        return MainAxisAlignment.center;
-      case PfMainAxisAlignment.spaceBetween:
-        return MainAxisAlignment.spaceBetween;
-      case PfMainAxisAlignment.spaceAround:
-        return MainAxisAlignment.spaceAround;
-      case PfMainAxisAlignment.spaceEvenly:
-        return MainAxisAlignment.spaceEvenly;
-    }
-  }
-
-  pw.MainAxisAlignment toPw() {
-    switch (this) {
-      case PfMainAxisAlignment.start:
+      case MainAxisAlignment.start:
         return pw.MainAxisAlignment.start;
-      case PfMainAxisAlignment.end:
+      case MainAxisAlignment.end:
         return pw.MainAxisAlignment.end;
-      case PfMainAxisAlignment.center:
+      case MainAxisAlignment.center:
         return pw.MainAxisAlignment.center;
-      case PfMainAxisAlignment.spaceBetween:
+      case MainAxisAlignment.spaceBetween:
         return pw.MainAxisAlignment.spaceBetween;
-      case PfMainAxisAlignment.spaceAround:
+      case MainAxisAlignment.spaceAround:
         return pw.MainAxisAlignment.spaceAround;
-      case PfMainAxisAlignment.spaceEvenly:
+      case MainAxisAlignment.spaceEvenly:
         return pw.MainAxisAlignment.spaceEvenly;
     }
   }

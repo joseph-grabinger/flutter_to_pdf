@@ -1,37 +1,23 @@
-import 'package:flutter/widgets.dart';
-import 'package:pdf/widgets.dart' as pw;
+import 'package:flutter/widgets.dart' show CrossAxisAlignment;
 
-enum PfCrossAxisAlignment {
-  start,
-  end,
-  center,
-  stretch,
-}
+import 'package:pdf/widgets.dart' as pw show CrossAxisAlignment;
 
-extension PfCrossAxisAlignmentExt on PfCrossAxisAlignment {
-  CrossAxisAlignment toFl() {
+
+extension CrossAxisAlignmentConverter on CrossAxisAlignment {
+  pw.CrossAxisAlignment toPdfCrossAxisAlignment() {
     switch (this) {
-      case PfCrossAxisAlignment.start:
-        return CrossAxisAlignment.start;
-      case PfCrossAxisAlignment.end:
-        return CrossAxisAlignment.end;
-      case PfCrossAxisAlignment.center:
-        return CrossAxisAlignment.center;
-      case PfCrossAxisAlignment.stretch:
-        return CrossAxisAlignment.stretch;
-    }
-  }
-
-  pw.CrossAxisAlignment toPw() {
-    switch (this) {
-      case PfCrossAxisAlignment.start:
+      case CrossAxisAlignment.start:
         return pw.CrossAxisAlignment.start;
-      case PfCrossAxisAlignment.end:
+      case CrossAxisAlignment.end:
         return pw.CrossAxisAlignment.end;
-      case PfCrossAxisAlignment.center:
+      case CrossAxisAlignment.center:
         return pw.CrossAxisAlignment.center;
-      case PfCrossAxisAlignment.stretch:
+      case CrossAxisAlignment.stretch:
         return pw.CrossAxisAlignment.stretch;
+      // not supported in pdf package:
+      // - CrossAxisAlignment.baseline
+      default: 
+        throw Exception('Unsupported CrossAxisAlignment: $this');
     }
   }
 }

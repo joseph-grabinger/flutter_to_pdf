@@ -1,26 +1,14 @@
-import 'package:flutter/widgets.dart';
-import 'package:pdf/widgets.dart' as pw;
+import 'package:flutter/widgets.dart' show MainAxisSize;
 
-enum PfMainAxisSize {
-  min,
-  max,
-}
+import 'package:pdf/widgets.dart' as pw show MainAxisSize;
 
-extension PfMainAxisSizeExt on PfMainAxisSize {
-  MainAxisSize toFl() {
+
+extension MainAxisSizeConverter on MainAxisSize {
+  pw.MainAxisSize toPdfMainAxisSize() {
     switch (this) {
-      case PfMainAxisSize.min:
-        return MainAxisSize.min;
-      case PfMainAxisSize.max:
-        return MainAxisSize.max;
-    }
-  }
-
-  pw.MainAxisSize toPw() {
-    switch (this) {
-      case PfMainAxisSize.min:
+      case MainAxisSize.min:
         return pw.MainAxisSize.min;
-      case PfMainAxisSize.max:
+      case MainAxisSize.max:
         return pw.MainAxisSize.max;
     }
   }
