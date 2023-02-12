@@ -17,6 +17,7 @@ import 'widgets/divider.dart';
 import 'widgets/column.dart';
 import 'widgets/row.dart';
 import 'widgets/stack.dart';
+import 'widgets/list_view.dart';
 
 
 /// Exports the provided [context] to a PDF file.
@@ -112,6 +113,9 @@ pw.Widget? traverseWidgetTree(BuildContext context) {
           break;
         case Stack:
           children.add((widget as Stack).toPdfWidget(visit(element)));
+          break;
+        case ListView:
+          children.add((widget as ListView).toPdfWidget(visit(element)));
           break;
         default:
           print('Uncaught: ${widget.runtimeType}');
