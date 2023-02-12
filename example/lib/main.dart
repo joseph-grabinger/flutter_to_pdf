@@ -60,24 +60,38 @@ class _MyHomePageState extends State<MyHomePage> {
             builder: (BuildContext ctx) {
               exportContext = ctx;
               return Container(
-                child: Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.purple,
-                        borderRadius: BorderRadius.circular(5),
+                child: Center(
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.purple,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: const Text('Hello Space', 
+                          style: TextStyle(color: Colors.red),
+                        ),
                       ),
-                      child: const Text('Test123', 
-                        style: TextStyle(color: Colors.red),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            color: Colors.blueGrey,
+                            height: 50,
+                            width: 50,
+                            child: const Text('Hello World', 
+                              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Container(
+                            color: Colors.green,
+                            height: 50,
+                            width: 50,
+                          ),
+                        ],
                       ),
-                    ),
-                    Container(
-                      color: Colors.blueGrey,
-                      child: const Text('ACAB', 
-                        style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               );
             },

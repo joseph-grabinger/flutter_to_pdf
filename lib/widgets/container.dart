@@ -10,20 +10,15 @@ import '../args/edge_insets.dart';
 
 
 extension ContainerConverter on Container {
-  pw.Container toPdfWidget(pw.Widget? child) {
-    print('ContainerConverter: $this');
-    return pw.Container(
-      alignment: (alignment as Alignment?)?.toPdfAlignment(),
-      decoration: (decoration as BoxDecoration?)?.toPdfBoxDecoration(),
-      color: color?.toPdfColor(),
-      constraints: constraints?.toPdfBoxConstraints(),
-      foregroundDecoration: (foregroundDecoration as BoxDecoration?)?.toPdfBoxDecoration(),
-      margin: (margin as EdgeInsets?)?.toPdfEdgeInsets(),
-      padding: (padding as EdgeInsets?)?.toPdfEdgeInsets(),
-      transform: transform,
-      child: child,
-      // TODO check if height is applied by constraints
-      // TODO check if width is applied by constraints
-    );
-  }
+  pw.Container toPdfWidget(pw.Widget? child) => pw.Container(
+    alignment: (alignment as Alignment?)?.toPdfAlignment(),
+    decoration: (decoration as BoxDecoration?)?.toPdfBoxDecoration(),
+    color: color?.toPdfColor(),
+    constraints: constraints?.toPdfBoxConstraints(),
+    foregroundDecoration: (foregroundDecoration as BoxDecoration?)?.toPdfBoxDecoration(),
+    margin: (margin as EdgeInsets?)?.toPdfEdgeInsets(),
+    padding: (padding as EdgeInsets?)?.toPdfEdgeInsets(),
+    transform: transform,
+    child: child,
+  );
 }

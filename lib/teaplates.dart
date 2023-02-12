@@ -9,6 +9,7 @@ import 'widgets/center.dart';
 import 'widgets/sized_box.dart';
 import 'widgets/align.dart';
 import 'widgets/padding.dart';
+import 'widgets/positioned.dart';
 import 'widgets/expanded.dart';
 import 'widgets/flexible.dart';
 import 'widgets/text.dart';
@@ -52,63 +53,72 @@ pw.Widget? traverseWidgetTree(BuildContext context) {
     element.visitChildElements((Element element) {
       print('Element ${element.depth}: ${element.widget}');
 
-      Widget widget = element.widget;
+      final Widget widget = element.widget;
 
       switch (widget.runtimeType) {
         case MergeSemantics: //anchor: end of widget tree
           print('Reached Anchor');
           return;
         case Container:
-          print('Adding Container');
-          children.add((widget as Container).toPdfWidget(visit(element).first));
+          final List childWidgets = visit(element);
+          children.add((widget as Container).toPdfWidget(
+            childWidgets.isNotEmpty ? childWidgets.first : null
+          ));
           break;
         case Center:
-          print('Adding Center');
-          children.add((widget as Center).toPdfWidget(visit(element).first));
+          final List childWidgets = visit(element);
+          children.add((widget as Center).toPdfWidget(
+            childWidgets.isNotEmpty ? childWidgets.first : null
+          ));
           break;
         case SizedBox:
-          print('Adding SizedBox');
-          children.add((widget as SizedBox).toPdfWidget(visit(element).first));
+          final List childWidgets = visit(element);
+          children.add((widget as SizedBox).toPdfWidget(
+            childWidgets.isNotEmpty ? childWidgets.first : null
+          ));
           break;
         case Padding:
-          print('Adding Padding');
-          children.add((widget as Padding).toPdfWidget(visit(element).first));
+          final List childWidgets = visit(element);
+          children.add((widget as Padding).toPdfWidget(
+            childWidgets.isNotEmpty ? childWidgets.first : null
+          ));
           break;
         case Align:
-          print('Adding Align');
-          children.add((widget as Align).toPdfWidget(visit(element).first));
+          final List childWidgets = visit(element);
+          children.add((widget as Align).toPdfWidget(
+            childWidgets.isNotEmpty ? childWidgets.first : null
+          ));
+          break;
+        case Positioned:
+          children.add((widget as Positioned).toPdfWidget(visit(element).first));
           break;
         case Expanded:
-          print('Adding Expanded');
           children.add((widget as Expanded).toPdfWidget(visit(element).first));
           break;
         case Flexible:
-          print('Adding Flexible');
           children.add((widget as Flexible).toPdfWidget(visit(element).first));
           break;
         case Text:
-          print('Adding Text');
           children.add((widget as Text).toPdfWidget());
           break;
         case Divider:
-          print('Adding Divider');
           children.add((widget as Divider).toPdfWidget());
           break;
         case Column:
-          print('Adding Column');
           children.add((widget as Column).toPdfWidget(visit(element)));
           break;
         case Row:
-          print('Adding Row');
           children.add((widget as Row).toPdfWidget(visit(element)));
           break;
         case Stack:
-          print('Adding Stack');
           children.add((widget as Stack).toPdfWidget(visit(element)));
           break;
         default:
           print('Uncaught: ${widget.runtimeType}');
-          children.add(visit(element).first);
+          final List childWidgets = visit(element);
+          if (childWidgets.isNotEmpty) {
+            children.addAll(childWidgets.map((e) => e));
+          }
           break;
       }
     });
