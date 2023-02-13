@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart' show Alignment, BoxDecoration, Container, EdgeInsets, BuildContext;
+import 'package:flutter/widgets.dart' show Alignment, BoxDecoration, Container, EdgeInsets;
 
 import 'package:pdf/widgets.dart' as pw show Container, Widget;
 
@@ -10,12 +10,12 @@ import '../args/edge_insets.dart';
 
 
 extension ContainerConverter on Container {
-  Future<pw.Container> toPdfWidget(pw.Widget? child, BuildContext context) async => pw.Container(
+  Future<pw.Container> toPdfWidget(pw.Widget? child) async => pw.Container(
     alignment: (alignment as Alignment?)?.toPdfAlignment(),
-    decoration: await (decoration as BoxDecoration?)?.toPdfBoxDecoration(context),
+    decoration: await (decoration as BoxDecoration?)?.toPdfBoxDecoration(),
     color: color?.toPdfColor(),
     constraints: constraints?.toPdfBoxConstraints(),
-    foregroundDecoration: await (foregroundDecoration as BoxDecoration?)?.toPdfBoxDecoration(context),
+    foregroundDecoration: await (foregroundDecoration as BoxDecoration?)?.toPdfBoxDecoration(),
     margin: (margin as EdgeInsets?)?.toPdfEdgeInsets(),
     padding: (padding as EdgeInsets?)?.toPdfEdgeInsets(),
     transform: transform,

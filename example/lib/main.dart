@@ -84,9 +84,16 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                           Container(
-                            color: Colors.green,
+                            // color: Colors.green,
                             height: 50,
                             width: 50,
+                            decoration: BoxDecoration(
+                              // add demo image
+                              image: DecorationImage(
+                                image: NetworkImage('https://picsum.photos/250?image=9'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                         ],
                       ),
