@@ -8,19 +8,17 @@ import 'border_radius.dart';
 import 'box_shape.dart';
 import 'box_shadow.dart';
 import 'gradient.dart';
+import 'decoration_image.dart';
 
 
 extension BoxDecorationConverter on BoxDecoration {
-  pw.BoxDecoration toPdfBoxDecoration() {
-    print('BoxDecorationConverter: $this');
-    return pw.BoxDecoration(
-      color: color?.toPdfColor(),
-      border: (border as Border?)?.toPdfBorder(),
-      borderRadius: (borderRadius as BorderRadius?)?.toPdfBorderRadius(),
-      boxShadow: boxShadow?.map<pw.BoxShadow>((BoxShadow e) => e.toPdfBoxShadow()).toList(),
-      gradient: gradient?.toPdfGradient(),
-      shape: shape.toPdfBoxShape(),
-      // TODO add support for images
-    );
-  }
+  Future<pw.BoxDecoration> toPdfBoxDecoration() async => pw.BoxDecoration(
+    color: color?.toPdfColor(),
+    border: (border as Border?)?.toPdfBorder(),
+    borderRadius: (borderRadius as BorderRadius?)?.toPdfBorderRadius(),
+    boxShadow: boxShadow?.map<pw.BoxShadow>((BoxShadow e) => e.toPdfBoxShadow()).toList(),
+    gradient: gradient?.toPdfGradient(),
+    shape: shape.toPdfBoxShape(),
+    image: await image?.toPdfDecorationImage(),
+  );
 }

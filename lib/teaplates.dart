@@ -14,16 +14,17 @@ import 'widgets/expanded.dart';
 import 'widgets/flexible.dart';
 import 'widgets/text.dart';
 import 'widgets/divider.dart';
+import 'widgets/image.dart';
 import 'widgets/column.dart';
 import 'widgets/row.dart';
 import 'widgets/stack.dart';
 import 'widgets/list_view.dart';
-import '/widgets/grid_view.dart';
+import 'widgets/grid_view.dart';
 
 
 /// Exports the provided [context] to a PDF file.
 Future<pw.Document> exportPDF(BuildContext context) async {
-  final pw.Widget? pdfWidget = traverseWidgetTree(context);
+  final pw.Widget? pdfWidget = await traverseWidgetTree(context);
 
   final pdf = pw.Document();
 
@@ -38,67 +39,74 @@ Future<pw.Document> exportPDF(BuildContext context) async {
 
 /// Traverses the widget tree of the provided [context]
 /// and returns the corresponding PDF widget tree.
-pw.Widget? traverseWidgetTree(BuildContext context) {
+Future<pw.Widget?> traverseWidgetTree(BuildContext context) async {
   pw.Widget? pdfWidget;
-  context.visitChildElements((Element element) {
-    print('Initial: $element');
-    pdfWidget = visit(element).first;
+  Element? element;
+  context.visitChildElements((Element e) async {
+    print('Initial: $e');
+    element = e;
   });
-  
+
+  pdfWidget = (await visit(element!)).first;
+
   return pdfWidget;
 }
 
   /// Recursive helper to visit all child elements of the provided [element].
-  List<pw.Widget> visit(Element element) {
+  Future<List<pw.Widget>> visit(Element element) async {
     List<pw.Widget> children = [];
+    List<Element> elements = [];
 
-    element.visitChildElements((Element element) {
+    element.visitChildElements((Element element) async {
       print('Element ${element.depth}: ${element.widget}');
+      elements.add(element);
+    });
 
-      final Widget widget = element.widget;
+    for (Element e in elements) {
+      final Widget widget = e.widget;
 
       switch (widget.runtimeType) {
         case MergeSemantics: //anchor: end of widget tree
           print('Reached Anchor');
-          return;
+          return [];
         case Container:
-          final List childWidgets = visit(element);
-          children.add((widget as Container).toPdfWidget(
+          final List childWidgets = await visit(e);
+          children.add(await (widget as Container).toPdfWidget(
             childWidgets.isNotEmpty ? childWidgets.first : null
           ));
           break;
         case Center:
-          final List childWidgets = visit(element);
+          final List childWidgets = await visit(e);
           children.add((widget as Center).toPdfWidget(
             childWidgets.isNotEmpty ? childWidgets.first : null
           ));
           break;
         case SizedBox:
-          final List childWidgets = visit(element);
+          final List childWidgets = await visit(e);
           children.add((widget as SizedBox).toPdfWidget(
             childWidgets.isNotEmpty ? childWidgets.first : null
           ));
           break;
         case Padding:
-          final List childWidgets = visit(element);
+          final List childWidgets = await visit(e);
           children.add((widget as Padding).toPdfWidget(
             childWidgets.isNotEmpty ? childWidgets.first : null
           ));
           break;
         case Align:
-          final List childWidgets = visit(element);
+          final List childWidgets = await visit(e);
           children.add((widget as Align).toPdfWidget(
             childWidgets.isNotEmpty ? childWidgets.first : null
           ));
           break;
         case Positioned:
-          children.add((widget as Positioned).toPdfWidget(visit(element).first));
+          children.add((widget as Positioned).toPdfWidget((await visit(e)).first));
           break;
         case Expanded:
-          children.add((widget as Expanded).toPdfWidget(visit(element).first));
+          children.add((widget as Expanded).toPdfWidget((await visit(e)).first));
           break;
         case Flexible:
-          children.add((widget as Flexible).toPdfWidget(visit(element).first));
+          children.add((widget as Flexible).toPdfWidget((await visit(e)).first));
           break;
         case Text:
           children.add((widget as Text).toPdfWidget());
@@ -106,30 +114,33 @@ pw.Widget? traverseWidgetTree(BuildContext context) {
         case Divider:
           children.add((widget as Divider).toPdfWidget());
           break;
+        case Image:
+          children.add(await (widget as Image).toPdfWidget());
+          break;
         case Column:
-          children.add((widget as Column).toPdfWidget(visit(element)));
+          children.add((widget as Column).toPdfWidget(await visit(e)));
           break;
         case Row:
-          children.add((widget as Row).toPdfWidget(visit(element)));
+          children.add((widget as Row).toPdfWidget(await visit(e)));
           break;
         case Stack:
-          children.add((widget as Stack).toPdfWidget(visit(element)));
+          children.add((widget as Stack).toPdfWidget(await visit(e)));
           break;
         case ListView:
-          children.add((widget as ListView).toPdfWidget(visit(element)));
+          children.add((widget as ListView).toPdfWidget(await visit(e)));
           break;
         case GridView:
-          children.add((widget as GridView).toPdfWidget(visit(element)));
+          children.add((widget as GridView).toPdfWidget(await visit(e)));
           break;
         default:
           print('Uncaught: ${widget.runtimeType}');
-          final List childWidgets = visit(element);
+          final List childWidgets = await visit(e);
           if (childWidgets.isNotEmpty) {
-            children.addAll(childWidgets.map((e) => e));
+            children.addAll(childWidgets.map((x) => x));
           }
           break;
       }
-    });
+    }
 
     print('returned: $children');
 

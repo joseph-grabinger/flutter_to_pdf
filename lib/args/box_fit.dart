@@ -1,43 +1,24 @@
-import 'package:flutter/widgets.dart';
-import 'package:pdf/widgets.dart' as pw;
+import 'package:flutter/widgets.dart' show BoxFit;
 
-enum PfBoxFit { fill, contain, cover, fitWidth, fitHeight, none, scaleDown }
+import 'package:pdf/widgets.dart' as pw show BoxFit;
 
-extension PfBoxFitExt on PfBoxFit {
-  BoxFit toFl() {
+
+extension BoxFitConverter on BoxFit {
+  pw.BoxFit toPdfBoxFit() {
     switch (this) {
-      case PfBoxFit.fill:
-        return BoxFit.fill;
-      case PfBoxFit.contain:
-        return BoxFit.contain;
-      case PfBoxFit.cover:
-        return BoxFit.cover;
-      case PfBoxFit.fitWidth:
-        return BoxFit.fitWidth;
-      case PfBoxFit.fitHeight:
-        return BoxFit.fitHeight;
-      case PfBoxFit.none:
-        return BoxFit.none;
-      case PfBoxFit.scaleDown:
-        return BoxFit.scaleDown;
-    }
-  }
-
-  pw.BoxFit toPw() {
-    switch (this) {
-      case PfBoxFit.fill:
+      case BoxFit.fill:
         return pw.BoxFit.fill;
-      case PfBoxFit.contain:
+      case BoxFit.contain:
         return pw.BoxFit.contain;
-      case PfBoxFit.cover:
+      case BoxFit.cover:
         return pw.BoxFit.cover;
-      case PfBoxFit.fitWidth:
+      case BoxFit.fitWidth:
         return pw.BoxFit.fitWidth;
-      case PfBoxFit.fitHeight:
+      case BoxFit.fitHeight:
         return pw.BoxFit.fitHeight;
-      case PfBoxFit.none:
+      case BoxFit.none:
         return pw.BoxFit.none;
-      case PfBoxFit.scaleDown:
+      case BoxFit.scaleDown:
         return pw.BoxFit.scaleDown;
     }
   }

@@ -10,12 +10,12 @@ import '../args/edge_insets.dart';
 
 
 extension ContainerConverter on Container {
-  pw.Container toPdfWidget(pw.Widget? child) => pw.Container(
+  Future<pw.Container> toPdfWidget(pw.Widget? child) async => pw.Container(
     alignment: (alignment as Alignment?)?.toPdfAlignment(),
-    decoration: (decoration as BoxDecoration?)?.toPdfBoxDecoration(),
+    decoration: await (decoration as BoxDecoration?)?.toPdfBoxDecoration(),
     color: color?.toPdfColor(),
     constraints: constraints?.toPdfBoxConstraints(),
-    foregroundDecoration: (foregroundDecoration as BoxDecoration?)?.toPdfBoxDecoration(),
+    foregroundDecoration: await (foregroundDecoration as BoxDecoration?)?.toPdfBoxDecoration(),
     margin: (margin as EdgeInsets?)?.toPdfEdgeInsets(),
     padding: (padding as EdgeInsets?)?.toPdfEdgeInsets(),
     transform: transform,

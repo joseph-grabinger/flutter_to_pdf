@@ -72,6 +72,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           style: TextStyle(color: Colors.red),
                         ),
                       ),
+                      Image.network('https://picsum.photos/250?image=9'),
+                      SizedBox(
+                        height: 50,
+                        child: Image.asset('assets/logo.png'),
+                      ),
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -84,9 +89,15 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                           Container(
-                            color: Colors.green,
+                            // color: Colors.green,
                             height: 50,
                             width: 50,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage('https://picsum.photos/250?image=9'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                         ],
                       ),
