@@ -14,6 +14,7 @@ import 'widgets/expanded.dart';
 import 'widgets/flexible.dart';
 import 'widgets/text.dart';
 import 'widgets/divider.dart';
+import 'widgets/image.dart';
 import 'widgets/column.dart';
 import 'widgets/row.dart';
 import 'widgets/stack.dart';
@@ -112,6 +113,9 @@ Future<pw.Widget?> traverseWidgetTree(BuildContext context) async {
           break;
         case Divider:
           children.add((widget as Divider).toPdfWidget());
+          break;
+        case Image:
+          children.add(await (widget as Image).toPdfWidget());
           break;
         case Column:
           children.add((widget as Column).toPdfWidget(await visit(e)));
