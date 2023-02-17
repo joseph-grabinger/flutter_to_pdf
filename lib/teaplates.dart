@@ -13,6 +13,7 @@ import 'widgets/positioned.dart';
 import 'widgets/expanded.dart';
 import 'widgets/flexible.dart';
 import 'widgets/text.dart';
+import 'widgets/text_field.dart';
 import 'widgets/divider.dart';
 import 'widgets/image.dart';
 import 'widgets/column.dart';
@@ -110,6 +111,9 @@ Future<pw.Widget?> traverseWidgetTree(BuildContext context) async {
           break;
         case Text:
           children.add((widget as Text).toPdfWidget());
+          break;
+        case TextField:
+          children.add((widget as TextField).toPdfWidget());
           break;
         case Divider:
           children.add((widget as Divider).toPdfWidget());

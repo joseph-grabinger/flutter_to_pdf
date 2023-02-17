@@ -1,38 +1,28 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show TextField;
 
-import 'package:pdf/widgets.dart' as pw;
+import 'package:pdf/widgets.dart' as pw show TextField, Widget;
 
-import 'package:teaplates/teaplates.dart';
+import '/args/text_style.dart';
+import '/args/input_decoration.dart';
 
 
-class PfTextField extends PfWidget {
-  PfTextField({
-    required String initialText,
-    Key? key,
-  }) : super(key: key) {
-    _controller.text = initialText;
-  }
+extension TextFieldConverter on TextField {
+  pw.Widget toPdfWidget() {
+    print('TextFieldConverter: $this');
 
-  final TextEditingController _controller = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: _controller,
-      decoration: const InputDecoration(
-        isCollapsed: true,
-        border: InputBorder.none,
-      ),
-    );
-  }
-
-  @override
-  pw.Widget toPw() {
-    return pw.SizedBox(
+    return pw.TextField(
       width: double.infinity,
-      child: pw.Text(
-        _controller.text,
-      ),
+      name: hashCode.toString(),
+      defaultValue: controller?.value.text,
+      textStyle: style?.toPdfTextStyle(),
+      maxLength: maxLength,
+      child: decoration?.toPdfWidget(),
+      // child: pw.Container(
+      //   height: 30,
+      //   decoration: const pw.BoxDecoration(
+      //     border: pw.Border(bottom: pw.BorderSide(width: 1.0)),
+      //   ),
+      // ),
     );
   }
 }

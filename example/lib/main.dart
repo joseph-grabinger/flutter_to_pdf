@@ -72,6 +72,22 @@ class _MyHomePageState extends State<MyHomePage> {
                           style: TextStyle(color: Colors.red),
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            border: UnderlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                      TextField(
+                        controller: TextEditingController(),
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
+                          ),
+                        ),
+                      ),
                       Image.network('https://picsum.photos/250?image=9'),
                       SizedBox(
                         height: 50,
