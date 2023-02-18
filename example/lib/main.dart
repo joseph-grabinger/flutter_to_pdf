@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:path_provider/path_provider.dart';
+import 'package:intl/intl.dart';
 
 import 'package:teaplates/teaplates.dart';
 
@@ -68,69 +69,50 @@ class _MyHomePageState extends State<MyHomePage> {
             builder: (BuildContext ctx) {
               exportContext = ctx;
               return Container(
-                child: Center(
-                  child: Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.purple,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: const Text('Hello Space', 
-                          style: TextStyle(color: Colors.red),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          obscureText: true,
-                          // maxLines: 4,
-                          decoration: const InputDecoration(
-                            border: UnderlineInputBorder(),
-                          ),
-                        ),
-                      ),
-                      TextField(
-                        controller: TextEditingController(),
-                        obscureText: true,
-                        style: const TextStyle(color: Colors.green),
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.red),
-                          ),
-                        ),
-                      ),
-                      Image.network('https://picsum.photos/250?image=9'),
-                      SizedBox(
-                        height: 50,
-                        child: Image.asset('assets/logo.png'),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            color: Colors.blueGrey,
-                            height: 50,
-                            width: 50,
-                            child: const Text('Hello World', 
-                              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Container(
-                            // color: Colors.green,
-                            height: 50,
-                            width: 50,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage('https://picsum.photos/250?image=9'),
-                                fit: BoxFit.cover,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children:  [
+                            Text('Dunef UG (haftungsbeschränkt)'),
+                            Text('Mock-Document',
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Text('Date: ',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            Text(DateFormat('MM.dd.yyyy').format(DateTime.now())),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 50,
+                          child: Image.asset('assets/logo.png'),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5.0),
+                      child: Container(
+                        height: 100,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          border: Border.all(color: Colors.grey)
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               );
             },
