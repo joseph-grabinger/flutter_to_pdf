@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
   );
 
   void exportView(BuildContext context) async {
-    final pdf = await exportPDF(context);
+    final pdf = await exportToPDF(context);
 
     final Directory dir = await getApplicationDocumentsDirectory();
     final File file = File("${dir.path}/example.pdf");
