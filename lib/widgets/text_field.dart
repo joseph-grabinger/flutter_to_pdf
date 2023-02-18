@@ -18,7 +18,7 @@ extension TextFieldConverter on TextField {
         width: double.infinity,
         name: hashCode.toString(),
         defaultValue: controller?.value.text,
-        textStyle: (options.getTextStyle(key) ?? style)?.toPdfTextStyle(),
+        textStyle: (options.getTextStyle(key) ?? style)?.toPdfTextStyle(), // TODO textStyle not applied within pdf package
         maxLength: maxLength,
         child: decoration?.toPdfWidget(),
       );

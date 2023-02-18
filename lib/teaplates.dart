@@ -1,11 +1,12 @@
 library teaplates;
 
+export 'options/text_field_options.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:pdf/widgets.dart' as pw;
 
 import 'options/text_field_options.dart';
-
 import 'widgets/container.dart';
 import 'widgets/center.dart';
 import 'widgets/sized_box.dart';

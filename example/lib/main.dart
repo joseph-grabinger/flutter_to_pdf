@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:path_provider/path_provider.dart';
-import 'package:teaplates/options/text_field_options.dart';
 
 import 'package:teaplates/teaplates.dart';
 
@@ -40,7 +39,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final TextFieldOptions options = TextFieldOptions.uniform(
     interactive: false,
-    textStyle: const TextStyle(color: Colors.green),
+    textStyle: const TextStyle(
+      color: Colors.green,
+      fontWeight: FontWeight.bold
+    ),
   );
 
   void exportView(BuildContext context) async {
