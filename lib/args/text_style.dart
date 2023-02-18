@@ -9,7 +9,9 @@ import 'font_weight.dart';
 
 
 extension TextStyleConverter on TextStyle {
-  pw.TextStyle toPdfTextStyle() => pw.TextStyle(
+  pw.TextStyle toPdfTextStyle() {
+    print('TextStyleConverter: $this');
+    return pw.TextStyle(
     color: color?.toPdfColor(),
     fontSize: fontSize,
     fontStyle: fontStyle?.toPdfFontStyle(),
@@ -27,6 +29,7 @@ extension TextStyleConverter on TextStyle {
       (String font) => resolveFont(font)).toList() ?? [],
     // TODO add remaining style options
   );
+  }
 
   pw.Font resolveFont(String font) {
     switch (fontFamily) {

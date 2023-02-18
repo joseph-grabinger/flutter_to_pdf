@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:path_provider/path_provider.dart';
+import 'package:teaplates/options/text_field_options.dart';
 
 import 'package:teaplates/teaplates.dart';
 
@@ -37,8 +38,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late BuildContext exportContext; 
 
+  final TextFieldOptions options = TextFieldOptions.uniform(
+    interactive: false,
+    textStyle: const TextStyle(color: Colors.green),
+  );
+
   void exportView(BuildContext context) async {
-    final pdf = await exportPDF(context);
+    final pdf = await exportPDF(context, textFieldOptions: options);
 
     final Directory dir = await getApplicationDocumentsDirectory();
     final File file = File("${dir.path}/example.pdf");
@@ -82,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       TextField(
                         controller: TextEditingController(),
+                        style: const TextStyle(color: Colors.green),
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.red),

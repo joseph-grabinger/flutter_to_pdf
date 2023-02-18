@@ -1,9 +1,10 @@
 import 'package:flutter/widgets.dart' show Key, TextStyle;
 
 
+/// Configuration options on how TextFields are exported.
 class TextFieldOptions {
-  /// The default [TextStyle] to apply to the text field.
-  final TextStyle? textStyle;
+  /// [Key] used wihin the styleMap if it only contains one item.
+  static const _standardKey = Key('');
 
   /// A map of [Key] to [TextStyle] to apply to the text field.
   final Map<Key, TextStyle>? styleMap;
@@ -12,26 +13,28 @@ class TextFieldOptions {
   final bool interactive;
 
   const TextFieldOptions({
-    this.textStyle,
     this.styleMap,
     this.interactive = true,
   });
 
-  const TextFieldOptions.none() : textStyle = null, styleMap = null, interactive = true;
+  const TextFieldOptions.none() : styleMap = null, interactive = true;
 
-  const TextFieldOptions.uniform({
-    this.textStyle, 
+  TextFieldOptions.uniform({
+    final TextStyle textStyle = const TextStyle(),
     this.interactive = true,
-  }) : styleMap = null;
+  }) : styleMap = {_standardKey: textStyle};
 
   const TextFieldOptions.individual({
     this.styleMap, 
     this.interactive = true,
-  }) : textStyle = null;
+  });
 
   /// Returns the [TextStyle] for the given [key].
-  /// If [key] is not found, returns null.
-  TextStyle? getTextStyle(Key key) {
+  /// If [key] is null, the standard key will be used.
+  /// If [key] still is not found, null is returned.
+  TextStyle? getTextStyle(Key? key) {
+    key ??= _standardKey;
+
     if (styleMap != null && styleMap!.containsKey(key)) {
       return styleMap![key];
     } else {
