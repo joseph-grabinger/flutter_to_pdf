@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:path_provider/path_provider.dart';
+import 'package:intl/intl.dart';
 
 import 'package:teaplates/teaplates.dart';
 
@@ -37,13 +38,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late BuildContext exportContext; 
 
-  void exportView(BuildContext context) async {
-    final pdf = await exportPDF(context);
-
+  void saveFile(Document doc, String name) async {
     final Directory dir = await getApplicationDocumentsDirectory();
-    final File file = File("${dir.path}/example.pdf");
+    final File file = File("${dir.path}/$name.pdf");
 
-    await file.writeAsBytes(await pdf.save());
+    await file.writeAsBytes(await doc.save());
     print('Saved exported PDF at: ${file.path}');
   }
 
@@ -60,57 +59,111 @@ class _MyHomePageState extends State<MyHomePage> {
             builder: (BuildContext ctx) {
               exportContext = ctx;
               return Container(
-                child: Center(
-                  child: Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.purple,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: const Text('Hello Space', 
-                          style: TextStyle(color: Colors.red),
-                        ),
-                      ),
-                      Image.network('https://picsum.photos/250?image=9'),
-                      SizedBox(
-                        height: 50,
-                        child: Image.asset('assets/logo.png'),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            color: Colors.blueGrey,
-                            height: 50,
-                            width: 50,
-                            child: const Text('Hello World', 
-                              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Container(
-                            // color: Colors.green,
-                            height: 50,
-                            width: 50,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage('https://picsum.photos/250?image=9'),
-                                fit: BoxFit.cover,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children:  [
+                            Text('Dunef UG (haftungsbeschränkt)'),
+                            Text('Mock-Document',
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Text('Date: ',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            Text(DateFormat('MM.dd.yyyy').format(DateTime.now())),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 50,
+                          child: Image.asset('assets/logo.png'),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                        height: 100,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          border: Border.all(color: Colors.grey)
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          height: 100,
+                          width: 100,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage('http://i.pravatar.cc/300'),
+                            )
+                          ),
+                        ),
+                        const SizedBox(width: 5.0),
+                        SizedBox(
+                          width: 200,
+                          height: 50,
+                          child: TextField(
+                            controller: TextEditingController(),
+                            decoration: const InputDecoration(
+                            label: Text('Name'), border: OutlineInputBorder(),
+                          )),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               );
             },
           ),
-          FloatingActionButton(
-            onPressed: () => exportView(exportContext),
-            tooltip: 'Export View',
-            child: const Icon(Icons.save_alt_outlined),
+          const SizedBox(height:10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              TextButton(
+                onPressed: () async {
+                  final pdf = await exportToPDF(exportContext, 
+                    textFieldOptions: TextFieldOptions.uniform(
+                      interactive: false, 
+                    ),
+                  );
+                  saveFile(pdf, 'static-example');
+                },
+                child: const Row(
+                  children: [
+                    Text('Export as static'),
+                    Icon(Icons.save_alt_outlined),
+                  ],
+                ),
+              ),
+              TextButton(
+                onPressed: () async {
+                  final pdf = await exportToPDF(exportContext);
+                  saveFile(pdf, 'interactive-example');
+                },
+                child: const Row(
+                  children: [
+                    Text('Export as interactive'),
+                    Icon(Icons.save_alt_outlined),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),
