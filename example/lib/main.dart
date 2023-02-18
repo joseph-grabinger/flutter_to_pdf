@@ -38,21 +38,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late BuildContext exportContext; 
 
-  final TextFieldOptions options = TextFieldOptions.uniform(
-    interactive: false,
-    textStyle: const TextStyle(
-      color: Colors.green,
-      fontWeight: FontWeight.bold
-    ),
-  );
-
-  void exportView(BuildContext context) async {
-    final pdf = await exportToPDF(context);
-
+  void saveFile(Document doc, String name) async {
     final Directory dir = await getApplicationDocumentsDirectory();
-    final File file = File("${dir.path}/example.pdf");
+    final File file = File("${dir.path}/$name.pdf");
 
-    await file.writeAsBytes(await pdf.save());
+    await file.writeAsBytes(await doc.save());
     print('Saved exported PDF at: ${file.path}');
   }
 
@@ -102,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 5.0),
+                      padding: const EdgeInsets.all(5.0),
                       child: Container(
                         height: 100,
                         width: double.infinity,
@@ -112,15 +102,68 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                     ),
+                    Row(
+                      children: [
+                        Container(
+                          height: 100,
+                          width: 100,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage('http://i.pravatar.cc/300'),
+                            )
+                          ),
+                        ),
+                        const SizedBox(width: 5.0),
+                        SizedBox(
+                          width: 200,
+                          height: 50,
+                          child: TextField(
+                            controller: TextEditingController(),
+                            decoration: const InputDecoration(
+                            label: Text('Name'), border: OutlineInputBorder(),
+                          )),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               );
             },
           ),
-          FloatingActionButton(
-            onPressed: () => exportView(exportContext),
-            tooltip: 'Export View',
-            child: const Icon(Icons.save_alt_outlined),
+          const SizedBox(height:10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              TextButton(
+                onPressed: () async {
+                  final pdf = await exportToPDF(exportContext, 
+                    textFieldOptions: TextFieldOptions.uniform(
+                      interactive: false, 
+                    ),
+                  );
+                  saveFile(pdf, 'static-example');
+                },
+                child: const Row(
+                  children: [
+                    Text('Export as static'),
+                    Icon(Icons.save_alt_outlined),
+                  ],
+                ),
+              ),
+              TextButton(
+                onPressed: () async {
+                  final pdf = await exportToPDF(exportContext);
+                  saveFile(pdf, 'interactive-example');
+                },
+                child: const Row(
+                  children: [
+                    Text('Export as interactive'),
+                    Icon(Icons.save_alt_outlined),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),
