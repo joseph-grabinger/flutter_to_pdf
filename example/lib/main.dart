@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
   );
 
   void exportView(BuildContext context) async {
-    final pdf = await exportPDF(context, textFieldOptions: options);
+    final pdf = await exportPDF(context);
 
     final Directory dir = await getApplicationDocumentsDirectory();
     final File file = File("${dir.path}/example.pdf");
@@ -83,6 +83,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
+                          obscureText: true,
+                          // maxLines: 4,
                           decoration: const InputDecoration(
                             border: UnderlineInputBorder(),
                           ),
@@ -90,6 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       TextField(
                         controller: TextEditingController(),
+                        obscureText: true,
                         style: const TextStyle(color: Colors.green),
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(

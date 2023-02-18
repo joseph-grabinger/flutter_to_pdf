@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' show TextField;
+import 'package:pdf/pdf.dart';
 
 import 'package:pdf/widgets.dart' as pw show TextField, Text, Widget;
 
@@ -21,6 +22,10 @@ extension TextFieldConverter on TextField {
         textStyle: (options.getTextStyle(key) ?? style)?.toPdfTextStyle(), // TODO textStyle not applied within pdf package
         maxLength: maxLength,
         child: decoration?.toPdfWidget(),
+        fieldFlags: { // TODO flags not applied by pdf package
+          if (maxLines != null && maxLines! > 1) PdfFieldFlags.multiline,
+          if (obscureText) PdfFieldFlags.password,
+        },
       );
     } else {
       return pw.Text(
