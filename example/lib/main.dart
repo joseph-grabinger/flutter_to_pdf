@@ -148,8 +148,13 @@ class _MyHomePageState extends State<MyHomePage> {
               TextButton(
                 onPressed: () async {
                   final pdf = await exportToPDF(exportContext, 
-                    textFieldOptions: TextFieldOptions.uniform(
-                      interactive: false, 
+                    options: ExportOptions(
+                      textFieldOptions: TextFieldOptions.uniform(
+                        interactive: false, 
+                      ),
+                      checkboxOptions: CheckboxOptions.uniform(
+                        interactive: false,
+                      )
                     ),
                   );
                   saveFile(pdf, 'static-example');

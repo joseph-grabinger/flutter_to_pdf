@@ -1,22 +1,32 @@
 import 'package:flutter/material.dart' show BorderRadius, Checkbox, CircleBorder, RoundedRectangleBorder;
 
 import 'package:pdf/pdf.dart' show PdfColors;
-import 'package:pdf/widgets.dart' as pw show Checkbox, Widget, BoxDecoration, BoxShape, Border, BorderStyle;
+import 'package:pdf/widgets.dart' as pw show Checkbox, Widget, Container, BoxDecoration, BoxShape, Border, BorderStyle;
 
+import '/options/checkbox_options.dart';
 import '/args/color.dart';
 import '/args/border_radius.dart';
 import '/args/border_style.dart';
+import '/args/box_decoration.dart';
 
 
 extension CheckboxConverter on Checkbox {
-  pw.Widget toPdfWidget() => pw.Checkbox(
-    name: hashCode.toString(),
-    value: value!,
-    tristate: tristate,
-    activeColor: activeColor?.toPdfColor() ?? PdfColors.blue,
-    checkColor: checkColor?.toPdfColor() ?? PdfColors.white,
-    decoration: getCheckboxDecoration(),
-  );
+  Future<pw.Widget> toPdfWidget(CheckboxOptions options) async {
+    if (options.interactive) {
+      return pw.Checkbox(
+        name: hashCode.toString(),
+        value: value!,
+        tristate: tristate,
+        activeColor: activeColor?.toPdfColor() ?? PdfColors.blue,
+        checkColor: checkColor?.toPdfColor() ?? PdfColors.white,
+        decoration: (await options.getBoxDecoration(key)?.toPdfBoxDecoration()) ?? getCheckboxDecoration(),
+      );
+    } else {
+      return pw.Container(
+        // TODO implement static checkbox
+      );
+    }
+  } 
 
   pw.BoxDecoration getCheckboxDecoration() {
     final pw.Border defaultBorder = pw.Border.all(
