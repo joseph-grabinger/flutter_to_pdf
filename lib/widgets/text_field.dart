@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' show TextField;
-import 'package:pdf/pdf.dart';
 
+import 'package:pdf/pdf.dart' show PdfFieldFlags;
 import 'package:pdf/widgets.dart' as pw show TextField, Text, Widget;
 
 import '/options/text_field_options.dart';

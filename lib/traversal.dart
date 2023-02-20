@@ -15,6 +15,7 @@ import 'widgets/text.dart';
 import 'widgets/text_field.dart';
 import 'widgets/divider.dart';
 import 'widgets/image.dart';
+import 'widgets/checkbox.dart';
 import 'widgets/column.dart';
 import 'widgets/row.dart';
 import 'widgets/stack.dart';
@@ -125,6 +126,8 @@ Future<List<pw.Widget>> matchWidget(Element element, TextFieldOptions options) a
       return [(widget as Divider).toPdfWidget()];
     case Image:
       return [await (widget as Image).toPdfWidget()];
+    case Checkbox:
+      return [(widget as Checkbox).toPdfWidget()];
     case Column:
       return [(widget as Column).toPdfWidget(await visit(element, options))];
     case Row:
