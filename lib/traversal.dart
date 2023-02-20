@@ -43,7 +43,6 @@ Future<pw.Document> exportToPDF(BuildContext context, {
 /// Traverses the widget tree of the provided [context]
 /// and returns the corresponding PDF widget tree.
 Future<pw.Widget?> traverseWidgetTree(BuildContext context, TextFieldOptions options) async {
-  pw.Widget? pdfWidget;
   Element? element;
 
   context.visitChildElements((Element e) async {
@@ -51,7 +50,7 @@ Future<pw.Widget?> traverseWidgetTree(BuildContext context, TextFieldOptions opt
     element = e;
   });
 
-  pdfWidget = (await matchWidget(element!, [], options)).first;
+  pw.Widget? pdfWidget = (await matchWidget(element!, options)).first;
 
   print('initial PDF Widget: $pdfWidget');
 
@@ -70,7 +69,7 @@ Future<List<pw.Widget>> visit(Element element, TextFieldOptions options) async {
   List<pw.Widget> children = [];
 
   for (Element e in elements) {
-    children = await matchWidget(e, children, options);
+    children.addAll(await matchWidget(e, options));
   }
 
   print('returned: $children');
@@ -80,7 +79,7 @@ Future<List<pw.Widget>> visit(Element element, TextFieldOptions options) async {
 
 /// Matches the widget provided as [element]
 /// and appends the corresponding [pw.Widget] to [children].
-Future<List<pw.Widget>> matchWidget(Element element, List<pw.Widget> children, TextFieldOptions options) async {
+Future<List<pw.Widget>> matchWidget(Element element, TextFieldOptions options) async {
   final Widget widget = element.widget;
 
   switch (widget.runtimeType) {
@@ -89,77 +88,55 @@ Future<List<pw.Widget>> matchWidget(Element element, List<pw.Widget> children, T
       return [];
     case Container:
       final List childWidgets = await visit(element, options);
-      children.add(await (widget as Container).toPdfWidget(
+      return [await (widget as Container).toPdfWidget(
         childWidgets.isNotEmpty ? childWidgets.first : null
-      ));
-      break;
+      )];
     case Center:
       final List childWidgets = await visit(element, options);
-      children.add((widget as Center).toPdfWidget(
+      return [(widget as Center).toPdfWidget(
         childWidgets.isNotEmpty ? childWidgets.first : null
-      ));
-      break;
+      )];
     case SizedBox:
       final List childWidgets = await visit(element, options);
-      children.add((widget as SizedBox).toPdfWidget(
+      return [(widget as SizedBox).toPdfWidget(
         childWidgets.isNotEmpty ? childWidgets.first : null
-      ));
-      break;
+      )];
     case Padding:
       final List childWidgets = await visit(element, options);
-      children.add((widget as Padding).toPdfWidget(
+      return [(widget as Padding).toPdfWidget(
         childWidgets.isNotEmpty ? childWidgets.first : null
-      ));
-      break;
+      )];
     case Align:
       final List childWidgets = await visit(element, options);
-      children.add((widget as Align).toPdfWidget(
+      return [(widget as Align).toPdfWidget(
         childWidgets.isNotEmpty ? childWidgets.first : null
-      ));
-      break;
+      )];
     case Positioned:
-      children.add((widget as Positioned).toPdfWidget((await visit(element, options)).first));
-      break;
+      return [(widget as Positioned).toPdfWidget((await visit(element, options)).first)];
     case Expanded:
-      children.add((widget as Expanded).toPdfWidget((await visit(element, options)).first));
-      break;
+      return[(widget as Expanded).toPdfWidget((await visit(element, options)).first)];
     case Flexible:
-      children.add((widget as Flexible).toPdfWidget((await visit(element, options)).first));
-      break;
+      return [(widget as Flexible).toPdfWidget((await visit(element, options)).first)];
     case Text:
-      children.add((widget as Text).toPdfWidget());
-      break;
+      return [(widget as Text).toPdfWidget()];
     case TextField:
-      children.add((widget as TextField).toPdfWidget(options));
-      break;
+      return [(widget as TextField).toPdfWidget(options)];
     case Divider:
-      children.add((widget as Divider).toPdfWidget());
-      break;
+      return [(widget as Divider).toPdfWidget()];
     case Image:
-      children.add(await (widget as Image).toPdfWidget());
-      break;
+      return [await (widget as Image).toPdfWidget()];
     case Column:
-      children.add((widget as Column).toPdfWidget(await visit(element, options)));
-      break;
+      return [(widget as Column).toPdfWidget(await visit(element, options))];
     case Row:
-      children.add((widget as Row).toPdfWidget(await visit(element, options)));
-      break;
+      return [(widget as Row).toPdfWidget(await visit(element, options))];
     case Stack:
-      children.add((widget as Stack).toPdfWidget(await visit(element, options)));
-      break;
+      return [(widget as Stack).toPdfWidget(await visit(element, options))];
     case ListView:
-      children.add((widget as ListView).toPdfWidget(await visit(element, options)));
-      break;
+        return [(widget as ListView).toPdfWidget(await visit(element, options))];
     case GridView:
-      children.add((widget as GridView).toPdfWidget(await visit(element, options)));
-      break;
+      return [(widget as GridView).toPdfWidget(await visit(element, options))];
     default:
       print('Uncaught: ${widget.runtimeType}');
-      final List childWidgets = await visit(element, options);
-      if (childWidgets.isNotEmpty) {
-        children.addAll(childWidgets.map((x) => x));
-      }
-      break;
+      return await visit(element, options);
   }
-  return children;
 }
