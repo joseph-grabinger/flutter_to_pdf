@@ -126,7 +126,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         )),
                       ),
                       Checkbox(
-                        value: checked, 
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                        // shape: const CircleBorder(),
+                        value: checked,
                         onChanged: (newValue) {
                           setState(() {
                             checked = newValue ?? false;
