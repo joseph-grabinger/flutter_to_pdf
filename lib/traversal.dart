@@ -21,6 +21,7 @@ import 'widgets/row.dart';
 import 'widgets/stack.dart';
 import 'widgets/list_view.dart';
 import 'widgets/grid_view.dart';
+import 'widgets/table.dart';
 
 
 /// Exports the provided [context] to a PDF file
@@ -139,6 +140,18 @@ Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) asyn
         return [(widget as ListView).toPdfWidget(await visit(element, options))];
     case GridView:
       return [(widget as GridView).toPdfWidget(await visit(element, options))];
+    case Table:
+      final List<pw.Widget> childWidgets = await visit(element, options);
+      return [(widget as Table).toPdfWidget(childWidgets.map<pw.TableRow>(
+        (pw.Widget e) {
+          if (e is pw.TableRow) {
+            return e as pw.TableRow;
+          } else {
+            print('Widget is not TableRow: $e');
+            return pw.TableRow(children: [e]);
+          }
+        }
+      ).toList())];
     default:
       print('Uncaught: ${widget.runtimeType}');
       return await visit(element, options);
