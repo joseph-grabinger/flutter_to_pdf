@@ -20,9 +20,11 @@ class CheckboxOptions {
   const CheckboxOptions.none() : decorationMap = null, interactive = true;
 
   CheckboxOptions.uniform({
-    final BoxDecoration boxDecoration = const BoxDecoration(),
+    final BoxDecoration? boxDecoration,
     this.interactive = true,
-  }) : decorationMap = {_standardKey: boxDecoration};
+  }) : decorationMap = boxDecoration != null 
+        ? {_standardKey: boxDecoration} 
+        : null;
 
   const CheckboxOptions.individual({
     this.decorationMap,
@@ -38,6 +40,7 @@ class CheckboxOptions {
     if (decorationMap != null && decorationMap!.containsKey(key)) {
       return decorationMap![key];
     } else {
+      print('getBoxDecoration retruned null');
       return null;
     }
   }

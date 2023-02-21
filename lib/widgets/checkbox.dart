@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' show BorderRadius, Checkbox, CircleBorder, RoundedRectangleBorder;
 
-import 'package:pdf/pdf.dart' show PdfColors;
-import 'package:pdf/widgets.dart' as pw show Checkbox, Widget, Container, BoxDecoration, BoxShape, Border, BorderStyle;
+import 'package:pdf/pdf.dart' show PdfColors, PdfGraphics, PdfPoint;
+import 'package:pdf/widgets.dart' as pw show Checkbox, Widget, Container, BoxDecoration, BoxShape, Border, BorderStyle, Center, CustomPaint;
 
 import '/options/checkbox_options.dart';
 import '/args/color.dart';
@@ -23,7 +23,28 @@ extension CheckboxConverter on Checkbox {
       );
     } else {
       return pw.Container(
-        // TODO implement static checkbox
+        height: 13,
+        width: 13,
+        decoration: value == null || !value!
+          ? (await options.getBoxDecoration(key)?.toPdfBoxDecoration()) ?? getCheckboxDecoration()
+          : null,
+        child: value != null && value! ? pw.Center(
+          child: pw.CustomPaint(
+            size: const PdfPoint(13, 13),
+            painter: (PdfGraphics canvas, PdfPoint size) {
+              canvas
+                ..drawRect(0, 0, 13, 13)
+                ..setFillColor(activeColor?.toPdfColor() ?? PdfColors.blue)
+                ..fillPath()
+                ..moveTo(2, 13 / 2)
+                ..lineTo(13 / 3, 13 / 4)
+                ..lineTo(13 - 2, 13 / 4 * 3)
+                ..setStrokeColor(checkColor?.toPdfColor() ?? PdfColors.white)
+                ..setLineWidth(2)
+                ..strokePath();
+            },
+          ),
+        ) : null,
       );
     }
   } 
