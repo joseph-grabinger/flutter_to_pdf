@@ -38,6 +38,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late BuildContext exportContext; 
 
+  bool checked = false;
+
   void saveFile(Document doc, String name) async {
     final Directory dir = await getApplicationDocumentsDirectory();
     final File file = File("${dir.path}/$name.pdf");
@@ -123,6 +125,18 @@ class _MyHomePageState extends State<MyHomePage> {
                           label: Text('Name'), border: OutlineInputBorder(),
                         )),
                       ),
+                      Checkbox(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        // shape: const CircleBorder(),
+                        value: checked,
+                        onChanged: (newValue) {
+                          setState(() {
+                            checked = newValue ?? false;
+                          });
+                        },
+                      ),
                     ],
                   ),
                 ],
@@ -136,8 +150,13 @@ class _MyHomePageState extends State<MyHomePage> {
               TextButton(
                 onPressed: () async {
                   final pdf = await exportToPDF(exportContext, 
-                    textFieldOptions: TextFieldOptions.uniform(
-                      interactive: false, 
+                    options: ExportOptions(
+                      textFieldOptions: TextFieldOptions.uniform(
+                        interactive: false, 
+                      ),
+                      checkboxOptions: CheckboxOptions.uniform(
+                        interactive: false,
+                      )
                     ),
                   );
                   saveFile(pdf, 'static-example');

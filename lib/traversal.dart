@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:pdf/widgets.dart' as pw;
 
-import 'options/text_field_options.dart';
+import 'options/export_options.dart';
 import 'widgets/container.dart';
 import 'widgets/center.dart';
 import 'widgets/sized_box.dart';
@@ -15,6 +15,7 @@ import 'widgets/text.dart';
 import 'widgets/text_field.dart';
 import 'widgets/divider.dart';
 import 'widgets/image.dart';
+import 'widgets/checkbox.dart';
 import 'widgets/column.dart';
 import 'widgets/row.dart';
 import 'widgets/stack.dart';
@@ -25,9 +26,10 @@ import 'widgets/grid_view.dart';
 /// Exports the provided [context] to a PDF file
 /// and applies the [textFieldOptions].
 Future<pw.Document> exportToPDF(BuildContext context, {
-  TextFieldOptions textFieldOptions = const TextFieldOptions.none(),
+  // TextFieldOptions textFieldOptions = const TextFieldOptions.none(),
+  ExportOptions options = const ExportOptions(),
 }) async {
-  final pw.Widget? pdfWidget = await traverseWidgetTree(context, textFieldOptions);
+  final pw.Widget? pdfWidget = await traverseWidgetTree(context, options);
 
   final pdf = pw.Document();
 
@@ -42,7 +44,7 @@ Future<pw.Document> exportToPDF(BuildContext context, {
 
 /// Traverses the widget tree of the provided [context]
 /// and returns the corresponding PDF widget tree.
-Future<pw.Widget?> traverseWidgetTree(BuildContext context, TextFieldOptions options) async {
+Future<pw.Widget?> traverseWidgetTree(BuildContext context, ExportOptions options) async {
   Element? element;
 
   context.visitChildElements((Element e) async {
@@ -58,7 +60,7 @@ Future<pw.Widget?> traverseWidgetTree(BuildContext context, TextFieldOptions opt
 }
 
 /// Recursive helper to visit all child elements of the provided [element].
-Future<List<pw.Widget>> visit(Element element, TextFieldOptions options) async {
+Future<List<pw.Widget>> visit(Element element, ExportOptions options) async {
   List<Element> elements = [];
 
   element.visitChildElements((Element element) async {
@@ -79,7 +81,7 @@ Future<List<pw.Widget>> visit(Element element, TextFieldOptions options) async {
 
 /// Matches the widget provided as [element]
 /// and appends the corresponding [pw.Widget] to [children].
-Future<List<pw.Widget>> matchWidget(Element element, TextFieldOptions options) async {
+Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) async {
   final Widget widget = element.widget;
 
   switch (widget.runtimeType) {
@@ -120,11 +122,13 @@ Future<List<pw.Widget>> matchWidget(Element element, TextFieldOptions options) a
     case Text:
       return [(widget as Text).toPdfWidget()];
     case TextField:
-      return [(widget as TextField).toPdfWidget(options)];
+      return [(widget as TextField).toPdfWidget(options.textFieldOptions)];
     case Divider:
       return [(widget as Divider).toPdfWidget()];
     case Image:
       return [await (widget as Image).toPdfWidget()];
+    case Checkbox:
+      return [await (widget as Checkbox).toPdfWidget(options.checkboxOptions)];
     case Column:
       return [(widget as Column).toPdfWidget(await visit(element, options))];
     case Row:
