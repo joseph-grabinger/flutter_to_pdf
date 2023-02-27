@@ -108,8 +108,8 @@ class PageFormatOptions {
     marginAll = null,
     context = null;
   
-  const PageFormatOptions.screenSize({
-    required this.context,
+  const PageFormatOptions.screenSize(
+    BuildContext this.context, {
     this.marginTop = 0.0,
     this.marginBottom = 0.0,
     this.marginLeft = 0.0,

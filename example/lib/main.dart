@@ -213,7 +213,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       checkboxOptions: CheckboxOptions.uniform(
                         interactive: false,
                       ),
-                      pageFormatOptions: PageFormatOptions.screenSize(context: context),
+                      pageFormatOptions: PageFormatOptions.screenSize(context),
                     ),
                   );
                   saveFile(pdf, 'static-example');
