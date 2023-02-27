@@ -139,6 +139,66 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 10.0),
+                  Table(
+                    border: TableBorder.all(),
+                    columnWidths: const <int, TableColumnWidth>{
+                      // 0: IntrinsicColumnWidth(),
+                      0: FlexColumnWidth(),
+                      1: FlexColumnWidth(),
+                      2: FixedColumnWidth(64),
+                    },
+                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                    children: <TableRow>[
+                      TableRow(
+                        // decoration: BoxDecoration(
+                        //   borderRadius: BorderRadius.circular(10),
+                        //   color: Colors.grey,
+                        // ),
+                        children: <Widget>[
+                          Container(
+                            height: 32,
+                            color: Colors.green,
+                          ),
+                          TableCell(
+                            verticalAlignment: TableCellVerticalAlignment.top,
+                            child: Container(
+                              height: 32,
+                              width: 32,
+                              color: Colors.red,
+                            ),
+                          ),
+                          Container(
+                            height: 64,
+                            color: Colors.blue,
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        decoration: const BoxDecoration(
+                          color: Colors.grey,
+                        ),
+                        children: <Widget>[
+                          Container(
+                            height: 64,
+                            width: 128,
+                            color: Colors.purple,
+                          ),
+                          Container(
+                            height: 32,
+                            color: Colors.yellow,
+                          ),
+                          Center(
+                            child: Container(
+                              height: 32,
+                              width: 32,
+                              color: Colors.orange,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ],
               );
             },

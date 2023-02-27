@@ -141,17 +141,9 @@ Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) asyn
     case GridView:
       return [(widget as GridView).toPdfWidget(await visit(element, options))];
     case Table:
-      final List<pw.Widget> childWidgets = await visit(element, options);
-      return [(widget as Table).toPdfWidget(childWidgets.map<pw.TableRow>(
-        (pw.Widget e) {
-          if (e is pw.TableRow) {
-            return e as pw.TableRow;
-          } else {
-            print('Widget is not TableRow: $e');
-            return pw.TableRow(children: [e]);
-          }
-        }
-      ).toList())];
+      return [await (widget as Table).toPdfWidget(await visit(element, options))];
+    // case TableCell:
+    //   return [(widget as TableCell).toPdfWidget((await visit(element, options)).first)];
     default:
       print('Uncaught: ${widget.runtimeType}');
       return await visit(element, options);
