@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
+import 'package:teaplates/options/page_format_options.dart';
 
 import 'package:teaplates/teaplates.dart';
 
@@ -211,7 +212,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       checkboxOptions: CheckboxOptions.uniform(
                         interactive: false,
-                      )
+                      ),
+                      pageFormatOptions: PageFormatOptions.screenSize(context: context),
                     ),
                   );
                   saveFile(pdf, 'static-example');
