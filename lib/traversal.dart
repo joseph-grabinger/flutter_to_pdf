@@ -142,8 +142,6 @@ Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) asyn
       return [(widget as GridView).toPdfWidget(await visit(element, options))];
     case Table:
       return [await (widget as Table).toPdfWidget(await visit(element, options))];
-    // case TableCell:
-    //   return [(widget as TableCell).toPdfWidget((await visit(element, options)).first)];
     default:
       print('Uncaught: ${widget.runtimeType}');
       return await visit(element, options);

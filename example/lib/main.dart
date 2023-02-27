@@ -161,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             color: Colors.green,
                           ),
                           TableCell(
-                            verticalAlignment: TableCellVerticalAlignment.top,
+                            verticalAlignment: TableCellVerticalAlignment.bottom,
                             child: Container(
                               height: 32,
                               width: 32,
