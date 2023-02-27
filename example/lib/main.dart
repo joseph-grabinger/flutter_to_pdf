@@ -143,25 +143,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   Table(
                     border: TableBorder.all(),
                     columnWidths: const <int, TableColumnWidth>{
-                      // 0: IntrinsicColumnWidth(),
-                      0: FlexColumnWidth(),
+                      0: IntrinsicColumnWidth(),
                       1: FlexColumnWidth(),
                       2: FixedColumnWidth(64),
                     },
                     defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                     children: <TableRow>[
                       TableRow(
-                        // decoration: BoxDecoration(
-                        //   borderRadius: BorderRadius.circular(10),
-                        //   color: Colors.grey,
-                        // ),
                         children: <Widget>[
                           Container(
                             height: 32,
                             color: Colors.green,
                           ),
                           TableCell(
-                            verticalAlignment: TableCellVerticalAlignment.bottom,
+                            verticalAlignment: TableCellVerticalAlignment.middle,
                             child: Container(
                               height: 32,
                               width: 32,
