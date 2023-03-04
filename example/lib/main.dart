@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
-import 'package:teaplates/options/page_format_options.dart';
 
 import 'package:teaplates/teaplates.dart';
 
@@ -205,7 +204,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               TextButton(
                 onPressed: () async {
-                  final pdf = await exportToPDF(exportContext, 
+                  final Document pdf = await exportToPDF(exportContext, 
                     options: ExportOptions(
                       textFieldOptions: TextFieldOptions.uniform(
                         interactive: false, 
@@ -227,7 +226,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               TextButton(
                 onPressed: () async {
-                  final pdf = await exportToPDF(exportContext);
+                  final Document pdf = await exportToPDF(exportContext);
                   saveFile(pdf, 'interactive-example');
                 },
                 child: const Row(
