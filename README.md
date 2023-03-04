@@ -11,28 +11,55 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-Map usual Flutter Widgets to Pdf Widgets, to enable creating PDF Documents, while working with normal Flutter Widgets. Flutter Textfields for example will map to PDF Text Widgets, so someone can easily enter some text in their app and in the end it will create a document which looks quite similiar to the Flutter View.
+The [teaplates](https://dunef.io/de) package lets you export any Flutter view to PDF Documents and is written natively in Dart.
+
+## Installing
+### Depend on it 
+
+Run this command:
+
+```shell
+$ flutter pub add teaplates
+```
+
+This will add a line like this to your package's pubspec.yaml (and run an implicit `flutter pub get`):
+
+```yaml
+dependencies:
+    teaplates: ^0.0.1
+```
+
+Alternatively, your editor might support `flutter pub get`. Check the docs for your editor to learn more.
+
+### Import it
+Now in your Dart code, you can use:
+
+```dart
+import 'package:teaplates/teaplates.dart';
+```
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- basic export to PDF by `BuildContext`
+- export with options
+    - Page format options
+    - Text field options
+    - Checkbox options
 
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Call the `exportToPDF` function with the `BuildContext` of the view you want to export to PDF. The function will return a `Document` object which can be used to save the PDF Document to a file or to display it in a PDF Viewer.
 
 ```dart
-const like = 'sample';
+Builder(
+  builder: (BuildContext context) => Column(
+    children: [
+        // any Flutter Widgets can be used here
+    ],
+  );
+)
+
+// export the view to a PDF Document
+final Document pdf = await exportToPDF(context);
 ```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
