@@ -31,13 +31,12 @@ Future<pw.Document> exportToPDF(BuildContext context, {
 }) async {
   final pw.Widget? pdfWidget = await traverseWidgetTree(context, options);
 
-  final pdf = pw.Document();
+  final pw.Document pdf = pw.Document();
 
   pdf.addPage(pw.Page(
     pageFormat: options.pageFormatOptions.getPageFormat(),
-    build: (pw.Context context) {
-      return pdfWidget!;
-    },
+    clip: options.pageFormatOptions.clip,
+    build: (pw.Context context) => pdfWidget!,
   ));
 
   return pdf;

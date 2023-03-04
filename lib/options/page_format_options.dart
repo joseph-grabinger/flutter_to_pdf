@@ -14,6 +14,7 @@ class PageFormatOptions {
   final double marginRight;
   final double? marginAll;
   final BuildContext? context;
+  final bool clip;
 
 
   const PageFormatOptions({
@@ -26,9 +27,12 @@ class PageFormatOptions {
     this.marginRight = 0.0,
     this.marginAll,
     this.context,
+    this.clip = false,
   });
 
-  const PageFormatOptions.a3() : pageFormat = PageFormat.a3,
+  const PageFormatOptions.a3({
+    this.clip = false,
+  }) : pageFormat = PageFormat.a3,
     width = null,
     height = null,
     marginTop = 0.0,
@@ -38,7 +42,9 @@ class PageFormatOptions {
     marginAll = null,
     context = null;
 
-  const PageFormatOptions.a4() : pageFormat = PageFormat.a4,
+  const PageFormatOptions.a4({
+    this.clip = false,
+  }) : pageFormat = PageFormat.a4,
     width = null,
     height = null,
     marginTop = 0.0,
@@ -48,7 +54,9 @@ class PageFormatOptions {
     marginAll = null,
     context = null;
 
-  const PageFormatOptions.a5() : pageFormat = PageFormat.a5,
+  const PageFormatOptions.a5({
+    this.clip = false,
+  }) : pageFormat = PageFormat.a5,
     width = null,
     height = null,
     marginTop = 0.0,
@@ -58,7 +66,9 @@ class PageFormatOptions {
     marginAll = null,
     context = null;
   
-  const PageFormatOptions.a6() : pageFormat = PageFormat.a6,
+  const PageFormatOptions.a6({
+    this.clip = false,
+  }) : pageFormat = PageFormat.a6,
     width = null,
     height = null,
     marginTop = 0.0,
@@ -68,7 +78,9 @@ class PageFormatOptions {
     marginAll = null,
     context = null;
   
-  const PageFormatOptions.letter() : pageFormat = PageFormat.letter,
+  const PageFormatOptions.letter({
+    this.clip = false,
+  }) : pageFormat = PageFormat.letter,
     width = null,
     height = null,
     marginTop = 0.0,
@@ -78,7 +90,9 @@ class PageFormatOptions {
     marginAll = null,
     context = null;
 
-  const PageFormatOptions.legal() : pageFormat = PageFormat.legal,
+  const PageFormatOptions.legal({
+    this.clip = false,
+  }) : pageFormat = PageFormat.legal,
     width = null,
     height = null,
     marginTop = 0.0,
@@ -88,7 +102,9 @@ class PageFormatOptions {
     marginAll = null,
     context = null;
 
-  const PageFormatOptions.roll57() : pageFormat = PageFormat.roll57,
+  const PageFormatOptions.roll57({
+    this.clip = false,
+  }) : pageFormat = PageFormat.roll57,
     width = null,
     height = null,
     marginTop = 0.0,
@@ -98,7 +114,9 @@ class PageFormatOptions {
     marginAll = null,
     context = null;
 
-  const PageFormatOptions.roll80() : pageFormat = PageFormat.roll80,
+  const PageFormatOptions.roll80({
+    this.clip = false,
+  }) : pageFormat = PageFormat.roll80,
     width = null,
     height = null,
     marginTop = 0.0,
@@ -115,6 +133,7 @@ class PageFormatOptions {
     this.marginLeft = 0.0,
     this.marginRight = 0.0,
     this.marginAll,
+    this.clip = false,
   }) : pageFormat = PageFormat.screenSize,
     width = null,
     height = null;
@@ -127,6 +146,7 @@ class PageFormatOptions {
     this.marginLeft = 0.0,
     this.marginRight = 0.0,
     this.marginAll,
+    this.clip = false,
   }) : pageFormat = PageFormat.custom, context = null;
 
   /// Returns the [PdfPageFormat].

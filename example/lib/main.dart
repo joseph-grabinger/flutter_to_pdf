@@ -96,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding: const EdgeInsets.all(5.0),
                     child: Container(
                       height: 100,
-                      width: double.infinity,
+                      width: 500,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
                         border: Border.all(color: Colors.grey)
@@ -112,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           shape: BoxShape.circle,
                           image: DecorationImage(
                             image: NetworkImage('http://i.pravatar.cc/300'),
-                          )
+                          ),
                         ),
                       ),
                       const SizedBox(width: 5.0),
@@ -129,7 +129,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),
-                        // shape: const CircleBorder(),
                         value: checked,
                         onChanged: (newValue) {
                           setState(() {
