@@ -25,19 +25,18 @@ import 'widgets/table.dart';
 
 
 /// Exports the provided [context] to a PDF file
-/// and applies the [textFieldOptions].
+/// and applies the [options].
 Future<pw.Document> exportToPDF(BuildContext context, {
-  // TextFieldOptions textFieldOptions = const TextFieldOptions.none(),
   ExportOptions options = const ExportOptions(),
 }) async {
   final pw.Widget? pdfWidget = await traverseWidgetTree(context, options);
 
-  final pdf = pw.Document();
+  final pw.Document pdf = pw.Document();
 
   pdf.addPage(pw.Page(
-    build: (pw.Context context) {
-      return pdfWidget!;
-    },
+    pageFormat: options.pageFormatOptions.getPageFormat(),
+    clip: options.pageFormatOptions.clip,
+    build: (pw.Context context) => pdfWidget!,
   ));
 
   return pdf;

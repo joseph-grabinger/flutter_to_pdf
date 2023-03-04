@@ -96,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding: const EdgeInsets.all(5.0),
                     child: Container(
                       height: 100,
-                      width: double.infinity,
+                      width: 500,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
                         border: Border.all(color: Colors.grey)
@@ -112,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           shape: BoxShape.circle,
                           image: DecorationImage(
                             image: NetworkImage('http://i.pravatar.cc/300'),
-                          )
+                          ),
                         ),
                       ),
                       const SizedBox(width: 5.0),
@@ -129,7 +129,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),
-                        // shape: const CircleBorder(),
                         value: checked,
                         onChanged: (newValue) {
                           setState(() {
@@ -204,14 +203,15 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               TextButton(
                 onPressed: () async {
-                  final pdf = await exportToPDF(exportContext, 
+                  final Document pdf = await exportToPDF(exportContext, 
                     options: ExportOptions(
                       textFieldOptions: TextFieldOptions.uniform(
                         interactive: false, 
                       ),
                       checkboxOptions: CheckboxOptions.uniform(
                         interactive: false,
-                      )
+                      ),
+                      pageFormatOptions: PageFormatOptions.screenSize(context),
                     ),
                   );
                   saveFile(pdf, 'static-example');
@@ -225,7 +225,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               TextButton(
                 onPressed: () async {
-                  final pdf = await exportToPDF(exportContext);
+                  final Document pdf = await exportToPDF(exportContext);
                   saveFile(pdf, 'interactive-example');
                 },
                 child: const Row(

@@ -6,7 +6,7 @@ import '/args/color.dart';
 
 
 extension DividerConverter on Divider {
-  pw.Widget toPdfWidget() => pw.Divider(
+  pw.Divider toPdfWidget() => pw.Divider(
     height: height,
     thickness: thickness,
     indent: indent,
