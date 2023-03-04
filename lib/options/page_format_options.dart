@@ -139,7 +139,7 @@ class PageFormatOptions {
     height = null;
 
   const PageFormatOptions.custom({
-    this.width,
+    required this.width,
     this.height,
     this.marginTop = 0.0,
     this.marginBottom = 0.0,
