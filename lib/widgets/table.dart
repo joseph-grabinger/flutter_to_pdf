@@ -9,7 +9,7 @@ import '/args/box_decoration.dart';
 
 
 extension TableConverter on Table {
-  Future<pw.Widget> toPdfWidget(List<pw.Widget> children) async => pw.Table(
+  Future<pw.Table> toPdfWidget(List<pw.Widget> children) async => pw.Table(
     border: border?.toPdfTableBorder(),
     columnWidths: columnWidths?.map((int key, TableColumnWidth value) => MapEntry(
       key, value.toPdfTableColumnWidth(),

@@ -6,7 +6,7 @@ import '/args/edge_insets.dart';
 
 
 extension GridViewConverter on GridView {
-  pw.Widget toPdfWidget(List<pw.Widget> children) => pw.GridView(
+  pw.GridView toPdfWidget(List<pw.Widget> children) => pw.GridView(
     crossAxisCount: childrenDelegate.estimatedChildCount!, // TODO: check if this is works
     padding: (padding as EdgeInsets).toPdfEdgeInsets(),
     children: children,

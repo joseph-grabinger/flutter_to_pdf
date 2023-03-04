@@ -6,7 +6,7 @@ import '/args/flex_fit.dart';
 
 
 extension FlexibleConverter on Flexible {
-  pw.Widget toPdfWidget(pw.Widget child) => pw.Flexible(
+  pw.Flexible toPdfWidget(pw.Widget child) => pw.Flexible(
     flex: flex,
     fit: fit.toPdfFlexFit(),
     child: child,

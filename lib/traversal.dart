@@ -25,7 +25,7 @@ import 'widgets/table.dart';
 
 
 /// Exports the provided [context] to a PDF file
-/// and applies the [textFieldOptions].
+/// and applies the [options].
 Future<pw.Document> exportToPDF(BuildContext context, {
   ExportOptions options = const ExportOptions(),
 }) async {
