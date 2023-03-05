@@ -193,6 +193,17 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ],
                   ),
+                  Padding(padding: const EdgeInsets.all(5.0),
+                    child: TextButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.purple),
+                        foregroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                      ),
+                      child: const Text('Button'),
+                    ),
+                  ),
                 ],
               );
             },
@@ -211,7 +222,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       checkboxOptions: CheckboxOptions.uniform(
                         interactive: false,
                       ),
-                      pageFormatOptions: PageFormatOptions.screenSize(context),
+                      // pageFormatOptions: PageFormatOptions.screenSize(context),
                     ),
                   );
                   saveFile(pdf, 'static-example');
