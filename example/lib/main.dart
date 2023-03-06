@@ -204,6 +204,19 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: const Text('Button'),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FilledButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.purple),
+                        foregroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                        padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
+                      ),
+                      child: const Text('BB'),
+                    ),
+                  ),
                 ],
               );
             },
