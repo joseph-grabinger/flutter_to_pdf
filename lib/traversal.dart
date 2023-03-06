@@ -16,6 +16,7 @@ import 'widgets/text_field.dart';
 import 'widgets/divider.dart';
 import 'widgets/image.dart';
 import 'widgets/checkbox.dart';
+import 'widgets/button.dart';
 import 'widgets/column.dart';
 import 'widgets/row.dart';
 import 'widgets/stack.dart';
@@ -129,6 +130,11 @@ Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) asyn
       return [await (widget as Image).toPdfWidget()];
     case Checkbox:
       return [await (widget as Checkbox).toPdfWidget(options.checkboxOptions)];
+    case TextButton:
+    case ElevatedButton:
+    case OutlinedButton:
+    case FilledButton:
+      return [(widget as ButtonStyleButton).toPdfWidget((await visit(element, options)).first)];
     case Column:
       return [(widget as Column).toPdfWidget(await visit(element, options))];
     case Row:
