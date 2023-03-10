@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' show InputBorder, OutlineInputBorder, UnderlineInputBorder;
+import 'package:flutter/material.dart' show InputBorder, OutlineInputBorder, UnderlineInputBorder, debugPrint;
 
 import 'package:pdf/widgets.dart' as pw show BoxDecoration, Border, BorderSide;
 
@@ -14,7 +14,7 @@ extension InputBorderConverter on InputBorder {
       case UnderlineInputBorder:
         return (this as UnderlineInputBorder).toPdfUnderlineInputBorder();
       default:
-        print('Unsupported InputBorder: $this');
+        debugPrint('Unsupported InputBorder: $this');
         return const pw.BoxDecoration();
     }
   }

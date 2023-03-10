@@ -1,5 +1,5 @@
 
-import 'package:flutter/widgets.dart' show TextStyle, TextDecoration, TextDecorationStyle;
+import 'package:flutter/widgets.dart' show TextDecoration, TextDecorationStyle, TextStyle, debugPrint;
 
 import 'package:pdf/widgets.dart' as pw show TextStyle, TextDecoration, TextDecorationStyle, Font;
 
@@ -10,7 +10,7 @@ import 'font_weight.dart';
 
 extension TextStyleConverter on TextStyle {
   pw.TextStyle toPdfTextStyle() {
-    print('TextStyleConverter: $this');
+    debugPrint('TextStyleConverter: $this');
     return pw.TextStyle(
     color: color?.toPdfColor(),
     fontSize: fontSize,

@@ -4,8 +4,5 @@ import 'package:pdf/widgets.dart' as pw show Radius;
 
 
 extension RadiusConverter on Radius {
-  pw.Radius toPdfRadius() {
-    print('RadiusConverter: $this');
-    return pw.Radius.elliptical(x, y);
-  }
+  pw.Radius toPdfRadius() => pw.Radius.elliptical(x, y);
 }

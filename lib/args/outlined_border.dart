@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart' show CircleBorder, OutlinedBorder, RoundedRectangleBorder, StadiumBorder, BeveledRectangleBorder, ContinuousRectangleBorder, BorderRadius;
+import 'package:flutter/widgets.dart' show BeveledRectangleBorder, BorderRadius, CircleBorder, ContinuousRectangleBorder, OutlinedBorder, RoundedRectangleBorder, StadiumBorder, debugPrint;
 
 import 'package:pdf/widgets.dart' as pw show BoxShape, BorderRadius;
 
@@ -24,7 +24,7 @@ extension OutlinedBorderConverter on OutlinedBorder {
       // - BeveledRectangleBorder
       // - ContinuousRectangleBorder
       default:
-        print('Unsupported OutlinedBorder: $this');
+        debugPrint('Unsupported OutlinedBorder: $this');
         return pw.BoxShape.rectangle;
     }
   }
@@ -42,7 +42,7 @@ extension OutlinedBorderConverter on OutlinedBorder {
       case ContinuousRectangleBorder:
         return ((this as ContinuousRectangleBorder).borderRadius as BorderRadius).toPdfBorderRadius();
       default:
-        print('Unsupported OutlinedBorder: $this');
+        debugPrint('Unsupported OutlinedBorder: $this');
         return pw.BorderRadius.circular(1000);
     }
   }

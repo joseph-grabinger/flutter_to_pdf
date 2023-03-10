@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart' show Key, BoxDecoration;
+import 'package:flutter/widgets.dart' show BoxDecoration, Key, debugPrint;
 
 
 /// Configuration options on how Checkbxes are exported.
@@ -40,7 +40,7 @@ class CheckboxOptions {
     if (decorationMap != null && decorationMap!.containsKey(key)) {
       return decorationMap![key];
     } else {
-      print('getBoxDecoration retruned null');
+      debugPrint('getBoxDecoration retruned null');
       return null;
     }
   }
