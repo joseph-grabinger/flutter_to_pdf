@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart' show TableCellVerticalAlignment;
+import 'package:flutter/widgets.dart' show TableCellVerticalAlignment, debugPrint;
 
 import 'package:pdf/widgets.dart' as pw show TableCellVerticalAlignment;
 
@@ -17,7 +17,7 @@ extension TableCellVerticalAlignmentConverter on TableCellVerticalAlignment {
       // not supported by pdf package:
       // - TableCellVerticalAlignment.baseline
       default:
-        print('Unsupported TableCellVerticalAlignment: $this');
+        debugPrint('Unsupported TableCellVerticalAlignment: $this');
         return pw.TableCellVerticalAlignment.top;
     }
   }

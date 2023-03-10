@@ -6,14 +6,11 @@ import 'border_side.dart';
 
 
 extension BorderConverter on Border {
-  pw.Border toPdfBorder() {
-    print('BorderConverter: $this');
-    
-    return pw.Border(
+  pw.Border toPdfBorder() => pw.Border(
     top: top.toPdfBorderSide(),
     right: right.toPdfBorderSide(),
     bottom: bottom.toPdfBorderSide(),
     left: left.toPdfBorderSide(),
   );
-  }
 }
+

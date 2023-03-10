@@ -49,13 +49,13 @@ Future<pw.Widget?> traverseWidgetTree(BuildContext context, ExportOptions option
   Element? element;
 
   context.visitChildElements((Element e) async {
-    print('Initial: $e');
+    debugPrint('Initial: $e');
     element = e;
   });
 
   pw.Widget? pdfWidget = (await matchWidget(element!, options)).first;
 
-  print('initial PDF Widget: $pdfWidget');
+  debugPrint('initial PDF Widget: $pdfWidget');
 
   return pdfWidget;
 }
@@ -65,7 +65,7 @@ Future<List<pw.Widget>> visit(Element element, ExportOptions options) async {
   List<Element> elements = [];
 
   element.visitChildElements((Element element) async {
-    print('Element ${element.depth}: ${element.widget}');
+    debugPrint('Element ${element.depth}: ${element.widget}');
     elements.add(element);
   });
 
@@ -75,7 +75,7 @@ Future<List<pw.Widget>> visit(Element element, ExportOptions options) async {
     children.addAll(await matchWidget(e, options));
   }
 
-  print('returned: $children');
+  debugPrint('returned: $children');
 
   return children;
 }
@@ -87,7 +87,7 @@ Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) asyn
 
   switch (widget.runtimeType) {
     case MergeSemantics: //anchor: end of widget tree
-      print('Reached Anchor');
+      debugPrint('Reached Anchor');
       return [];
     case Container:
       final List childWidgets = await visit(element, options);
@@ -148,7 +148,7 @@ Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) asyn
     case Table:
       return [await (widget as Table).toPdfWidget(await visit(element, options))];
     default:
-      print('Uncaught: ${widget.runtimeType}');
+      debugPrint('Uncaught: ${widget.runtimeType}');
       return await visit(element, options);
   }
 }

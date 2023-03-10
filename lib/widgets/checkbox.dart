@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' show BorderRadius, Checkbox, CircleBorder, RoundedRectangleBorder;
+import 'package:flutter/material.dart' show BorderRadius, Checkbox, CircleBorder, RoundedRectangleBorder, debugPrint;
 
 import 'package:pdf/pdf.dart' show PdfColors, PdfGraphics, PdfPoint;
 import 'package:pdf/widgets.dart' as pw show Checkbox, Widget, Container, BoxDecoration, BoxShape, Border, BorderStyle, Center, CustomPaint;
@@ -70,7 +70,7 @@ extension CheckboxConverter on Checkbox {
           border: defaultBorder,
         );
       default:
-        print('Unsupported OutlineBorder: $this');
+        debugPrint('Unsupported OutlineBorder: $this');
         return const pw.BoxDecoration();
     }
   }

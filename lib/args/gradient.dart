@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart' show Alignment, Color, Gradient, LinearGradient, RadialGradient, TileMode;
+import 'package:flutter/widgets.dart' show Alignment, Color, Gradient, LinearGradient, RadialGradient, TileMode, debugPrint;
 
 import 'package:pdf/pdf.dart' show PdfColor;
 import 'package:pdf/widgets.dart' as pw show Gradient, LinearGradient, RadialGradient, TileMode;
@@ -9,7 +9,7 @@ import 'color.dart';
 
 extension GradientConverter on Gradient {
   pw.Gradient toPdfGradient() {
-    print('GradientConverter: $this');
+    debugPrint('GradientConverter: $this');
     switch (runtimeType) {
       case LinearGradient:
         return (this as LinearGradient).toPdfLinearGradient();
@@ -25,7 +25,7 @@ extension GradientConverter on Gradient {
 
 extension LinearGradientConverter on LinearGradient {
   pw.LinearGradient toPdfLinearGradient() {
-    print('LinearGradientConverter: $this');
+    debugPrint('LinearGradientConverter: $this');
     return pw.LinearGradient(
       colors: colors.map<PdfColor>((Color color) => color.toPdfColor()).toList(),
       begin: (begin as Alignment).toPdfAlignment(),
@@ -38,7 +38,7 @@ extension LinearGradientConverter on LinearGradient {
 
 extension RadialGradientConverter on RadialGradient {
   pw.RadialGradient toPdfRadialGradient() {
-    print('RadialGradientConverter: $this');
+    debugPrint('RadialGradientConverter: $this');
     return pw.RadialGradient(
       colors: colors.map<PdfColor>((Color color) => color.toPdfColor()).toList(),
       center: (center as Alignment).toPdfAlignment(),
@@ -53,7 +53,7 @@ extension RadialGradientConverter on RadialGradient {
 
 extension TileModeConverter on TileMode {
   pw.TileMode toPdfTileMode() {
-    print('TileModeConverter: $this');
+    debugPrint('TileModeConverter: $this');
     switch (this) {
       case TileMode.clamp:
         return pw.TileMode.clamp;

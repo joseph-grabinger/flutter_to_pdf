@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart' show TableColumnWidth, IntrinsicColumnWidth, FixedColumnWidth, FlexColumnWidth, FractionColumnWidth;
+import 'package:flutter/widgets.dart' show FixedColumnWidth, FlexColumnWidth, FractionColumnWidth, IntrinsicColumnWidth, TableColumnWidth, debugPrint;
 
 import 'package:pdf/widgets.dart' as pw show TableColumnWidth, IntrinsicColumnWidth, FixedColumnWidth, FlexColumnWidth, FractionColumnWidth;
 
@@ -14,7 +14,7 @@ extension TableColumnWidthConverter on TableColumnWidth {
       case FractionColumnWidth:
         return pw.FractionColumnWidth((this as FractionColumnWidth).value);
       default:
-        print('Unsupported TableColumnWidth: $this');
+        debugPrint('Unsupported TableColumnWidth: $this');
         return const pw.IntrinsicColumnWidth();
     }
   }
