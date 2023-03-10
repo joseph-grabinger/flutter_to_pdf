@@ -12,21 +12,27 @@ class TextFieldOptions {
   /// If false, the text field will be rendered as a static text.
   final bool interactive;
 
+  /// If true, the text fields InputDecoration will be ignored.
+  final bool ignoreDecoration;
+
   const TextFieldOptions({
     this.styleMap,
     this.interactive = true,
+    this.ignoreDecoration = false,
   });
 
-  const TextFieldOptions.none() : styleMap = null, interactive = true;
+  const TextFieldOptions.none() : styleMap = null, interactive = true, ignoreDecoration = false;
 
   TextFieldOptions.uniform({
     final TextStyle textStyle = const TextStyle(),
     this.interactive = true,
+    this.ignoreDecoration = false,
   }) : styleMap = {_standardKey: textStyle};
 
   const TextFieldOptions.individual({
     this.styleMap, 
     this.interactive = true,
+    this.ignoreDecoration = false,
   });
 
   /// Returns the [TextStyle] for the given [key].

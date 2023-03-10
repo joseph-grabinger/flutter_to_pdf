@@ -1,17 +1,10 @@
-import 'package:flutter/material.dart' show InputBorder, InputDecoration, OutlineInputBorder, UnderlineInputBorder;
+import 'package:flutter/material.dart' show InputBorder, OutlineInputBorder, UnderlineInputBorder;
 
-import 'package:pdf/widgets.dart' as pw show Widget, Container, BoxDecoration, Border, BorderSide;
+import 'package:pdf/widgets.dart' as pw show BoxDecoration, Border, BorderSide;
 
 import '/args/border_radius.dart';
 import '/args/border_side.dart';
 
-
-extension InputDecorationConverter on InputDecoration {
-  pw.Widget toPdfWidget() => pw.Container(
-    height: 30,
-    decoration: border?.toPdfInputBorder(),
-  );
-}
 
 extension InputBorderConverter on InputBorder {
   pw.BoxDecoration toPdfInputBorder() {
@@ -21,7 +14,7 @@ extension InputBorderConverter on InputBorder {
       case UnderlineInputBorder:
         return (this as UnderlineInputBorder).toPdfUnderlineInputBorder();
       default:
-        print('No converter for $this');
+        print('Unsupported InputBorder: $this');
         return const pw.BoxDecoration();
     }
   }

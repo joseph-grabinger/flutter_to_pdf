@@ -122,8 +122,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: TextField(
                           controller: TextEditingController(),
                           decoration: const InputDecoration(
-                          label: Text('Name'), border: OutlineInputBorder(),
-                        )),
+                            label: Text('Name'), border: OutlineInputBorder(),
+                          ),
+                        ),
                       ),
                       Checkbox(
                         shape: RoundedRectangleBorder(
