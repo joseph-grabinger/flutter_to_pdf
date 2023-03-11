@@ -22,6 +22,7 @@ import 'widgets/row.dart';
 import 'widgets/stack.dart';
 import 'widgets/list_view.dart';
 import 'widgets/grid_view.dart';
+import 'widgets/wrap.dart';
 import 'widgets/table.dart';
 
 
@@ -145,6 +146,8 @@ Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) asyn
         return [(widget as ListView).toPdfWidget(await visit(element, options))];
     case GridView:
       return [(widget as GridView).toPdfWidget(await visit(element, options))];
+    case Wrap:
+      return [(widget as Wrap).toPdfWidget(await visit(element, options))];
     case Table:
       return [await (widget as Table).toPdfWidget(await visit(element, options))];
     default:
