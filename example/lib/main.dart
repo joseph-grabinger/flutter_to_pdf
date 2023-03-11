@@ -75,7 +75,7 @@ class _ExamplePageState extends State<ExamplePage> {
 
   void saveFile(Document doc, String name) async {
     final Directory dir = await getApplicationDocumentsDirectory();
-    final File file = File("${dir.path}/$name.pdf");
+    final File file = File('${dir.path}/$name.pdf');
 
     await file.writeAsBytes(await doc.save());
     print('Saved exported PDF at: ${file.path}');
