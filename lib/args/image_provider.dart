@@ -6,21 +6,19 @@ import 'package:flutter/widgets.dart' show ImageConfiguration, ImageProvider, Im
 
 import 'package:pdf/widgets.dart' as pw show ImageProvider, RawImage;
 
-import '/types/tuple.dart';
-
 
 extension ImageProviderConverter on ImageProvider {
   Future<pw.ImageProvider> toPdfImageProvider() async {
-    final Tuple<Uint8List?, Size> tuple = await getBytes();
+    final MapEntry<Uint8List?, Size> tuple = await getBytes();
 
     return pw.RawImage(
-      bytes: tuple.fst!,
-      width: tuple.snd.width.toInt(),
-      height: tuple.snd.height.toInt(),
+      bytes: tuple.key!,
+      width: tuple.value.width.toInt(),
+      height: tuple.value.height.toInt(),
     );
   }
   
-  Future<Tuple<Uint8List?, Size>> getBytes({ImageByteFormat format = ImageByteFormat.rawRgba}) async {
+  Future<MapEntry<Uint8List?, Size>> getBytes({ImageByteFormat format = ImageByteFormat.rawRgba}) async {
     Size? size;
     final imageStream = resolve(ImageConfiguration.empty);
     final Completer<Uint8List?> completer = Completer<Uint8List?>();
@@ -38,6 +36,6 @@ extension ImageProviderConverter on ImageProvider {
     final imageBytes = await completer.future;
     imageStream.removeListener(listener);
 
-    return Tuple(imageBytes, size!);
+    return MapEntry(imageBytes, size!);
   }
 }
