@@ -43,6 +43,20 @@ Future<pw.Document> exportToPDF(BuildContext context, {
   return pdf;
 }
 
+/// Exports the provided [context] to a [pw.Page]
+/// and applies the [options].
+Future<pw.Page> exportToPdfPage(BuildContext context, {
+  ExportOptions options = const ExportOptions(),
+}) async {
+  final pw.Widget? pdfWidget = await traverseWidgetTree(context, options);
+
+  return pw.Page(
+    pageFormat: options.pageFormatOptions.getPageFormat(),
+    clip: options.pageFormatOptions.clip,
+    build: (pw.Context context) => pdfWidget!,
+  );
+}
+
 /// Traverses the widget tree of the provided [context]
 /// and returns the corresponding PDF widget tree.
 Future<pw.Widget?> traverseWidgetTree(BuildContext context, ExportOptions options) async {
