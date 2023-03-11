@@ -1,16 +1,27 @@
-# example
+## Basic Usage
 
-A new Flutter project.
+```dart
+import 'package:flutter/material.dart';
+import 'package:teaplates/teaplates.dart';
 
-## Getting Started
+Builder(
+  builder: (BuildContext context) {
+    return Container(); // any Flutter Widgets can be used here
+  }
+)
 
-This project is a starting point for a Flutter application.
+// export the view to a PDF Document
+final Document pdf = await exportToPDF(context);
+```
 
-A few resources to get you started if this is your first Flutter project:
+## Save the PDF Document
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```dart
+import 'dart:io';
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+// set the path and name of the file
+final File file = File('somePath/someName.pdf');
+
+// save the PDF Document
+await file.writeAsBytes(pdf.save());
+```

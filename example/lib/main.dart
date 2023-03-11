@@ -1,269 +1,136 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-
 import 'package:path_provider/path_provider.dart';
-import 'package:intl/intl.dart';
-
 import 'package:teaplates/teaplates.dart';
 
+import 'examples/document_example.dart';
+import 'examples/image_example.dart';
+import 'examples/table_example.dart';
+import 'examples/button_example.dart';
 
-void main() {
-  runApp(const MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+void main() => runApp(const Demo());
 
-  // This widget is the root of your application.
+class Demo extends StatelessWidget {
+  const Demo({super.key});
+
+  static Map<String, Widget> examples = {
+    'Document Example': const DocumentExample(),
+    'Image Example': imageExample,
+    'Table Example': tableExample,
+    'Button Example': buttonExample
+  };
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+  Widget build(BuildContext context) => MaterialApp(
+    theme: ThemeData(
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      useMaterial3: true,
+    ),
+    home: Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: const Text('Teaplates Demo'),
       ),
-      home: const MyHomePage(),
-    );
-  }
+      body: ListView.builder(
+        itemCount: examples.length,
+        itemBuilder: (BuildContext context, int index) {
+          final MapEntry<String, Widget> example = examples.entries.toList()[index];
+          return ListTile(
+            title: Text(example.key),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) => ExamplePage(
+                    title: example.key,
+                    example: example.value,
+                  ),
+                ),
+              );
+            },
+          );
+        },
+      ),
+    ),
+  );
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class ExamplePage extends StatefulWidget {
+  final String title;
+  final Widget example;
+
+  const ExamplePage({
+    required this.title, 
+    required this.example, 
+    super.key,
+  });
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<ExamplePage> createState() => _ExamplePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  late BuildContext exportContext; 
-
-  bool checked = false;
+class _ExamplePageState extends State<ExamplePage> {
+  late BuildContext exportContext;
 
   void saveFile(Document doc, String name) async {
     final Directory dir = await getApplicationDocumentsDirectory();
-    final File file = File("${dir.path}/$name.pdf");
+    final File file = File('${dir.path}/$name.pdf');
 
     await file.writeAsBytes(await doc.save());
     print('Saved exported PDF at: ${file.path}');
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Flutter View to PDF Demo'),
-      ),
-      body: Column(
-        children: [
-          Builder(
-            builder: (BuildContext ctx) {
-              exportContext = ctx;
-              return Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children:  [
-                          Text('Dunef UG (haftungsbeschränkt)'),
-                          Text('Mock-Document',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          const Text('Date: ',
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                          Text(DateFormat('MM.dd.yyyy').format(DateTime.now())),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 50,
-                        child: Image.asset('assets/logo.png'),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Container(
-                      height: 100,
-                      width: 500,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        border: Border.all(color: Colors.grey)
-                      ),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        height: 100,
-                        width: 100,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: NetworkImage('http://i.pravatar.cc/300'),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 5.0),
-                      SizedBox(
-                        width: 200,
-                        height: 50,
-                        child: TextField(
-                          controller: TextEditingController(),
-                          decoration: const InputDecoration(
-                            label: Text('Name'), border: OutlineInputBorder(),
-                          ),
-                        ),
-                      ),
-                      Checkbox(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        value: checked,
-                        onChanged: (newValue) {
-                          setState(() {
-                            checked = newValue ?? false;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10.0),
-                  Table(
-                    border: TableBorder.all(),
-                    columnWidths: const <int, TableColumnWidth>{
-                      0: IntrinsicColumnWidth(),
-                      1: FlexColumnWidth(),
-                      2: FixedColumnWidth(64),
-                    },
-                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                    children: <TableRow>[
-                      TableRow(
-                        children: <Widget>[
-                          Container(
-                            height: 32,
-                            color: Colors.green,
-                          ),
-                          TableCell(
-                            verticalAlignment: TableCellVerticalAlignment.middle,
-                            child: Container(
-                              height: 32,
-                              width: 32,
-                              color: Colors.red,
-                            ),
-                          ),
-                          Container(
-                            height: 64,
-                            color: Colors.blue,
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        decoration: const BoxDecoration(
-                          color: Colors.grey,
-                        ),
-                        children: <Widget>[
-                          Container(
-                            height: 64,
-                            width: 128,
-                            color: Colors.purple,
-                          ),
-                          Container(
-                            height: 32,
-                            color: Colors.yellow,
-                          ),
-                          Center(
-                            child: Container(
-                              height: 32,
-                              width: 32,
-                              color: Colors.orange,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Padding(padding: const EdgeInsets.all(5.0),
-                    child: TextButton(
-                      onPressed: () {},
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.purple),
-                        foregroundColor: MaterialStateProperty.all<Color>(Colors.green),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                      ),
-                      child: const Text('Button'),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: FilledButton(
-                      onPressed: () {},
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.purple),
-                        foregroundColor: MaterialStateProperty.all<Color>(Colors.green),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                        padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
-                      ),
-                      child: const Text('BB'),
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-          const SizedBox(height:10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(
+      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      title: Text(widget.title),
+    ),
+    bottomSheet: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        TextButton(
+          onPressed: () async {
+            final Document pdf = await exportToPDF(exportContext, 
+              options: ExportOptions(
+                textFieldOptions: TextFieldOptions.uniform(
+                  interactive: false, 
+                ),
+                checkboxOptions: CheckboxOptions.uniform(
+                  interactive: false,
+                ),
+                // pageFormatOptions: PageFormatOptions.screenSize(context),
+              ),
+            );
+            saveFile(pdf, 'static-example');
+          },
+          child: const Row(
             children: [
-              TextButton(
-                onPressed: () async {
-                  final Document pdf = await exportToPDF(exportContext, 
-                    options: ExportOptions(
-                      textFieldOptions: TextFieldOptions.uniform(
-                        interactive: false, 
-                      ),
-                      checkboxOptions: CheckboxOptions.uniform(
-                        interactive: false,
-                      ),
-                      // pageFormatOptions: PageFormatOptions.screenSize(context),
-                    ),
-                  );
-                  saveFile(pdf, 'static-example');
-                },
-                child: const Row(
-                  children: [
-                    Text('Export as static'),
-                    Icon(Icons.save_alt_outlined),
-                  ],
-                ),
-              ),
-              TextButton(
-                onPressed: () async {
-                  final Document pdf = await exportToPDF(exportContext);
-                  saveFile(pdf, 'interactive-example');
-                },
-                child: const Row(
-                  children: [
-                    Text('Export as interactive'),
-                    Icon(Icons.save_alt_outlined),
-                  ],
-                ),
-              ),
+              Text('Export as static'),
+              Icon(Icons.save_alt_outlined),
             ],
           ),
-        ],
-      ),
-    );
-  }
+        ),
+        TextButton(
+          onPressed: () async {
+            final Document pdf = await exportToPDF(exportContext);
+            saveFile(pdf, 'interactive-example');
+          },
+          child: const Row(
+            children: [
+              Text('Export as interactive'),
+              Icon(Icons.save_alt_outlined),
+            ],
+          ),
+        ),
+      ],
+    ),
+    body: Builder(
+      builder: (BuildContext context) {
+        exportContext = context;
+        return widget.example;
+      },
+    ),
+  );
 }
