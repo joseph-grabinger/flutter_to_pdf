@@ -11,6 +11,7 @@ class DocumentExample extends StatefulWidget {
 }
 
 class _DocumentExampleState extends State<DocumentExample> {
+  final TextEditingController controller = TextEditingController();
   bool checked = false;
 
   @override
@@ -75,7 +76,7 @@ class _DocumentExampleState extends State<DocumentExample> {
               width: 200,
               height: 50,
               child: TextField(
-                controller: TextEditingController(),
+                controller: controller,
                 decoration: const InputDecoration(
                   label: Text('Name'), border: OutlineInputBorder(),
                 ),
