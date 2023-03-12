@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart' show Stack, Alignment;
+import 'package:flutter/widgets.dart' show Stack, AlignmentDirectional;
 
 import 'package:pdf/widgets.dart' as pw show Stack, Widget;
 
@@ -8,7 +8,7 @@ import '/args/stack_fit.dart';
 
 extension StackConverter on Stack {
   pw.Stack toPdfWidget(List<pw.Widget> children) => pw.Stack(
-    alignment: (alignment as Alignment).toPdfAlignment(),
+    alignment: (alignment as AlignmentDirectional).toPdfAlignment(),
     fit: fit.toPdfStackFit(),
     children: children,
   );
