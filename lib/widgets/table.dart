@@ -22,7 +22,7 @@ extension TableConverter on Table {
           decoration: await (this.children[i].decoration as BoxDecoration?)?.toPdfBoxDecoration(),
           children: children.getRange(
             i*(this.children.length+1),
-            i*this.children.length+children.length~/this.children.length
+            i*this.children.length+children.length~/this.children.length,
           ).toList(),
         ),
     ],
