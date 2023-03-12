@@ -9,6 +9,7 @@ late Document pdf;
 
 void main() {
   setUpAll(() {
+    Document.debug = true;
     pdf = Document();
   });
 
@@ -204,6 +205,35 @@ void main() {
           child: Transform.rotate(
             angle: 0.1,
             child: const Placeholder(),
+          ),
+        );
+      },
+    ));
+
+    pdf.addPage(await exportToPdfPage(exportContext));
+  });
+
+  testWidgets('Basic Widgets Opacity', (tester) async {
+    late BuildContext exportContext;
+
+    tester.pumpWidget(Builder(
+      builder: (BuildContext context) {
+        exportContext = context;
+        return  Directionality(
+          textDirection: TextDirection.ltr,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              const Text('Background', textScaleFactor: 5),
+              Opacity(
+                opacity: 0.5,
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  color: Colors.blue,
+                ),
+              ),
+            ],
           ),
         );
       },

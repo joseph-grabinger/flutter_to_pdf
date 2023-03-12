@@ -9,6 +9,7 @@ late Document pdf;
 
 void main() {
   setUpAll(() {
+    Document.debug = true;
     pdf = Document();
   });
 
