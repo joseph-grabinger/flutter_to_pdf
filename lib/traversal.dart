@@ -100,7 +100,7 @@ Future<List<pw.Widget>> visit(Element element, ExportOptions options) async {
 }
 
 /// Matches the widget provided as [element]
-/// and appends the corresponding [pw.Widget] to [children].
+/// and returns the corresponding [pw.Widget].
 Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) async {
   final Widget widget = element.widget;
 
@@ -109,44 +109,44 @@ Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) asyn
       debugPrint('Reached Anchor');
       return [];
     case Container:
-      final List childWidgets = await visit(element, options);
+      final List children = await visit(element, options);
       return [await (widget as Container).toPdfWidget(
-        childWidgets.isNotEmpty ? childWidgets.first : null
+        children.isNotEmpty ? children.first : null
       )];
     case Center:
-      final List childWidgets = await visit(element, options);
+      final List children = await visit(element, options);
       return [(widget as Center).toPdfWidget(
-        childWidgets.isNotEmpty ? childWidgets.first : null
+        children.isNotEmpty ? children.first : null
       )];
     case SizedBox:
-      final List childWidgets = await visit(element, options);
+      final List children = await visit(element, options);
       return [(widget as SizedBox).toPdfWidget(
-        childWidgets.isNotEmpty ? childWidgets.first : null
+        children.isNotEmpty ? children.first : null
       )];
     case FittedBox:
-      final List childWidgets = await visit(element, options);
+      final List children = await visit(element, options);
       return [(widget as FittedBox).toPdfWidget(
-        childWidgets.isNotEmpty ? childWidgets.first : null
+        children.isNotEmpty ? children.first : null
       )];
     case LimitedBox:
-      final List childWidgets = await visit(element, options);
+      final List children = await visit(element, options);
       return [(widget as LimitedBox).toPdfWidget(
-        childWidgets.isNotEmpty ? childWidgets.first : null
+        children.isNotEmpty ? children.first : null
       )];
     case ConstrainedBox:
-      final List childWidgets = await visit(element, options);
+      final List children = await visit(element, options);
       return [(widget as ConstrainedBox).toPdfWidget(
-        childWidgets.isNotEmpty ? childWidgets.first : null
+        children.isNotEmpty ? children.first : null
       )];
     case Padding:
-      final List childWidgets = await visit(element, options);
+      final List children = await visit(element, options);
       return [(widget as Padding).toPdfWidget(
-        childWidgets.isNotEmpty ? childWidgets.first : null
+        children.isNotEmpty ? children.first : null
       )];
     case Align:
-      final List childWidgets = await visit(element, options);
+      final List children = await visit(element, options);
       return [(widget as Align).toPdfWidget(
-        childWidgets.isNotEmpty ? childWidgets.first : null
+        children.isNotEmpty ? children.first : null
       )];
     case Positioned:
       return [(widget as Positioned).toPdfWidget((await visit(element, options)).first)];
