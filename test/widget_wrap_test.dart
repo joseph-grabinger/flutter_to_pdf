@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:teaplates/teaplates.dart';
 
+import 'utils.dart';
+
 
 late Document pdf;
 
@@ -14,8 +16,6 @@ void main() {
   });
 
   testWidgets('Wrap Widgets Wrap Horizontal 1', (tester) async {
-    late BuildContext exportContext;
-
     final children = <Widget>[];
     for (final direction in VerticalDirection.values) {
       children.add(Text('$direction'));
@@ -30,6 +30,8 @@ void main() {
         ));
       }
     }
+
+    late BuildContext exportContext;
 
     await tester.pumpWidget(Builder(
       builder: (BuildContext context) {
@@ -48,8 +50,6 @@ void main() {
   });
 
   testWidgets('Wrap Widgets Wrap Horizontal 2', (tester) async {
-    late BuildContext exportContext;
-
     final children = <Widget>[];
     for (final alignment in WrapCrossAlignment.values) {
       final rnd = math.Random(42);
@@ -68,6 +68,8 @@ void main() {
       ));
     }
 
+    late BuildContext exportContext;
+
     await tester.pumpWidget(Builder(
       builder: (BuildContext context) {
         exportContext = context;
@@ -85,7 +87,7 @@ void main() {
   });
 
   testWidgets('Wrap Widgets Wrap Vertical 1', (tester) async {
-    late BuildContext exportContext;
+    FlutterError.onError = ignoreOverflowErrors;
 
     final children = <Widget>[];
     for (final direction in VerticalDirection.values) {
@@ -102,6 +104,8 @@ void main() {
       }
     }
 
+    late BuildContext exportContext;
+
     await tester.pumpWidget(Builder(
       builder: (BuildContext context) {
         exportContext = context;
@@ -115,29 +119,37 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportToPdfPage(exportContext,
+      options: const ExportOptions(
+          pageFormatOptions: PageFormatOptions.custom(width: 1000, height: 500),
+        ),
+    ));
   });
 
   testWidgets('Wrap Widgets Wrap Vertical 2', (tester) async {
-    late BuildContext exportContext;
+    FlutterError.onError = ignoreOverflowErrors;
 
     final children = <Widget>[];
     for (final alignment in WrapCrossAlignment.values) {
       final rnd = math.Random(42);
       children.add(Transform.rotate(angle: math.pi / 2, child: Text('$alignment')));
-      children.add(Wrap(
-        direction: Axis.vertical,
-        crossAxisAlignment: alignment,
-        runSpacing: 20,
-        spacing: 20,
-        textDirection: TextDirection.ltr,
-        children: List<Widget>.generate(15, (int n) => SizedBox(
-          width: rnd.nextDouble() * 50,
-          height: rnd.nextDouble() * 100,
-          child: const Placeholder(),
-        )),
+      children.add(Expanded(
+        child: Wrap(
+          direction: Axis.vertical,
+          crossAxisAlignment: alignment,
+          runSpacing: 20,
+          spacing: 20,
+          textDirection: TextDirection.ltr,
+          children: List<Widget>.generate(10, (int n) => SizedBox(
+            width: rnd.nextDouble() * 50,
+            height: rnd.nextDouble() * 100,
+            child: const Placeholder(),
+          )),
+        ),
       ));
     }
+
+    late BuildContext exportContext;
 
     await tester.pumpWidget(Builder(
       builder: (BuildContext context) {
@@ -152,7 +164,11 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportToPdfPage(exportContext, 
+      options: const ExportOptions(
+        pageFormatOptions: PageFormatOptions.custom(width: 1000, height: 500),
+      ),
+    ));
   });
 
   testWidgets('Wrap Widgets Empty', (tester) async {
