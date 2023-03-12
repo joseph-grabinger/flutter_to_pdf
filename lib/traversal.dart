@@ -7,6 +7,7 @@ import 'widgets/container.dart';
 import 'widgets/center.dart';
 import 'widgets/sized_box.dart';
 import 'widgets/fitted_box.dart';
+import 'widgets/limited_box.dart';
 import 'widgets/align.dart';
 import 'widgets/padding.dart';
 import 'widgets/positioned.dart';
@@ -124,6 +125,11 @@ Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) asyn
     case FittedBox:
       final List childWidgets = await visit(element, options);
       return [(widget as FittedBox).toPdfWidget(
+        childWidgets.isNotEmpty ? childWidgets.first : null
+      )];
+    case LimitedBox:
+      final List childWidgets = await visit(element, options);
+      return [(widget as LimitedBox).toPdfWidget(
         childWidgets.isNotEmpty ? childWidgets.first : null
       )];
     case Padding:
