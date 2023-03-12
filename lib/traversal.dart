@@ -10,6 +10,7 @@ import 'widgets/fitted_box.dart';
 import 'widgets/limited_box.dart';
 import 'widgets/constrained_box.dart';
 import 'widgets/transform.dart';
+import 'widgets/opacity.dart';
 import 'widgets/padding.dart';
 import 'widgets/align.dart';
 import 'widgets/positioned.dart';
@@ -142,6 +143,11 @@ Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) asyn
     case Transform:
       final List children = await visit(element, options);
       return [(widget as Transform).toPdfWidget(
+        children.isNotEmpty ? children.first : null
+      )];
+    case Opacity:
+      final List children = await visit(element, options);
+      return [(widget as Opacity).toPdfWidget(
         children.isNotEmpty ? children.first : null
       )];
     case Padding:
