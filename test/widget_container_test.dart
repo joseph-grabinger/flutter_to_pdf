@@ -34,25 +34,42 @@ void main() {
     pdf.addPage(await exportToPdfPage(exportContext));
   });
 
-  testWidgets('Container Widget Decoration', (tester) async {
+  testWidgets('Container Widget BoxShape Border', (tester) async {
     late BuildContext exportContext;
 
     tester.pumpWidget(Builder(
       builder: (BuildContext context) {
         exportContext = context;
-        return Container(
-          alignment: Alignment.center,
-          margin: const EdgeInsets.all(30),
-          padding: const EdgeInsets.all(20),
-          width: 200,
-          height: 400,
-          decoration: BoxDecoration(
-            color: Colors.blue,
-            border: Border.all(
-              color: Colors.green,
-              width: 2,
-            ),
-            borderRadius: BorderRadius.circular(10),
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                width: 200,
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: Colors.red,
+                    width: 3,
+                  ),
+                ),
+              ),
+              Container(
+                width: 200,
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.red,
+                    width: 3,
+                  ),
+                ),
+              ),
+            ],
           ),
         );
       },
@@ -62,21 +79,19 @@ void main() {
   });
 
   testWidgets('Container Widget Image', (tester) async {
-    // final image = generateBitmap(100, 200);
+    final image = MemoryImage(getImageBytes());
 
+    final widgets = <Widget>[];
     for (final shape in BoxShape.values) {
       for (final fit in BoxFit.values) {
-        late BuildContext exportContext;
-
-        Widget widget = Container(
+        widgets.add(Container(
           width: 100,
           height: 100,
           alignment: Alignment.center,
           decoration: BoxDecoration(
             shape: shape,
             image: DecorationImage(
-              // image: generateBitmap(100, 200),
-              image: MemoryImage(imageBytes()),
+              image: image,
             )
           ),
           child: Container(
@@ -88,20 +103,150 @@ void main() {
               textScaleFactor: 0.6,
             ),
           ),
-        );
-
-        await tester.pumpWidget(Builder(
-          builder: (BuildContext context) {
-            exportContext = context;
-            return widget;
-          },
-        ), const Duration(seconds: 1),);
-
-        await tester.runAsync(() async {
-          pdf.addPage(await exportToPdfPage(exportContext));
-        });
+        ));
       }
     }
+
+    late BuildContext exportContext;
+
+    await tester.pumpWidget(Builder(
+      builder: (BuildContext context) {
+        exportContext = context;
+        return Wrap(
+          textDirection: TextDirection.ltr,
+          children: widgets,
+        );
+      },
+    ));
+
+    await tester.runAsync(() async {
+      pdf.addPage(await exportToPdfPage(exportContext));
+    });
+  });
+
+  testWidgets('Container Widget LinearGradient', (tester) async {
+    late BuildContext exportContext;
+
+    tester.pumpWidget(Builder(
+      builder: (BuildContext context) {
+        exportContext = context;
+        return Container(
+          width: 200,
+          height: 400,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: Colors.red,
+              width: 3,
+            ),
+            gradient: const LinearGradient(
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+              stops: <double>[0, 0.8, 1.0],
+              tileMode: TileMode.clamp,
+              colors: [
+                Colors.blue,
+                Colors.red,
+                Colors.yellow,
+              ],
+            ),
+          ),
+        );
+      },
+    ));
+
+    pdf.addPage(await exportToPdfPage(exportContext));
+  });
+
+  testWidgets('Container Widget RadialGradient', (tester) async {
+    late BuildContext exportContext;
+
+    tester.pumpWidget(Builder(
+      builder: (BuildContext context) {
+        exportContext = context;
+        return Container(
+          width: 200,
+          height: 400,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: Colors.red,
+              width: 3,
+            ),
+            gradient: const RadialGradient(
+              stops: <double>[0.0, 0.2, 1.0],
+              center: FractionalOffset(0.7, 0.2),
+              focal: FractionalOffset(0.7, 0.45),
+              focalRadius: 1,
+              colors: [
+                Colors.blue,
+                Colors.red,
+                Colors.yellow,
+              ],
+            ),
+          ),
+        );
+      },
+    ));
+
+    pdf.addPage(await exportToPdfPage(exportContext));
+  });
+
+  testWidgets('Container Widget BoxShadow Rectangle', (tester) async {
+    late BuildContext exportContext;
+
+    tester.pumpWidget(Builder(
+      builder: (BuildContext context) {
+        exportContext = context;
+        return Container(
+          width: 200,
+          height: 400,
+          margin: const EdgeInsets.all(30),
+          padding: const EdgeInsets.all(20),
+          decoration: const BoxDecoration(
+            color: Colors.blue,
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                blurRadius: 4,
+                spreadRadius: 10,
+                offset: Offset(2, 2),
+              ),
+            ],
+          ),
+        );
+      },
+    ));
+
+    pdf.addPage(await exportToPdfPage(exportContext));
+  });
+
+  testWidgets('Container Widget BoxShadow Ellipse', (tester) async {
+    late BuildContext exportContext;
+
+    tester.pumpWidget(Builder(
+      builder: (BuildContext context) {
+        exportContext = context;
+        return Container(
+          width: 200,
+          height: 400,
+          margin: const EdgeInsets.all(30),
+          padding: const EdgeInsets.all(20),
+          decoration: const BoxDecoration(
+            color: Colors.blue,
+            shape: BoxShape.circle,
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                blurRadius: 4,
+                spreadRadius: 10,
+                offset: Offset(2, 2),
+              ),
+            ],
+          ),
+        );
+      },
+    ));
+
+    pdf.addPage(await exportToPdfPage(exportContext));
   });
 
   tearDownAll(() async {
