@@ -11,6 +11,7 @@ import 'widgets/padding.dart';
 import 'widgets/positioned.dart';
 import 'widgets/expanded.dart';
 import 'widgets/flexible.dart';
+import 'widgets/placeholder.dart';
 import 'widgets/text.dart';
 import 'widgets/text_field.dart';
 import 'widgets/divider.dart';
@@ -135,6 +136,8 @@ Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) asyn
       return[(widget as Expanded).toPdfWidget((await visit(element, options)).first)];
     case Flexible:
       return [(widget as Flexible).toPdfWidget((await visit(element, options)).first)];
+    case Placeholder:
+      return [(widget as Placeholder).toPdfWidget()];
     case Text:
       return [(widget as Text).toPdfWidget()];
     case TextField:

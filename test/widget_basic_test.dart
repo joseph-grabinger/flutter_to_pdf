@@ -114,8 +114,8 @@ void main() {
           mainAxisSize: MainAxisSize.max,
           children: [
             for (final fit in BoxFit.values) SizedBox(
-              height: 100,
-              width: 100,
+              height: 80,
+              width: 80,
               child: FittedBox(
                 fit: fit,
                 child: const SizedBox(
@@ -139,14 +139,16 @@ void main() {
     tester.pumpWidget(Builder(
       builder: (BuildContext context) {
         exportContext = context;
-        return ListView(
-          scrollDirection: Axis.vertical,
-          children: const [
-            LimitedBox(
-              maxHeight: 40,
-              child: Placeholder(),
-            ),
-          ],
+        return Directionality(
+          textDirection: TextDirection.ltr,
+          child: ListView(
+            children: const [
+              LimitedBox(
+                maxHeight: 40,
+                child: Placeholder(),
+              ),
+            ],
+          ),
         );
       },
     ));
