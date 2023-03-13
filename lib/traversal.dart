@@ -185,7 +185,8 @@ Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) asyn
     case ListView:
         return [(widget as ListView).toPdfWidget(await visit(element, options))];
     case GridView:
-      return [(widget as GridView).toPdfWidget(await visit(element, options))];
+      final BoxConstraints constraints = element.renderObject!.constraints as BoxConstraints;
+      return [(widget as GridView).toPdfWidget(await visit(element, options), constraints)];
     case Wrap:
       return [(widget as Wrap).toPdfWidget(await visit(element, options))];
     case Table:

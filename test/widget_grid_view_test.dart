@@ -95,8 +95,7 @@ void main() async {
           textDirection: TextDirection.ltr,
           child: GridView.count(
             crossAxisCount: 20,
-            scrollDirection: Axis.horizontal,
-            children: List<Widget>.generate(20,
+            children: List<Widget>.generate(40,
               (int index) => Center(child: Text('$index')),
             ),
           ),
@@ -117,8 +116,7 @@ void main() async {
           textDirection: TextDirection.ltr,
           child: GridView.extent(
             maxCrossAxisExtent: 20,
-            scrollDirection: Axis.horizontal,
-            children: List<Widget>.generate(20,
+            children: List<Widget>.generate(40,
               (int index) => Center(child: Text('$index')),
             ),
           ),
