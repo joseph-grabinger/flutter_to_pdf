@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart' show BoxDecoration, Table, TableColumnWidth;
+import 'package:flutter/widgets.dart' show BoxDecoration, Table, TableColumnWidth, TableRow;
 
 import 'package:pdf/widgets.dart' as pw show Table, TableRow, Widget;
 
@@ -21,8 +21,8 @@ extension TableConverter on Table {
         pw.TableRow(
           decoration: await (this.children[i].decoration as BoxDecoration?)?.toPdfBoxDecoration(),
           children: children.getRange(
-            i*(this.children.length+1),
-            i*this.children.length+children.length~/this.children.length,
+            i*(children.length~/this.children.length),
+            (i+1)*(children.length~/this.children.length),
           ).toList(),
         ),
     ],

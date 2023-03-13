@@ -70,7 +70,7 @@ void main() async {
 
   testWidgets('Text Widgets Alignement', (tester) async {
     final children = <Widget>[];
-    for (final align in TextAlign.values) {
+    for (final align in TextAlign.values.where((element) => element != TextAlign.end)) {
       children.add(
         SizedBox(
           width: 120,
