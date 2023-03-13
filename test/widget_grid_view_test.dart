@@ -85,6 +85,50 @@ void main() async {
     pdf.addPage(await exportToPdfPage(exportContext));
   });
 
+  testWidgets('GridView Widgets Count', (tester) async {
+    late BuildContext exportContext;
+
+    await tester.pumpWidget(Builder(
+      builder: (BuildContext context) {
+        exportContext = context;
+        return Directionality(
+          textDirection: TextDirection.ltr,
+          child: GridView.count(
+            crossAxisCount: 20,
+            scrollDirection: Axis.horizontal,
+            children: List<Widget>.generate(20,
+              (int index) => Center(child: Text('$index')),
+            ),
+          ),
+        );
+      },
+    ));
+
+    pdf.addPage(await exportToPdfPage(exportContext));
+  });
+
+  testWidgets('GridView Widgets Extent', (tester) async {
+    late BuildContext exportContext;
+
+    await tester.pumpWidget(Builder(
+      builder: (BuildContext context) {
+        exportContext = context;
+        return Directionality(
+          textDirection: TextDirection.ltr,
+          child: GridView.extent(
+            maxCrossAxisExtent: 20,
+            scrollDirection: Axis.horizontal,
+            children: List<Widget>.generate(20,
+              (int index) => Center(child: Text('$index')),
+            ),
+          ),
+        );
+      },
+    ));
+
+    pdf.addPage(await exportToPdfPage(exportContext));
+  });
+
   tearDownAll(() async {
     final file = File('./test/output/widgets-gridview.pdf');
     file.writeAsBytesSync(await pdf.save());
