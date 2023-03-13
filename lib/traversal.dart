@@ -69,14 +69,9 @@ Future<pw.Page> exportToPdfPage(BuildContext context, {
 Future<pw.Widget?> traverseWidgetTree(BuildContext context, ExportOptions options) async {
   Element? element;
 
-  context.visitChildElements((Element e) async {
-    debugPrint('Initial: $e');
-    element = e;
-  });
+  context.visitChildElements((Element e) => element = e);
 
   pw.Widget? pdfWidget = (await matchWidget(element!, options)).first;
-
-  debugPrint('initial PDF Widget: $pdfWidget');
 
   return pdfWidget;
 }
@@ -95,8 +90,6 @@ Future<List<pw.Widget>> visit(Element element, ExportOptions options) async {
   for (Element e in elements) {
     children.addAll(await matchWidget(e, options));
   }
-
-  debugPrint('returned: $children');
 
   return children;
 }

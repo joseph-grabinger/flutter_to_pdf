@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart' show BoxDecoration, Table, TableColumnWidth, TableRow;
+import 'package:flutter/widgets.dart' show BoxDecoration, Table, TableColumnWidth;
 
 import 'package:pdf/widgets.dart' as pw show Table, TableRow, Widget;
 
