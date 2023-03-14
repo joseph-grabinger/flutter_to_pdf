@@ -34,7 +34,7 @@ jobs:
         continue-on-error: true
         run: flutter analyze
       - name: Run Flutter tests
-        run: flutter test --coverage
+        run: mkdir test/output && flutter test --coverage
         
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
