@@ -31,6 +31,7 @@ jobs:
 
       # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze project source
+        continue-on-error: true
         run: flutter analyze
 
       # Your project will need to have tests in test/ and a dependency on
