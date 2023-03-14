@@ -68,7 +68,7 @@ void main() async {
     pdf.addPage(await exportToPdfPage(exportContext));
   });
 
-  testWidgets('Text Widgets Alignement', (tester) async {
+  testWidgets('Text Widgets Alignment', (tester) async {
     final children = <Widget>[];
     for (final align in TextAlign.values.where((element) => element != TextAlign.end)) {
       children.add(
@@ -152,6 +152,155 @@ void main() async {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: children,
           ),
+        );
+      },
+    ));
+
+    pdf.addPage(await exportToPdfPage(exportContext));
+  });
+
+  testWidgets('Text Widgets Font', (tester) async {
+    final children = <Widget>[];
+    for (final font in ['Courier', 'Helvetica', 'Times', 'ZapfDingbats', 'Symbol']) {
+      children.add(
+        Text('Text with FontFamily $font',
+          style: TextStyle(
+            fontFamily: font,
+          ),
+        ),
+      );
+    }
+
+    late BuildContext exportContext;
+
+    await tester.pumpWidget(Builder(
+      builder: (BuildContext context) {
+        exportContext = context;
+        return Directionality(
+          textDirection: TextDirection.ltr,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: children,
+          ),
+        );
+      },
+    ));
+
+    pdf.addPage(await exportToPdfPage(exportContext));
+  });
+
+  testWidgets('Text Widgets FontStyle', (tester) async {
+    final children = <Widget>[];
+    for (final fontStyle in FontStyle.values) {
+      children.add(
+        Text('Text with FontStyle $fontStyle',
+          style: TextStyle(
+            fontStyle: fontStyle,
+          ),
+        ),
+      );
+    }
+
+    late BuildContext exportContext;
+
+    await tester.pumpWidget(Builder(
+      builder: (BuildContext context) {
+        exportContext = context;
+        return Directionality(
+          textDirection: TextDirection.ltr,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: children,
+          ),
+        );
+      },
+    ));
+
+    pdf.addPage(await exportToPdfPage(exportContext));
+  });
+
+  testWidgets('Text Widgets Decoration', (tester) async {
+    final children = <Widget>[];
+    final decorations = <TextDecoration>[
+      TextDecoration.lineThrough, 
+      TextDecoration.overline, 
+      TextDecoration.underline, 
+      TextDecoration.none,
+    ];
+    for (final decoration in decorations) {
+      children.add(
+        Text('Text with TextDecoration $decoration',
+          style: TextStyle(
+            decoration: decoration,
+          ),
+        ),
+      );
+    }
+
+    late BuildContext exportContext;
+
+    await tester.pumpWidget(Builder(
+      builder: (BuildContext context) {
+        exportContext = context;
+        return Directionality(
+          textDirection: TextDirection.ltr,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: children,
+          ),
+        );
+      },
+    ));
+
+    pdf.addPage(await exportToPdfPage(exportContext));
+  });
+
+  testWidgets('Text Widgets Overflow', (tester) async {
+    final children = <Widget>[];
+    for (final overflow in TextOverflow.values) {
+      children.add(
+        Text('Text with TextOverflow $overflow',
+          style: TextStyle(
+            overflow: overflow,
+          ),
+        ),
+      );
+    }
+
+    late BuildContext exportContext;
+
+    await tester.pumpWidget(Builder(
+      builder: (BuildContext context) {
+        exportContext = context;
+        return Directionality(
+          textDirection: TextDirection.ltr,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: children,
+          ),
+        );
+      },
+    ));
+
+    pdf.addPage(await exportToPdfPage(exportContext));
+  });
+
+  testWidgets('Text Widgets Direction', (tester) async {
+    late BuildContext exportContext;
+
+    await tester.pumpWidget(Builder(
+      builder: (BuildContext context) {
+        exportContext = context;
+        return const Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text('Text with TextDirection ltr',
+              textDirection: TextDirection.ltr,
+            ),
+            Text('Text with TextDirection rtl',
+              textDirection: TextDirection.rtl,
+            ),
+          ],
         );
       },
     ));
