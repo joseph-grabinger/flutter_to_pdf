@@ -183,7 +183,7 @@ void main() {
     }
   });
 
-  testWidgets('Multichild Widgets ListView builder', (tester) async {
+  testWidgets('Multichild Widgets ListView Builder', (tester) async {
     late BuildContext exportContext;
 
     for (final scrollDirection in Axis.values) {
@@ -201,6 +201,33 @@ void main() {
                   height: 10,
                   color: index%2 == 0 ?Colors.blue : Colors.red,
                 );
+              },
+            ),
+          );
+        },
+      ));
+
+      pdf.addPage(await exportToPdfPage(exportContext));
+    }
+  });
+
+  testWidgets('Multichild Widgets ListView Separated', (tester) async {
+    late BuildContext exportContext;
+
+    for (final scrollDirection in Axis.values) {
+      await tester.pumpWidget(Builder(
+        builder: (BuildContext context) {
+          exportContext = context;
+          return Directionality(
+            textDirection: TextDirection.ltr,
+            child: ListView.separated(
+              scrollDirection: scrollDirection,
+              itemCount: 100,
+              separatorBuilder: (BuildContext context, int index) {
+                return const Divider(height: 10);
+              },
+              itemBuilder: (BuildContext context, int index) {
+                return Text(index.toString());
               },
             ),
           );
