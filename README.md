@@ -11,6 +11,8 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
+[![codecov](https://codecov.io/gh/dunef-com/teaplates/branch/main/graph/badge.svg?token=5WIYFJ6VND)](https://codecov.io/gh/dunef-com/teaplates)
+
 The [teaplates](https://dunef.io/de) package lets you export any Flutter view to PDF Documents and is written natively in Dart.
 
 ## Installing
