@@ -56,6 +56,28 @@ void main() async {
     pdf.addPage(await exportToPdfPage(exportContext));
   });
 
+  testWidgets('Table Widgets VerticalAlign', (tester) async {
+    late BuildContext exportContext;
+
+    for (final verticalAlign in TableCellVerticalAlignment.values) {
+      await tester.pumpWidget(Builder(
+        builder: (BuildContext context) {
+          exportContext = context;
+          return Directionality(
+            textDirection: TextDirection.ltr,
+            child: Table(
+              defaultVerticalAlignment: verticalAlign,
+              border: TableBorder.all(),
+              children: buildTable(count: 20),
+            ),
+          );
+        },
+      ));
+
+      pdf.addPage(await exportToPdfPage(exportContext));
+    }
+  });
+
   tearDownAll(() async {
     final file = File('./test/output/widgets-table.pdf');
     file.writeAsBytesSync(await pdf.save());

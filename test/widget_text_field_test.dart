@@ -18,7 +18,7 @@ void main() {
   testWidgets('TextField Widgets TextField Empty', (tester) async {
     late BuildContext exportContext;
 
-    tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(MaterialApp(
       home: Material(
         child: Builder(
           builder: (BuildContext context) {
@@ -30,12 +30,15 @@ void main() {
     ));
 
     pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportToPdfPage(exportContext, options: ExportOptions(
+      textFieldOptions: TextFieldOptions.uniform(interactive: false),
+    )));
   });
 
   testWidgets('TextField Widgets TextField Value', (tester) async {
     late BuildContext exportContext;
 
-    tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(MaterialApp(
       home: Material(
         child: Builder(
           builder: (BuildContext context) {
@@ -49,12 +52,15 @@ void main() {
     ));
 
     pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportToPdfPage(exportContext, options: ExportOptions(
+      textFieldOptions: TextFieldOptions.uniform(interactive: false),
+    )));
   });
 
   testWidgets('TextField Widgets TextField Style', (tester) async {
     late BuildContext exportContext;
 
-    tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(MaterialApp(
       home: Material(
         child: Builder(
           builder: (BuildContext context) {
@@ -85,6 +91,9 @@ void main() {
     ));
 
     pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportToPdfPage(exportContext, options: ExportOptions(
+      textFieldOptions: TextFieldOptions.uniform(interactive: false),
+    )));
   });
 
   testWidgets('TextField Widgets TextField Decoration', (tester) async {
@@ -94,7 +103,7 @@ void main() {
 
     final radii = <double>[0.0, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0];
 
-    tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(MaterialApp(
       home: Material(
         child: Builder(
           builder: (BuildContext context) {
@@ -129,12 +138,15 @@ void main() {
     ));
 
     pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportToPdfPage(exportContext, options: ExportOptions(
+      textFieldOptions: TextFieldOptions.uniform(interactive: false),
+    )));
   });
 
   testWidgets('TextField Widgets TextFormField Empty', (tester) async {
     late BuildContext exportContext;
 
-    tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(MaterialApp(
       home: Material(
         child: Builder(
           builder: (BuildContext context) {
@@ -146,12 +158,15 @@ void main() {
     ));
 
     pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportToPdfPage(exportContext, options: ExportOptions(
+      textFieldOptions: TextFieldOptions.uniform(interactive: false),
+    )));
   });
 
   testWidgets('TextField Widgets TextFormField Value', (tester) async {
     late BuildContext exportContext;
 
-    tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(MaterialApp(
       home: Material(
         child: Builder(
           builder: (BuildContext context) {
@@ -165,12 +180,15 @@ void main() {
     ));
 
     pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportToPdfPage(exportContext, options: ExportOptions(
+      textFieldOptions: TextFieldOptions.uniform(interactive: false),
+    )));
   });
 
   testWidgets('TextField Widgets TextFormField Style', (tester) async {
     late BuildContext exportContext;
 
-    tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(MaterialApp(
       home: Material(
         child: Builder(
           builder: (BuildContext context) {
@@ -201,6 +219,9 @@ void main() {
     ));
 
     pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportToPdfPage(exportContext, options: ExportOptions(
+      textFieldOptions: TextFieldOptions.uniform(interactive: false),
+    )));
   });
 
   testWidgets('TextField Widgets TextFormField Decoration', (tester) async {
@@ -210,7 +231,7 @@ void main() {
 
     final radii = <double>[0.0, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0];
 
-    tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(MaterialApp(
       home: Material(
         child: Builder(
           builder: (BuildContext context) {
@@ -245,6 +266,9 @@ void main() {
     ));
 
     pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportToPdfPage(exportContext, options: ExportOptions(
+      textFieldOptions: TextFieldOptions.uniform(interactive: false),
+    )));
   });
 
   tearDownAll(() async {

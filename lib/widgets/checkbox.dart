@@ -47,7 +47,7 @@ extension CheckboxConverter on Checkbox {
         ) : null,
       );
     }
-  } 
+  }
 
   pw.BoxDecoration getCheckboxDecoration() {
     final pw.Border defaultBorder = pw.Border.all(
