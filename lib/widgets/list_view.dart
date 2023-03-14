@@ -10,7 +10,7 @@ extension ListViewConverter on ListView {
   pw.ListView toPdfWidget(List<pw.Widget> children) => pw.ListView(
     children: children,
     reverse: reverse,
-    padding: (padding as EdgeInsets).toPdfEdgeInsets(),
+    padding: (padding as EdgeInsets?)?.toPdfEdgeInsets(),
     direction: scrollDirection.toPdfAxis(),
   );
 }

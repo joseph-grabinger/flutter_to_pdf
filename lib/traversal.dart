@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import 'package:pdf/widgets.dart' as pw;
 
@@ -6,11 +7,17 @@ import 'options/export_options.dart';
 import 'widgets/container.dart';
 import 'widgets/center.dart';
 import 'widgets/sized_box.dart';
-import 'widgets/align.dart';
+import 'widgets/fitted_box.dart';
+import 'widgets/limited_box.dart';
+import 'widgets/constrained_box.dart';
+import 'widgets/transform.dart';
+import 'widgets/opacity.dart';
 import 'widgets/padding.dart';
+import 'widgets/align.dart';
 import 'widgets/positioned.dart';
 import 'widgets/expanded.dart';
 import 'widgets/flexible.dart';
+import 'widgets/placeholder.dart';
 import 'widgets/text.dart';
 import 'widgets/text_field.dart';
 import 'widgets/divider.dart';
@@ -44,19 +51,28 @@ Future<pw.Document> exportToPDF(BuildContext context, {
   return pdf;
 }
 
+/// Exports the provided [context] to a [pw.Page]
+/// and applies the [options].
+Future<pw.Page> exportToPdfPage(BuildContext context, {
+  ExportOptions options = const ExportOptions(),
+}) async {
+  final pw.Widget? pdfWidget = await traverseWidgetTree(context, options);
+
+  return pw.Page(
+    pageFormat: options.pageFormatOptions.getPageFormat(),
+    clip: options.pageFormatOptions.clip,
+    build: (pw.Context context) => pdfWidget!,
+  );
+}
+
 /// Traverses the widget tree of the provided [context]
 /// and returns the corresponding PDF widget tree.
 Future<pw.Widget?> traverseWidgetTree(BuildContext context, ExportOptions options) async {
   Element? element;
 
-  context.visitChildElements((Element e) async {
-    debugPrint('Initial: $e');
-    element = e;
-  });
+  context.visitChildElements((Element e) => element = e);
 
   pw.Widget? pdfWidget = (await matchWidget(element!, options)).first;
-
-  debugPrint('initial PDF Widget: $pdfWidget');
 
   return pdfWidget;
 }
@@ -76,13 +92,11 @@ Future<List<pw.Widget>> visit(Element element, ExportOptions options) async {
     children.addAll(await matchWidget(e, options));
   }
 
-  debugPrint('returned: $children');
-
   return children;
 }
 
 /// Matches the widget provided as [element]
-/// and appends the corresponding [pw.Widget] to [children].
+/// and returns the corresponding [pw.Widget].
 Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) async {
   final Widget widget = element.widget;
 
@@ -91,29 +105,54 @@ Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) asyn
       debugPrint('Reached Anchor');
       return [];
     case Container:
-      final List childWidgets = await visit(element, options);
+      final List children = await visit(element, options);
       return [await (widget as Container).toPdfWidget(
-        childWidgets.isNotEmpty ? childWidgets.first : null
+        children.isNotEmpty ? children.first : null
       )];
     case Center:
-      final List childWidgets = await visit(element, options);
+      final List children = await visit(element, options);
       return [(widget as Center).toPdfWidget(
-        childWidgets.isNotEmpty ? childWidgets.first : null
+        children.isNotEmpty ? children.first : null
       )];
     case SizedBox:
-      final List childWidgets = await visit(element, options);
+      final List children = await visit(element, options);
       return [(widget as SizedBox).toPdfWidget(
-        childWidgets.isNotEmpty ? childWidgets.first : null
+        children.isNotEmpty ? children.first : null
+      )];
+    case FittedBox:
+      final List children = await visit(element, options);
+      return [(widget as FittedBox).toPdfWidget(
+        children.isNotEmpty ? children.first : null
+      )];
+    case LimitedBox:
+      final List children = await visit(element, options);
+      return [(widget as LimitedBox).toPdfWidget(
+        children.isNotEmpty ? children.first : null
+      )];
+    case ConstrainedBox:
+      final List children = await visit(element, options);
+      return [(widget as ConstrainedBox).toPdfWidget(
+        children.isNotEmpty ? children.first : null
+      )];
+    case Transform:
+      final List children = await visit(element, options);
+      return [(widget as Transform).toPdfWidget(
+        children.isNotEmpty ? children.first : null
+      )];
+    case Opacity:
+      final List children = await visit(element, options);
+      return [(widget as Opacity).toPdfWidget(
+        children.isNotEmpty ? children.first : null
       )];
     case Padding:
-      final List childWidgets = await visit(element, options);
+      final List children = await visit(element, options);
       return [(widget as Padding).toPdfWidget(
-        childWidgets.isNotEmpty ? childWidgets.first : null
+        children.isNotEmpty ? children.first : null
       )];
     case Align:
-      final List childWidgets = await visit(element, options);
+      final List children = await visit(element, options);
       return [(widget as Align).toPdfWidget(
-        childWidgets.isNotEmpty ? childWidgets.first : null
+        children.isNotEmpty ? children.first : null
       )];
     case Positioned:
       return [(widget as Positioned).toPdfWidget((await visit(element, options)).first)];
@@ -121,6 +160,8 @@ Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) asyn
       return[(widget as Expanded).toPdfWidget((await visit(element, options)).first)];
     case Flexible:
       return [(widget as Flexible).toPdfWidget((await visit(element, options)).first)];
+    case Placeholder:
+      return [(widget as Placeholder).toPdfWidget()];
     case Text:
       return [(widget as Text).toPdfWidget()];
     case TextField:
@@ -145,7 +186,8 @@ Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) asyn
     case ListView:
         return [(widget as ListView).toPdfWidget(await visit(element, options))];
     case GridView:
-      return [(widget as GridView).toPdfWidget(await visit(element, options))];
+      final BoxConstraints constraints = (element.renderObject! as RenderRepaintBoundary).constraints;
+      return [(widget as GridView).toPdfWidget(await visit(element, options), constraints)];
     case Wrap:
       return [(widget as Wrap).toPdfWidget(await visit(element, options))];
     case Table:
