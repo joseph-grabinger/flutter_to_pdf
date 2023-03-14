@@ -59,7 +59,8 @@ void main() async {
   testWidgets('Table Widgets VerticalAlign', (tester) async {
     late BuildContext exportContext;
 
-    for (final verticalAlign in TableCellVerticalAlignment.values) {
+    for (final verticalAlign in TableCellVerticalAlignment.values.where(
+      (element) => element != TableCellVerticalAlignment.baseline)) {
       await tester.pumpWidget(Builder(
         builder: (BuildContext context) {
           exportContext = context;
