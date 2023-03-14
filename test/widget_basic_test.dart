@@ -242,6 +242,45 @@ void main() {
     pdf.addPage(await exportToPdfPage(exportContext));
   });
 
+  testWidgets('Basic Widgets Positioned', (tester) async {
+    late BuildContext exportContext;
+
+    tester.pumpWidget(Builder(
+      builder: (BuildContext context) {
+        exportContext = context;
+        return  const Directionality(
+          textDirection: TextDirection.ltr,
+          child: Stack(
+            children: [
+              Positioned(
+                top: 10,
+                left: 10,
+                  child: Text('Top Left', textScaleFactor: 3),
+              ),
+              Positioned(
+                top: 10,
+                right: 10,
+                  child: Text('Top Right', textScaleFactor: 3),
+              ),
+              Positioned(
+                bottom: 10,
+                left: 10,
+                  child: Text('Bottom Left', textScaleFactor: 3),
+              ),
+              Positioned(
+                bottom: 10,
+                right: 10,
+                  child: Text('Bottom Right', textScaleFactor: 3),
+              ),
+            ],
+          ),
+        );
+      },
+    ));
+
+    pdf.addPage(await exportToPdfPage(exportContext));
+  });
+
   tearDownAll(() async {
     final file = File('./test/output/widgets-basic.pdf');
     file.writeAsBytesSync(await pdf.save());
