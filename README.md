@@ -21,14 +21,14 @@ The [FlutterToPDF](https://dunef.io/de) package lets you export any Flutter view
 Run this command:
 
 ```shell
-$ flutter pub add teaplates
+$ flutter pub add flutter_to_pdf
 ```
 
 This will add a line like this to your package's pubspec.yaml (and run an implicit `flutter pub get`):
 
 ```yaml
 dependencies:
-    teaplates: ^0.0.1
+    flutter_to_pdf: ^0.0.1
 ```
 
 Alternatively, your editor might support `flutter pub get`. Check the docs for your editor to learn more.
@@ -37,7 +37,7 @@ Alternatively, your editor might support `flutter pub get`. Check the docs for y
 Now in your Dart code, you can use:
 
 ```dart
-import 'package:teaplates/teaplates.dart';
+import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 ```
 
 ## Features

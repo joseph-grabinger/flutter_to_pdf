@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:teaplates/teaplates.dart';
+import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
 import 'examples/document_example.dart';
 import 'examples/image_example.dart';

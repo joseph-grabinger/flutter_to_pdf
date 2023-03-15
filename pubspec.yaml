@@ -1,5 +1,5 @@
-name: teaplates
-description: A package to export any Flutter view to aPDF.
+name: flutter_to_pdf
+description: A package to export any Flutter view to a PDF.
 version: 0.0.1
 homepage:
 

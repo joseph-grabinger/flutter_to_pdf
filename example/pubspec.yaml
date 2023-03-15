@@ -31,7 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  teaplates:
+  flutter_to_pdf:
     path: ../
 
   path_provider: ^2.0.12

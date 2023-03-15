@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart' show ConstrainedBox;
 
 import 'package:pdf/widgets.dart' as pw show ConstrainedBox, Widget;
-import 'package:teaplates/args/box_constraints.dart';
+
+import '/args/box_constraints.dart';
 
 
 extension ConstrainedBoxConverter on ConstrainedBox {

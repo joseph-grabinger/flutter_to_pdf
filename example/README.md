@@ -2,7 +2,7 @@
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:teaplates/teaplates.dart';
+import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
 Builder(
   builder: (BuildContext context) {

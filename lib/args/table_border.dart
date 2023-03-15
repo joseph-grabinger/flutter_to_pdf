@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart' show TableBorder;
 
 import 'package:pdf/widgets.dart' as pw show TableBorder;
-import 'package:teaplates/args/border_side.dart';
+
+import '/args/border_side.dart';
 
 
 extension TableBorderConverter on TableBorder {
