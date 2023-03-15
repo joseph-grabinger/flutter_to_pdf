@@ -29,5 +29,8 @@ migrate_working_dir/
 .packages
 build/
 
+# Coverage directory
+coverage/
+
 # Test output directory
 test/output/
