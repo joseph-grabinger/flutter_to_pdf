@@ -15,11 +15,11 @@ void main() => runApp(const Demo());
 class Demo extends StatelessWidget {
   const Demo({super.key});
 
-  static Map<String, Widget> examples = {
+  static final Map<String, Widget> examples = {
     'Document Example': const DocumentExample(),
     'Image Example': imageExample,
     'Table Example': tableExample,
-    'Button Example': buttonExample
+    'Button Example': buttonExample,
   };
 
   @override
@@ -31,7 +31,7 @@ class Demo extends StatelessWidget {
     home: Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: const Text('Teaplates Demo'),
+        title: const Text('Flutter to PDF - Demo'),
       ),
       body: ListView.builder(
         itemCount: examples.length,
@@ -39,16 +39,12 @@ class Demo extends StatelessWidget {
           final MapEntry<String, Widget> example = examples.entries.toList()[index];
           return ListTile(
             title: Text(example.key),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) => ExamplePage(
-                    title: example.key,
-                    example: example.value,
-                  ),
-                ),
-              );
-            },
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) => ExamplePage(
+                title: example.key,
+                example: example.value,
+              )),
+            ),
           );
         },
       ),
@@ -78,7 +74,7 @@ class _ExamplePageState extends State<ExamplePage> {
     final File file = File('${dir.path}/$name.pdf');
 
     await file.writeAsBytes(await doc.save());
-    print('Saved exported PDF at: ${file.path}');
+    debugPrint('Saved exported PDF at: ${file.path}');
   }
 
   @override
@@ -100,7 +96,6 @@ class _ExamplePageState extends State<ExamplePage> {
                 checkboxOptions: CheckboxOptions.uniform(
                   interactive: false,
                 ),
-                // pageFormatOptions: PageFormatOptions.screenSize(context),
               ),
             );
             saveFile(pdf, 'static-example');
