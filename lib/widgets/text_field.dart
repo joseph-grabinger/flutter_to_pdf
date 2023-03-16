@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' show TextField;
 
 import 'package:pdf/pdf.dart' show PdfColors, PdfFieldFlags;
-import 'package:pdf/widgets.dart' as pw show TextField, Text, Widget, Container, EdgeInsets, Stack, Positioned, Transform;
+import 'package:pdf/widgets.dart' as pw show TextField, Text, Widget, Container, EdgeInsets, Stack, Positioned, Transform, Alignment, StackFit;
 
 import '../traversal.dart';
 import '/options/export_options.dart';
@@ -33,6 +33,8 @@ extension TextFieldConverter on TextField {
     }
 
     return pw.Stack(
+      alignment: pw.Alignment.center,
+      fit: pw.StackFit.passthrough,
       children: [
         pw.Container(
           padding: const pw.EdgeInsets.all(4.0),
