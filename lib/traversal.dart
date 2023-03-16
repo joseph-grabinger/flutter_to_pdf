@@ -10,6 +10,7 @@ import 'widgets/sized_box.dart';
 import 'widgets/fitted_box.dart';
 import 'widgets/limited_box.dart';
 import 'widgets/constrained_box.dart';
+import 'widgets/clip.dart';
 import 'widgets/transform.dart';
 import 'widgets/opacity.dart';
 import 'widgets/padding.dart';
@@ -132,6 +133,21 @@ Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) asyn
     case ConstrainedBox:
       final List children = await visit(element, options);
       return [(widget as ConstrainedBox).toPdfWidget(
+        children.isNotEmpty ? children.first : null
+      )];
+    case ClipRect:
+      final List children = await visit(element, options);
+      return [(widget as ClipRect).toPdfWidget(
+        children.isNotEmpty ? children.first : null
+      )];
+    case ClipRRect:
+      final List children = await visit(element, options);
+      return [(widget as ClipRRect).toPdfWidget(
+        children.isNotEmpty ? children.first : null
+      )];
+    case ClipOval:
+      final List children = await visit(element, options);
+      return [(widget as ClipOval).toPdfWidget(
         children.isNotEmpty ? children.first : null
       )];
     case Transform:
