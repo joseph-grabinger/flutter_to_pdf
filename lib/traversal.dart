@@ -181,7 +181,7 @@ Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) asyn
     case Text:
       return [(widget as Text).toPdfWidget()];
     case TextField:
-      return [(widget as TextField).toPdfWidget(options.textFieldOptions)];
+      return [await (widget as TextField).toPdfWidget(options)];
     case Divider:
       return [(widget as Divider).toPdfWidget()];
     case Image:
