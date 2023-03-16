@@ -12,4 +12,8 @@ extension BorderRadiusConverter on BorderRadius {
     bottomLeft: bottomLeft.toPdfRadius(),
     bottomRight: bottomRight.toPdfRadius(),
   );
+
+  double toPdfHorizontalRadius() => topLeft.x;
+
+  double toPdfVerticalRadius() => topLeft.y;
 }
