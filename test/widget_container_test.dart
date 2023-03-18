@@ -8,6 +8,7 @@ import 'utils.dart';
 
 
 late Document pdf;
+const ExportDelegate exportDelegate = ExportDelegate();
 
 void main() {
   setUpAll(() {
@@ -32,7 +33,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Container Widget BoxShape Border', (tester) async {
@@ -76,7 +77,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Container Widget Image', (tester) async {
@@ -121,7 +122,7 @@ void main() {
     ));
 
     await tester.runAsync(() async {
-      pdf.addPage(await exportToPdfPage(exportContext));
+      pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
     });
   });
 
@@ -156,7 +157,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Container Widget RadialGradient', (tester) async {
@@ -190,7 +191,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Container Widget BoxShadow Rectangle', (tester) async {
@@ -218,7 +219,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Container Widget BoxShadow Ellipse', (tester) async {
@@ -247,7 +248,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   tearDownAll(() async {

@@ -6,6 +6,7 @@ import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
 
 late Document pdf;
+const ExportDelegate exportDelegate = ExportDelegate();
 
 void main() {
   setUpAll(() {
@@ -52,7 +53,7 @@ void main() {
           },
         ));
 
-        pdf.addPage(await exportToPdfPage(exportContext));
+        pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
       }
     }
   });
@@ -96,7 +97,7 @@ void main() {
           },
         ));
 
-        pdf.addPage(await exportToPdfPage(exportContext));
+        pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
       }
     }
   });
@@ -137,7 +138,7 @@ void main() {
         },
       ));
 
-      pdf.addPage(await exportToPdfPage(exportContext));
+      pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
     }
   });
 
@@ -179,7 +180,7 @@ void main() {
         },
       ));
 
-      pdf.addPage(await exportToPdfPage(exportContext));
+      pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
     }
   });
 
@@ -207,7 +208,7 @@ void main() {
         },
       ));
 
-      pdf.addPage(await exportToPdfPage(exportContext));
+      pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
     }
   });
 
@@ -234,7 +235,7 @@ void main() {
         },
       ));
 
-      pdf.addPage(await exportToPdfPage(exportContext));
+      pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
     }
   });
 

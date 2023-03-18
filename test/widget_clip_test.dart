@@ -6,6 +6,7 @@ import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
 
 late Document pdf;
+const ExportDelegate exportDelegate = ExportDelegate();
 
 void main() {
   setUpAll(() {
@@ -36,7 +37,7 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Clip Widgets ClipRRect', (tester) async {
@@ -60,7 +61,7 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Clip Widgets ClipOval', (tester) async {
@@ -83,7 +84,7 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   tearDownAll(() async {

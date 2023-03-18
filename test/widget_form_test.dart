@@ -6,6 +6,11 @@ import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
 
 late Document pdf;
+const ExportDelegate exportDelegate1 = ExportDelegate();
+ExportDelegate exportDelegate2 = ExportDelegate(options: ExportOptions(
+  checkboxOptions: CheckboxOptions.uniform(interactive: false),
+));
+
 
 void main() {
   setUpAll(() {
@@ -38,10 +43,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
-    pdf.addPage(await exportToPdfPage(exportContext, options: ExportOptions(
-      checkboxOptions: CheckboxOptions.uniform(interactive: false),
-    )));
+    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
   });
 
   testWidgets('Form Widgets Checkbox Decoration', (tester) async {
@@ -82,10 +85,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
-    pdf.addPage(await exportToPdfPage(exportContext, options: ExportOptions(
-      checkboxOptions: CheckboxOptions.uniform(interactive: false),
-    )));
+    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
   });
 
   testWidgets('Form Widgets Button Basic', (tester) async {
@@ -121,7 +122,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
   });
 
   testWidgets('Form Widgets Button Style', (tester) async {
@@ -193,7 +194,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
   });
 
   tearDownAll(() async {

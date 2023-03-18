@@ -6,6 +6,7 @@ import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
 
 late Document pdf;
+const ExportDelegate exportDelegate = ExportDelegate();
 
 void main() {
   setUpAll(() {
@@ -30,7 +31,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Basic Widgets Align 2', (tester) async {
@@ -50,7 +51,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Basic Widgets AspectRatio', (tester) async {
@@ -66,7 +67,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Basic Widgets Center', (tester) async {
@@ -85,7 +86,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Basic Widgets ConstrainedBox', (tester) async {
@@ -101,7 +102,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Basic Widgets FittedBox', (tester) async {
@@ -131,7 +132,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Basic Widgets LimitedBox', (tester) async {
@@ -154,7 +155,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Basic Widgets Padding', (tester) async {
@@ -174,7 +175,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Basic Widgets SizedBox', (tester) async {
@@ -191,7 +192,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Basic Widgets Transform', (tester) async {
@@ -210,7 +211,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Basic Widgets Opacity', (tester) async {
@@ -239,7 +240,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Basic Widgets Positioned', (tester) async {
@@ -278,7 +279,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   tearDownAll(() async {

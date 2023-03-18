@@ -8,6 +8,10 @@ import 'utils.dart';
 
 
 late Document pdf;
+const ExportDelegate exportDelegate1 = ExportDelegate();
+ExportDelegate exportDelegate2 = ExportDelegate(options: ExportOptions(
+  textFieldOptions: TextFieldOptions.uniform(interactive: false),
+));
 
 void main() {
   setUpAll(() {
@@ -29,10 +33,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
-    pdf.addPage(await exportToPdfPage(exportContext, options: ExportOptions(
-      textFieldOptions: TextFieldOptions.uniform(interactive: false),
-    )));
+    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
   });
 
   testWidgets('TextField Widgets TextField Value', (tester) async {
@@ -51,10 +53,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
-    pdf.addPage(await exportToPdfPage(exportContext, options: ExportOptions(
-      textFieldOptions: TextFieldOptions.uniform(interactive: false),
-    )));
+    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
   });
 
   testWidgets('TextField Widgets TextField Style', (tester) async {
@@ -90,10 +90,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
-    pdf.addPage(await exportToPdfPage(exportContext, options: ExportOptions(
-      textFieldOptions: TextFieldOptions.uniform(interactive: false),
-    )));
+    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
   });
 
   testWidgets('TextField Widgets TextField Decoration', (tester) async {
@@ -137,10 +135,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
-    pdf.addPage(await exportToPdfPage(exportContext, options: ExportOptions(
-      textFieldOptions: TextFieldOptions.uniform(interactive: false),
-    )));
+    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
   });
 
   testWidgets('TextField Widgets TextFormField Empty', (tester) async {
@@ -157,10 +153,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
-    pdf.addPage(await exportToPdfPage(exportContext, options: ExportOptions(
-      textFieldOptions: TextFieldOptions.uniform(interactive: false),
-    )));
+    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
   });
 
   testWidgets('TextField Widgets TextFormField Value', (tester) async {
@@ -179,10 +173,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
-    pdf.addPage(await exportToPdfPage(exportContext, options: ExportOptions(
-      textFieldOptions: TextFieldOptions.uniform(interactive: false),
-    )));
+    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
   });
 
   testWidgets('TextField Widgets TextFormField Style', (tester) async {
@@ -218,10 +210,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
-    pdf.addPage(await exportToPdfPage(exportContext, options: ExportOptions(
-      textFieldOptions: TextFieldOptions.uniform(interactive: false),
-    )));
+    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
   });
 
   testWidgets('TextField Widgets TextFormField Decoration', (tester) async {
@@ -265,10 +255,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
-    pdf.addPage(await exportToPdfPage(exportContext, options: ExportOptions(
-      textFieldOptions: TextFieldOptions.uniform(interactive: false),
-    )));
+    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
   });
 
   tearDownAll(() async {

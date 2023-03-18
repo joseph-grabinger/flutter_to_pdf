@@ -6,6 +6,7 @@ import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
 
 late Document pdf;
+const ExportDelegate exportDelegate = ExportDelegate();
 
 void main() async {
   setUpAll(() {
@@ -26,7 +27,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Text Widgets SoftWrap', (tester) async {
@@ -65,7 +66,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Text Widgets Alignment', (tester) async {
@@ -96,7 +97,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Text Widgets WordSpacing', (tester) async {
@@ -126,7 +127,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Text Widgets LetterSpacing', (tester) async {
@@ -156,7 +157,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Text Widgets Font', (tester) async {
@@ -186,7 +187,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Text Widgets FontStyle', (tester) async {
@@ -216,7 +217,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Text Widgets Decoration', (tester) async {
@@ -252,7 +253,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Text Widgets Overflow', (tester) async {
@@ -282,7 +283,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Text Widgets Direction', (tester) async {
@@ -305,7 +306,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
 tearDownAll(() async {

@@ -6,6 +6,7 @@ import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
 
 late Document pdf;
+const ExportDelegate exportDelegate = ExportDelegate();
 
 void main() async {
   setUpAll(() {
@@ -32,7 +33,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('GridView Widgets Vertical', (tester) async {
@@ -57,7 +58,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('GridView Widgets Horizontal', (tester) async {
@@ -82,7 +83,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('GridView Widgets Count', (tester) async {
@@ -103,7 +104,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('GridView Widgets Extent', (tester) async {
@@ -124,7 +125,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   tearDownAll(() async {

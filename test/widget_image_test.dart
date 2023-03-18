@@ -8,6 +8,7 @@ import 'utils.dart';
 
 
 late Document pdf;
+const ExportDelegate exportDelegate = ExportDelegate();
 
 void main() {
   setUpAll(() {
@@ -44,7 +45,7 @@ void main() {
     ));
 
     await tester.runAsync(() async {
-      pdf.addPage(await exportToPdfPage(exportContext));
+      pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
     });
   });
 

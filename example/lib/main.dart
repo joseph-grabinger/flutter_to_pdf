@@ -20,6 +20,7 @@ class Demo extends StatelessWidget {
     'Image Example': imageExample,
     'Table Example': tableExample,
     'Button Example': buttonExample,
+    'Responsize Layout Example': const DocumentExample(),
   };
 
   @override
@@ -69,7 +70,7 @@ class ExamplePage extends StatefulWidget {
 class _ExamplePageState extends State<ExamplePage> {
   late BuildContext exportContext;
 
-  void saveFile(Document doc, String name) async {
+  Future<void> saveFile(Document doc, String name) async {
     final Directory dir = await getApplicationDocumentsDirectory();
     final File file = File('${dir.path}/$name.pdf');
 
@@ -88,7 +89,7 @@ class _ExamplePageState extends State<ExamplePage> {
       children: [
         TextButton(
           onPressed: () async {
-            final Document pdf = await exportToPDF(exportContext, 
+            final ExportDelegate exportDelegate = ExportDelegate(
               options: ExportOptions(
                 textFieldOptions: TextFieldOptions.uniform(
                   interactive: false, 
@@ -98,6 +99,12 @@ class _ExamplePageState extends State<ExamplePage> {
                 ),
               ),
             );
+            // final Document pdf = await exportDelegate.exportToPDF(exportContext);
+            // await saveFile(pdf, 'static-example');
+            final Document pdf = Document();
+            var page = await exportDelegate.exportWidgetToPdfPage(widget.example);
+
+            pdf.addPage(page);
             saveFile(pdf, 'static-example');
           },
           child: const Row(
@@ -109,7 +116,8 @@ class _ExamplePageState extends State<ExamplePage> {
         ),
         TextButton(
           onPressed: () async {
-            final Document pdf = await exportToPDF(exportContext);
+            const ExportDelegate exportDelegate = ExportDelegate();
+            final Document pdf = await exportDelegate.exportToPDF(exportContext);
             saveFile(pdf, 'interactive-example');
           },
           child: const Row(

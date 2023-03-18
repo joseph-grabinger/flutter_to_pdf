@@ -7,6 +7,7 @@ import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
 
 late Document pdf;
+const ExportDelegate exportDelegate = ExportDelegate();
 
 void main() async {
   setUpAll(() {
@@ -29,7 +30,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Table Widgets Widths', (tester) async {
@@ -53,7 +54,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
   });
 
   testWidgets('Table Widgets VerticalAlign', (tester) async {
@@ -75,7 +76,7 @@ void main() async {
         },
       ));
 
-      pdf.addPage(await exportToPdfPage(exportContext));
+      pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
     }
   });
 

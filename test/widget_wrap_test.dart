@@ -9,6 +9,12 @@ import 'utils.dart';
 
 
 late Document pdf;
+const ExportDelegate exportDelegate1 = ExportDelegate();
+const ExportDelegate exportDelegate2 =  ExportDelegate(
+  options: ExportOptions(
+    pageFormatOptions: PageFormatOptions.custom(width: 1000, height: 500),
+  ),
+);
 
 void main() {
   setUpAll(() {
@@ -47,7 +53,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
   });
 
   testWidgets('Wrap Widgets Wrap Horizontal 2', (tester) async {
@@ -84,7 +90,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
   });
 
   testWidgets('Wrap Widgets Wrap Vertical 1', (tester) async {
@@ -120,11 +126,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext,
-      options: const ExportOptions(
-          pageFormatOptions: PageFormatOptions.custom(width: 1000, height: 500),
-        ),
-    ));
+    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
   });
 
   testWidgets('Wrap Widgets Wrap Vertical 2', (tester) async {
@@ -165,11 +167,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext, 
-      options: const ExportOptions(
-        pageFormatOptions: PageFormatOptions.custom(width: 1000, height: 500),
-      ),
-    ));
+    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
   });
 
   testWidgets('Wrap Widgets Empty', (tester) async {
@@ -187,7 +185,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
   });
 
   tearDownAll(() async {
