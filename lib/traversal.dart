@@ -21,6 +21,18 @@ class ExportDelegate {
     _registeredFrames[frame.frameId] = frame;
   }
 
+  /// Returns the [ExportFrame] with the given [frameId].
+  /// Throws an [Exception] if no [ExportFrame] is found.
+  ExportFrame getFrame(String frameId) {
+    final ExportFrame? frame = _registeredFrames[frameId];
+
+    if (frame == null) {
+      throw Exception('No frame with id $frameId found');
+    }
+
+    return frame;
+  }
+
   /// Copies the [ExportDelegate] with the given [options].
   ExportDelegate copyWith({ExportOptions? options}) {
     return ExportDelegate(options: options ?? this.options);
@@ -40,6 +52,17 @@ class ExportDelegate {
     }
 
     return await exportToPdfDocument(frame.exportChild, frame.exportContext!);
+  }
+
+  Future<pw.Page> exportFrameToPdfPage(String frameId, {ExportOptions? overrideOptions}) async {
+    final ExportFrame frame = getFrame(frameId);
+
+    if (overrideOptions != null) {
+      ExportDelegate delegate = copyWith(options: overrideOptions);
+      return await delegate.exportToPdfPage(frame.exportChild, frame.exportContext!);
+    }
+
+    return await exportToPdfPage(frame.exportChild, frame.exportContext!);
   }
 
   /// Exports the given [widget] to a [pw.Widget].
