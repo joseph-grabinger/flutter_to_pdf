@@ -9,9 +9,9 @@ import 'utils.dart';
 
 
 late Document pdf;
-const ExportDelegate exportDelegate1 = ExportDelegate();
-const ExportDelegate exportDelegate2 =  ExportDelegate(
-  options: ExportOptions(
+final ExportDelegate exportDelegate1 = ExportDelegate();
+final ExportDelegate exportDelegate2 =  ExportDelegate(
+  options: const ExportOptions(
     pageFormatOptions: PageFormatOptions.custom(width: 1000, height: 500),
   ),
 );

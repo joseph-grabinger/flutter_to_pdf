@@ -8,8 +8,8 @@ import 'utils.dart';
 
 
 late Document pdf;
-const ExportDelegate exportDelegate1 = ExportDelegate();
-ExportDelegate exportDelegate2 = ExportDelegate(options: ExportOptions(
+final ExportDelegate exportDelegate1 = ExportDelegate();
+final ExportDelegate exportDelegate2 = ExportDelegate(options: ExportOptions(
   textFieldOptions: TextFieldOptions.uniform(interactive: false),
 ));
 

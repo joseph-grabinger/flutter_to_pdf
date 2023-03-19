@@ -8,7 +8,7 @@ import 'utils.dart';
 
 
 late Document pdf;
-const ExportDelegate exportDelegate = ExportDelegate();
+final ExportDelegate exportDelegate = ExportDelegate();
 
 void main() {
   setUpAll(() {

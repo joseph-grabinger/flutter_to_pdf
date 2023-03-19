@@ -6,8 +6,8 @@ import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
 
 late Document pdf;
-const ExportDelegate exportDelegate1 = ExportDelegate();
-ExportDelegate exportDelegate2 = ExportDelegate(options: ExportOptions(
+final ExportDelegate exportDelegate1 = ExportDelegate();
+final ExportDelegate exportDelegate2 = ExportDelegate(options: ExportOptions(
   checkboxOptions: CheckboxOptions.uniform(interactive: false),
 ));
 

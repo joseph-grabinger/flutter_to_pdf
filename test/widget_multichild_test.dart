@@ -6,7 +6,7 @@ import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
 
 late Document pdf;
-const ExportDelegate exportDelegate = ExportDelegate();
+final ExportDelegate exportDelegate = ExportDelegate();
 
 void main() {
   setUpAll(() {
