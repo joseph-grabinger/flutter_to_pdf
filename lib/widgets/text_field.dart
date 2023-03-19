@@ -17,18 +17,16 @@ extension TextFieldConverter on TextField {
     pw.Widget? label;
 
     if (textField.decoration?.label != null) {
-      final pw.Widget? labelWidget = await delegate.exportToPdfWidget(textField.decoration!.label!);
+      final pw.Widget labelWidget = await delegate.exportToPdfWidget(textField.decoration!.label!, null);
 
-      if (labelWidget != null) {
-        label = pw.Transform.scale(
-          scale: 0.6,
-          child: pw.Container(
-            color: PdfColors.white,
-            padding: const pw.EdgeInsets.symmetric(horizontal: 2.0),
-            child: labelWidget,
-          ),
-        );
-      }
+      label = pw.Transform.scale(
+        scale: 0.6,
+        child: pw.Container(
+          color: PdfColors.white,
+          padding: const pw.EdgeInsets.symmetric(horizontal: 2.0),
+          child: labelWidget,
+        ),
+      );
     }
 
     return pw.Stack(

@@ -4,12 +4,12 @@ import 'traversal.dart';
 
 
 class ExportFrame extends StatelessWidget {
-  final String id;
+  final String frameId;
   final ExportDelegate exportDelegate;
   final Widget child;
 
   const ExportFrame({
-    required this.id,
+    required this.frameId,
     required this.exportDelegate, 
     required this.child, 
     super.key,

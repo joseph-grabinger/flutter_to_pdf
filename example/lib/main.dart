@@ -89,22 +89,15 @@ class _ExamplePageState extends State<ExamplePage> {
       children: [
         TextButton(
           onPressed: () async {
-            final ExportDelegate exportDelegate = ExportDelegate(
-              options: ExportOptions(
-                textFieldOptions: TextFieldOptions.uniform(
-                  interactive: false, 
-                ),
-                checkboxOptions: CheckboxOptions.uniform(
-                  interactive: false,
-                ),
+            final ExportOptions overrideOptions = ExportOptions(
+              textFieldOptions: TextFieldOptions.uniform(
+                interactive: false, 
+              ),
+              checkboxOptions: CheckboxOptions.uniform(
+                interactive: false,
               ),
             );
-            // final Document pdf = await exportDelegate.exportToPDF(exportContext);
-            // await saveFile(pdf, 'static-example');
-            final Document pdf = Document();
-            var page = await exportDelegate.exportWidgetToPdfPage(widget.example);
-
-            pdf.addPage(page);
+            final Document pdf = await exportDelegate.exportFrame('test', overrideOptions: overrideOptions);
             saveFile(pdf, 'static-example');
           },
           child: const Row(
@@ -116,7 +109,7 @@ class _ExamplePageState extends State<ExamplePage> {
         ),
         TextButton(
           onPressed: () async {
-            final Document pdf = await  exportDelegate.exportFrame('test');
+            final Document pdf = await exportDelegate.exportFrame('test');
             // final Document pdf = await exportDelegate.exportToPDF(exportContext);
             saveFile(pdf, 'interactive-example');
           },
@@ -130,7 +123,7 @@ class _ExamplePageState extends State<ExamplePage> {
       ],
     ),
     body: ExportFrame(
-      id: 'test',
+      frameId: 'test',
       exportDelegate: exportDelegate,
       child: widget.example
     ),

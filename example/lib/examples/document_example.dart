@@ -56,7 +56,8 @@ class _DocumentExampleState extends State<DocumentExample> {
             height: 100,
             width: 500,
             decoration: BoxDecoration(
-              color: MediaQuery.of(context).size.width > 700 ? Colors.grey : Colors.red,
+              color: MediaQuery.of(context).size.width > 700 
+                ? Colors.grey : Colors.red,
               borderRadius: BorderRadius.circular(10.0),
               border: Border.all(color: Colors.grey)
             ),
@@ -67,7 +68,7 @@ class _DocumentExampleState extends State<DocumentExample> {
             InkWell(
               borderRadius: BorderRadius.circular(50),
               onHover: (value) {
-                print('hover : $value');
+                debugPrint('hover : $value');
                 setState(() => imageHover = value);
               },
               onTap: () {},

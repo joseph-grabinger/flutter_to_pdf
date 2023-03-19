@@ -84,7 +84,7 @@ Future<Element?> layoutWidget(Widget widget, Size size) async {
       child: MaterialApp(
         home: Material(
           child: Directionality(
-            key: exportFrameKey,
+            key: exportFrameKey, // TODO: check if exportFrameKey can also be added to the ExportFrame
             textDirection: TextDirection.ltr,
             child: widget,
           ),
