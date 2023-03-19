@@ -11,35 +11,39 @@ import '/args/box_decoration.dart';
 
 
 extension CheckboxConverter on Checkbox {
-  Future<pw.Widget> toPdfWidget(CheckboxOptions options) async {
+  Future<pw.Widget> toPdfWidget(CheckboxOptions options, Checkbox? contextWidget) async {
+    final Checkbox checkbox = contextWidget ?? this;
+
     if (options.interactive) {
       return pw.Checkbox(
-        name: hashCode.toString(),
-        value: value!,
-        tristate: tristate,
-        activeColor: activeColor?.toPdfColor() ?? PdfColors.blue,
-        checkColor: checkColor?.toPdfColor() ?? PdfColors.white,
-        decoration: (await options.getBoxDecoration(key)?.toPdfBoxDecoration()) ?? getCheckboxDecoration(),
+        name: checkbox.hashCode.toString(),
+        value: checkbox.value!,
+        tristate: checkbox.tristate,
+        activeColor: checkbox.activeColor?.toPdfColor() ?? PdfColors.blue,
+        checkColor: checkbox.checkColor?.toPdfColor() ?? PdfColors.white,
+        decoration: (await options.getBoxDecoration(checkbox.key)?.toPdfBoxDecoration())
+            ?? getCheckboxDecoration(checkbox),
       );
     } else {
       return pw.Container(
         height: 13,
         width: 13,
-        decoration: value == null || !value!
-          ? (await options.getBoxDecoration(key)?.toPdfBoxDecoration()) ?? getCheckboxDecoration()
+        decoration: checkbox.value == null || !checkbox.value!
+          ? (await options.getBoxDecoration(checkbox.key)?.toPdfBoxDecoration())
+              ?? getCheckboxDecoration(checkbox)
           : null,
-        child: value != null && value! ? pw.Center(
+        child: checkbox.value != null && checkbox.value! ? pw.Center(
           child: pw.CustomPaint(
             size: const PdfPoint(13, 13),
             painter: (PdfGraphics canvas, PdfPoint size) {
               canvas
                 ..drawRect(0, 0, 13, 13)
-                ..setFillColor(activeColor?.toPdfColor() ?? PdfColors.blue)
+                ..setFillColor(checkbox.activeColor?.toPdfColor() ?? PdfColors.blue)
                 ..fillPath()
                 ..moveTo(2, 13 / 2)
                 ..lineTo(13 / 3, 13 / 4)
                 ..lineTo(13 - 2, 13 / 4 * 3)
-                ..setStrokeColor(checkColor?.toPdfColor() ?? PdfColors.white)
+                ..setStrokeColor(checkbox.checkColor?.toPdfColor() ?? PdfColors.white)
                 ..setLineWidth(2)
                 ..strokePath();
             },
@@ -48,30 +52,30 @@ extension CheckboxConverter on Checkbox {
       );
     }
   }
+}
 
-  pw.BoxDecoration getCheckboxDecoration() {
-    final pw.Border defaultBorder = pw.Border.all(
-      color: side?.color.toPdfColor() ?? PdfColors.black, 
-      width: side?.width ?? 1.0,
-      style: side?.style.toPdfBorderStyle() ?? pw.BorderStyle.solid,
-    );
+pw.BoxDecoration getCheckboxDecoration(Checkbox checkbox) {
+  final pw.Border defaultBorder = pw.Border.all(
+    color: checkbox.side?.color.toPdfColor() ?? PdfColors.black, 
+    width: checkbox.side?.width ?? 1.0,
+    style: checkbox.side?.style.toPdfBorderStyle() ?? pw.BorderStyle.solid,
+  );
 
-    switch (shape.runtimeType) {
-      case RoundedRectangleBorder:
-        return pw.BoxDecoration(
-          color: fillColor?.resolve({})?.toPdfColor(),
-          borderRadius: ((shape as RoundedRectangleBorder).borderRadius as BorderRadius).toPdfBorderRadius(),
-          border: defaultBorder,
-        );
-      case CircleBorder:
-        return pw.BoxDecoration(
-          shape: pw.BoxShape.circle,
-          color: fillColor?.resolve({})?.toPdfColor(),
-          border: defaultBorder,
-        );
-      default:
-        debugPrint('Unsupported OutlineBorder: $this');
-        return const pw.BoxDecoration();
-    }
+  switch (checkbox.shape.runtimeType) {
+    case RoundedRectangleBorder:
+      return pw.BoxDecoration(
+        color: checkbox.fillColor?.resolve({})?.toPdfColor(),
+        borderRadius: ((checkbox.shape as RoundedRectangleBorder).borderRadius as BorderRadius).toPdfBorderRadius(),
+        border: defaultBorder,
+      );
+    case CircleBorder:
+      return pw.BoxDecoration(
+        shape: pw.BoxShape.circle,
+        color: checkbox.fillColor?.resolve({})?.toPdfColor(),
+        border: defaultBorder,
+      );
+    default:
+      debugPrint('Unsupported OutlineBorder: ${checkbox.shape.runtimeType}');
+      return const pw.BoxDecoration();
   }
 }

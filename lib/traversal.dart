@@ -259,7 +259,13 @@ class ExportDelegate {
       case Image:
         return [await (widget as Image).toPdfWidget()];
       case Checkbox:
-        return [await (widget as Checkbox).toPdfWidget(options.checkboxOptions)];
+        Checkbox? contextWidget;
+        if (context != null) {
+          Element? contextElement = findElement(context,
+            (Checkbox e) => true);
+          contextWidget = contextElement!.widget as Checkbox;
+        }
+        return [await (widget as Checkbox).toPdfWidget(options.checkboxOptions, contextWidget)];
       case TextButton:
       case ElevatedButton:
       case OutlinedButton:
