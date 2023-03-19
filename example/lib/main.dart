@@ -70,6 +70,8 @@ class ExamplePage extends StatefulWidget {
 class _ExamplePageState extends State<ExamplePage> {
   late BuildContext exportContext;
 
+  final ExportDelegate exportDelegate = ExportDelegate();
+
   Future<void> saveFile(Document doc, String name) async {
     final Directory dir = await getApplicationDocumentsDirectory();
     final File file = File('${dir.path}/$name.pdf');
@@ -116,8 +118,8 @@ class _ExamplePageState extends State<ExamplePage> {
         ),
         TextButton(
           onPressed: () async {
-            const ExportDelegate exportDelegate = ExportDelegate();
-            final Document pdf = await exportDelegate.exportToPDF(exportContext);
+            final Document pdf = await  exportDelegate.exportFrame('test');
+            // final Document pdf = await exportDelegate.exportToPDF(exportContext);
             saveFile(pdf, 'interactive-example');
           },
           child: const Row(
@@ -129,11 +131,16 @@ class _ExamplePageState extends State<ExamplePage> {
         ),
       ],
     ),
-    body: Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return widget.example;
-      },
+    body: ExportFrame(
+      id: 'test',
+      exportDelegate: exportDelegate,
+      child: widget.example
     ),
+    // body: Builder(
+    //   builder: (BuildContext context) {
+    //     exportContext = context;
+    //     return widget.example;
+    //   },
+    // ),
   );
 }

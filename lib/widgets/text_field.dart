@@ -11,13 +11,13 @@ import '/args/text_direction.dart';
 
 
 extension TextFieldConverter on TextField {
-  Future<pw.Widget> toPdfWidget(ExportDelegate delegate) async {
+  Future<pw.Widget> toPdfWidget(ExportDelegate delegate, TextField? contextWidget) async {
+    final TextField textField = contextWidget ?? this;
+
     pw.Widget? label;
 
-    if (decoration?.label != null) {
-      // final List<pw.Widget> labelChildren = await delegate.matchWidget(
-      //   decoration!.label!.createElement());
-      final pw.Widget? labelWidget = await delegate.exportToPdfWidget(decoration!.label!);
+    if (textField.decoration?.label != null) {
+      final pw.Widget? labelWidget = await delegate.exportToPdfWidget(textField.decoration!.label!);
 
       if (labelWidget != null) {
         label = pw.Transform.scale(
@@ -25,7 +25,6 @@ extension TextFieldConverter on TextField {
           child: pw.Container(
             color: PdfColors.white,
             padding: const pw.EdgeInsets.symmetric(horizontal: 2.0),
-            // child: labelChildren.first,
             child: labelWidget,
           ),
         );
@@ -40,24 +39,24 @@ extension TextFieldConverter on TextField {
           padding: const pw.EdgeInsets.all(4.0),
           margin: const pw.EdgeInsets.all(8.0),
           decoration: !delegate.options.textFieldOptions.ignoreDecoration
-              ? decoration?.border?.toPdfInputBorder()
+              ? textField.decoration?.border?.toPdfInputBorder()
               : null,
           child: delegate.options.textFieldOptions.interactive ? pw.TextField(
             width: double.infinity,
-            name: hashCode.toString(),
-            defaultValue: controller?.value.text,
-            textStyle: (delegate.options.textFieldOptions.getTextStyle(key) ?? style)?.toPdfTextStyle(), // TODO textStyle not applied within pdf package
-            maxLength: maxLength,
+            name: textField.hashCode.toString(),
+            defaultValue: textField.controller?.value.text,
+            textStyle: (delegate.options.textFieldOptions.getTextStyle(textField.key) ?? textField.style)?.toPdfTextStyle(), // TODO textStyle not applied within pdf package
+            maxLength: textField.maxLength,
             fieldFlags: { // TODO flags not applied by pdf package
-              if (maxLines != null && maxLines! > 1) PdfFieldFlags.multiline,
-              if (obscureText) PdfFieldFlags.password,
+              if (textField.maxLines != null && textField.maxLines! > 1) PdfFieldFlags.multiline,
+              if (textField.obscureText) PdfFieldFlags.password,
             },
           ) : pw.Text(
-            controller?.value.text ?? '',
-            maxLines: maxLines,
-            textAlign: textAlign.toPdfTextAlign(),
-            textDirection: textDirection?.toPdfTextDirection(),
-            style: (delegate.options.textFieldOptions.getTextStyle(key) ?? style)?.toPdfTextStyle(),
+            textField.controller?.value.text ?? '',
+            maxLines: textField.maxLines,
+            textAlign: textField.textAlign.toPdfTextAlign(),
+            textDirection: textField.textDirection?.toPdfTextDirection(),
+            style: (delegate.options.textFieldOptions.getTextStyle(textField.key) ?? textField.style)?.toPdfTextStyle(),
           ),
         ),
         if (label != null) pw.Positioned(
