@@ -68,8 +68,6 @@ class ExamplePage extends StatefulWidget {
 }
 
 class _ExamplePageState extends State<ExamplePage> {
-  late BuildContext exportContext;
-
   final ExportDelegate exportDelegate = ExportDelegate();
 
   Future<void> saveFile(Document doc, String name) async {
@@ -136,11 +134,5 @@ class _ExamplePageState extends State<ExamplePage> {
       exportDelegate: exportDelegate,
       child: widget.example
     ),
-    // body: Builder(
-    //   builder: (BuildContext context) {
-    //     exportContext = context;
-    //     return widget.example;
-    //   },
-    // ),
   );
 }
