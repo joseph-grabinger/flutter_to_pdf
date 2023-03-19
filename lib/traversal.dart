@@ -66,12 +66,12 @@ class ExportDelegate {
     List<pw.Widget> children = [];
 
     await layoutWidget(widget, const Size(600, 400)).then(
-      (Element? element) async  => children = await _matchWidget(element!, context));
+      (Element? element) async => children = await _matchWidget(element!, context));
 
     final pw.Document pdf = pw.Document();
 
     if (children.isEmpty) {
-      debugPrint('No children found');
+      throw Exception('No children found');
     }
 
     pdf.addPage(pw.Page(
