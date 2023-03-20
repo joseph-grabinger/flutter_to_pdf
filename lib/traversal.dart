@@ -80,15 +80,16 @@ class ExportDelegate {
   /// Exports the given [widget] to a [pw.Widget].
   /// If [context] is not null, the widgets´ state is provided.
   Future<pw.Widget> _exportWidget(Widget widget, BuildContext? context) async {
-    List<pw.Widget> children = [];
-
     final ExportInstance exportInstance = ExportInstance(this,
       (Widget widget) => _exportWidget(widget, null));
 
     final Size layoutSize = options.pageFormatOptions.getAvailableSize();
 
-    await layoutWidget(widget, layoutSize).then(
-      (Element? element) async => children = await exportInstance.matchWidget(element!, context));
+    Element? element = layoutWidget(widget, layoutSize);
+
+    final List<pw.Widget> children = await exportInstance.matchWidget(element!, context);
+    // await layoutWidget(widget, layoutSize).then(
+    //   (Element? element) async => children = await exportInstance.matchWidget(element!, context));
 
     if (children.isEmpty) {
       throw Exception('No children found');
