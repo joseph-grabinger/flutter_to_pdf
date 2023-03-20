@@ -6,6 +6,7 @@ import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
 
 late Document pdf;
+final ExportDelegate exportDelegate = ExportDelegate();
 
 void main() async {
   setUpAll(() {
@@ -14,117 +15,102 @@ void main() async {
   });
 
   testWidgets('GridView Widgets Empty', (tester) async {
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: GridView(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 1,
-              childAspectRatio: 1,
-            ),
-            children: const <Widget>[],
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'grid view empty',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: GridView(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 1,
+            childAspectRatio: 1,
           ),
-        );
-      },
+          children: const <Widget>[],
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('grid view empty'));
   });
 
   testWidgets('GridView Widgets Vertical', (tester) async {
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: GridView(
-            scrollDirection: Axis.vertical,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              childAspectRatio: 1,
-            ),
-            children: List<Widget>.generate(20,
-              (int index) => Center(child: Text('$index')),
-            ),
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'grid view vertical',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: GridView(
+          scrollDirection: Axis.vertical,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            childAspectRatio: 1,
           ),
-        );
-      },
+          children: List<Widget>.generate(20,
+            (int index) => Center(child: Text('$index')),
+          ),
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('grid view vertical'));
   });
 
   testWidgets('GridView Widgets Horizontal', (tester) async {
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: GridView(
-            scrollDirection: Axis.horizontal,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5,
-              childAspectRatio: 1,
-            ),
-            children: List<Widget>.generate(20,
-              (int index) => Center(child: Text('$index')),
-            ),
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'grid view horizontal',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: GridView(
+          scrollDirection: Axis.horizontal,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 5,
+            childAspectRatio: 1,
           ),
-        );
-      },
+          children: List<Widget>.generate(20,
+            (int index) => Center(child: Text('$index')),
+          ),
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('grid view horizontal'));
   });
 
   testWidgets('GridView Widgets Count', (tester) async {
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: GridView.count(
-            crossAxisCount: 20,
-            children: List<Widget>.generate(40,
-              (int index) => Center(child: Text('$index')),
-            ),
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'grid view count',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: GridView.count(
+          crossAxisCount: 20,
+          children: List<Widget>.generate(40,
+            (int index) => Center(child: Text('$index')),
           ),
-        );
-      },
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('grid view count'));
   });
 
   testWidgets('GridView Widgets Extent', (tester) async {
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: GridView.extent(
-            maxCrossAxisExtent: 20,
-            children: List<Widget>.generate(40,
-              (int index) => Center(child: Text('$index')),
-            ),
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'grid view extent',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: GridView.extent(
+          maxCrossAxisExtent: 20,
+          children: List<Widget>.generate(40,
+            (int index) => Center(child: Text('$index')),
           ),
-        );
-      },
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('grid view extent'));
   });
 
   tearDownAll(() async {

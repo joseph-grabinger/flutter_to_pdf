@@ -12,7 +12,9 @@ class DocumentExample extends StatefulWidget {
 
 class _DocumentExampleState extends State<DocumentExample> {
   final TextEditingController controller = TextEditingController();
+
   bool checked = false;
+  bool imageHover = false;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,8 @@ class _DocumentExampleState extends State<DocumentExample> {
             height: 100,
             width: 500,
             decoration: BoxDecoration(
+              color: MediaQuery.of(context).size.width > 700 
+                ? Colors.grey : Colors.red,
               borderRadius: BorderRadius.circular(10.0),
               border: Border.all(color: Colors.grey)
             ),
@@ -61,13 +65,21 @@ class _DocumentExampleState extends State<DocumentExample> {
         ),
         Row(
           children: [
-            Container(
-              height: 100,
-              width: 100,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: NetworkImage('http://i.pravatar.cc/300'),
+            InkWell(
+              borderRadius: BorderRadius.circular(50),
+              onHover: (value) {
+                debugPrint('hover : $value');
+                setState(() => imageHover = value);
+              },
+              onTap: () {},
+              child: Container(
+                height: 100,
+                width: 100,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: !imageHover ? const DecorationImage(
+                    image: NetworkImage('http://i.pravatar.cc/300'),
+                  ) : null,
                 ),
               ),
             ),
@@ -87,11 +99,9 @@ class _DocumentExampleState extends State<DocumentExample> {
                 borderRadius: BorderRadius.circular(5),
               ),
               value: checked,
-              onChanged: (newValue) {
-                setState(() {
-                  checked = newValue ?? false;
-                });
-              },
+              onChanged: (newValue) => setState(() {
+                checked = newValue ?? false;
+              }),
             ),
           ],
         ),

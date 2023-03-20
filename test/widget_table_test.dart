@@ -7,6 +7,7 @@ import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
 
 late Document pdf;
+final ExportDelegate exportDelegate = ExportDelegate();
 
 void main() async {
   setUpAll(() {
@@ -15,67 +16,58 @@ void main() async {
   });
 
   testWidgets('Table Widgets Empty', (tester) async {
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: Table(
-            children: const [],
-          ),
-        );
-      },
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'table empty',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Table(
+          children: const [],
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('table empty'));
   });
 
   testWidgets('Table Widgets Widths', (tester) async {
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: Table(
-            border: TableBorder.all(),
-            columnWidths: const <int, TableColumnWidth>{
-              0: FixedColumnWidth(80),
-              1: FlexColumnWidth(2),
-              2: FractionColumnWidth(0.2),
-            },
-            children: buildTable(count: 20),
-          ),
-        );
-      },
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'table widths',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Table(
+          border: TableBorder.all(),
+          columnWidths: const <int, TableColumnWidth>{
+            0: FixedColumnWidth(80),
+            1: FlexColumnWidth(2),
+            2: FractionColumnWidth(0.2),
+          },
+          children: buildTable(count: 20),
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('table widths'));
   });
 
   testWidgets('Table Widgets VerticalAlign', (tester) async {
-    late BuildContext exportContext;
-
     for (final verticalAlign in TableCellVerticalAlignment.values.where(
       (element) => element != TableCellVerticalAlignment.baseline)) {
-      await tester.pumpWidget(Builder(
-        builder: (BuildContext context) {
-          exportContext = context;
-          return Directionality(
-            textDirection: TextDirection.ltr,
-            child: Table(
-              defaultVerticalAlignment: verticalAlign,
-              border: TableBorder.all(),
-              children: buildTable(count: 20),
-            ),
-          );
-        },
+      await tester.pumpWidget(ExportFrame(
+        frameId: 'table vertical align $verticalAlign',
+        exportDelegate: exportDelegate,
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: Table(
+            defaultVerticalAlignment: verticalAlign,
+            border: TableBorder.all(),
+            children: buildTable(count: 20),
+          ),
+        ),
       ));
 
-      pdf.addPage(await exportToPdfPage(exportContext));
+      pdf.addPage(await exportDelegate.exportToPdfPage('table vertical align $verticalAlign'));
     }
   });
 

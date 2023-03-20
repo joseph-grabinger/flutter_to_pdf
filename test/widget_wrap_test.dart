@@ -9,6 +9,10 @@ import 'utils.dart';
 
 
 late Document pdf;
+final ExportDelegate exportDelegate = ExportDelegate();
+const  ExportOptions overrideOptions =  ExportOptions(
+  pageFormatOptions: PageFormatOptions.custom(width: 1000, height: 500),
+);
 
 void main() {
   setUpAll(() {
@@ -32,22 +36,19 @@ void main() {
       }
     }
 
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: children,
-          ),
-        );
-      },
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'wrap horizontal 1',
+      exportDelegate: exportDelegate,
+      child:Directionality(
+        textDirection: TextDirection.ltr,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: children,
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('wrap horizontal 1'));
   });
 
   testWidgets('Wrap Widgets Wrap Horizontal 2', (tester) async {
@@ -69,22 +70,19 @@ void main() {
       ));
     }
 
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: children,
-          ),
-        );
-      },
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'wrap horizontal 2',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: children,
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('wrap horizontal 2'));
   });
 
   testWidgets('Wrap Widgets Wrap Vertical 1', (tester) async {
@@ -105,26 +103,20 @@ void main() {
       }
     }
 
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: children,
-          ),
-        );
-      },
-    ));
-
-    pdf.addPage(await exportToPdfPage(exportContext,
-      options: const ExportOptions(
-          pageFormatOptions: PageFormatOptions.custom(width: 1000, height: 500),
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'wrap vertical 1',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: children,
         ),
+      ),
     ));
+
+    pdf.addPage(await exportDelegate.exportToPdfPage('wrap vertical 1',
+      overrideOptions: overrideOptions));
   });
 
   testWidgets('Wrap Widgets Wrap Vertical 2', (tester) async {
@@ -150,44 +142,35 @@ void main() {
       ));
     }
 
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: children,
-          ),
-        );
-      },
-    ));
-
-    pdf.addPage(await exportToPdfPage(exportContext, 
-      options: const ExportOptions(
-        pageFormatOptions: PageFormatOptions.custom(width: 1000, height: 500),
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'wrap vertical 2',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: children,
+        ),
       ),
     ));
+
+    pdf.addPage(await exportDelegate.exportToPdfPage('wrap vertical 2',
+      overrideOptions: overrideOptions));
   });
 
   testWidgets('Wrap Widgets Empty', (tester) async {
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return const Directionality(
-          textDirection: TextDirection.ltr,
-          child: Wrap(
-            children: <Widget>[],
-          ),
-        );
-      },
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'wrap empty',
+      exportDelegate: exportDelegate,
+      child: const Directionality(
+        textDirection: TextDirection.ltr,
+        child: Wrap(
+          children: <Widget>[],
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('wrap empty'));
   });
 
   tearDownAll(() async {

@@ -1,215 +1,124 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 import 'package:pdf/widgets.dart' as pw;
 
+import 'export_frame.dart';
+import 'export_instance.dart';
+import 'utils.dart';
 import 'options/export_options.dart';
-import 'widgets/container.dart';
-import 'widgets/center.dart';
-import 'widgets/sized_box.dart';
-import 'widgets/fitted_box.dart';
-import 'widgets/limited_box.dart';
-import 'widgets/constrained_box.dart';
-import 'widgets/clip.dart';
-import 'widgets/transform.dart';
-import 'widgets/opacity.dart';
-import 'widgets/padding.dart';
-import 'widgets/align.dart';
-import 'widgets/positioned.dart';
-import 'widgets/expanded.dart';
-import 'widgets/flexible.dart';
-import 'widgets/placeholder.dart';
-import 'widgets/text.dart';
-import 'widgets/text_field.dart';
-import 'widgets/divider.dart';
-import 'widgets/image.dart';
-import 'widgets/checkbox.dart';
-import 'widgets/button.dart';
-import 'widgets/column.dart';
-import 'widgets/row.dart';
-import 'widgets/stack.dart';
-import 'widgets/list_view.dart';
-import 'widgets/grid_view.dart';
-import 'widgets/wrap.dart';
-import 'widgets/table.dart';
 
 
-/// Exports the provided [context] to a PDF file
-/// and applies the [options].
-Future<pw.Document> exportToPDF(BuildContext context, {
-  ExportOptions options = const ExportOptions(),
-}) async {
-  final pw.Widget? pdfWidget = await traverseWidgetTree(context, options);
+class ExportDelegate {
+  final ExportOptions options;
 
-  final pw.Document pdf = pw.Document();
+  ExportDelegate({this.options = const ExportOptions()});
 
-  pdf.addPage(pw.Page(
-    pageFormat: options.pageFormatOptions.getPageFormat(),
-    clip: options.pageFormatOptions.clip,
-    build: (pw.Context context) => pdfWidget!,
-  ));
+  final Map<String, ExportFrame> _registeredFrames = {};
 
-  return pdf;
-}
-
-/// Exports the provided [context] to a [pw.Page]
-/// and applies the [options].
-Future<pw.Page> exportToPdfPage(BuildContext context, {
-  ExportOptions options = const ExportOptions(),
-}) async {
-  final pw.Widget? pdfWidget = await traverseWidgetTree(context, options);
-
-  return pw.Page(
-    pageFormat: options.pageFormatOptions.getPageFormat(),
-    clip: options.pageFormatOptions.clip,
-    build: (pw.Context context) => pdfWidget!,
-  );
-}
-
-/// Traverses the widget tree of the provided [context]
-/// and returns the corresponding PDF widget tree.
-Future<pw.Widget?> traverseWidgetTree(BuildContext context, ExportOptions options) async {
-  Element? element;
-
-  context.visitChildElements((Element e) => element = e);
-
-  pw.Widget? pdfWidget = (await matchWidget(element!, options)).first;
-
-  return pdfWidget;
-}
-
-/// Recursive helper to visit all child elements of the provided [element].
-Future<List<pw.Widget>> visit(Element element, ExportOptions options) async {
-  List<Element> elements = [];
-
-  element.visitChildElements((Element element) async {
-    debugPrint('Element ${element.depth}: ${element.widget}');
-    elements.add(element);
-  });
-
-  List<pw.Widget> children = [];
-
-  for (Element e in elements) {
-    children.addAll(await matchWidget(e, options));
+  /// Registers a new [ExportFrame] to the [ExportDelegate].
+  void registerFrame(ExportFrame frame) {
+    _registeredFrames[frame.frameId] = frame;
   }
 
-  return children;
-}
+  /// Returns the [ExportFrame] with the given [frameId].
+  /// Throws an [Exception] if no [ExportFrame] is found.
+  ExportFrame getFrame(String frameId) {
+    final ExportFrame? frame = _registeredFrames[frameId];
 
-/// Matches the widget provided as [element]
-/// and returns the corresponding [pw.Widget].
-Future<List<pw.Widget>> matchWidget(Element element, ExportOptions options) async {
-  final Widget widget = element.widget;
+    if (frame == null) {
+      throw Exception('No frame with id $frameId found');
+    }
 
-  switch (widget.runtimeType) {
-    case MergeSemantics: //anchor: end of widget tree
-      debugPrint('Reached Anchor');
-      return [];
-    case Container:
-      final List children = await visit(element, options);
-      return [await (widget as Container).toPdfWidget(
-        children.isNotEmpty ? children.first : null
-      )];
-    case Center:
-      final List children = await visit(element, options);
-      return [(widget as Center).toPdfWidget(
-        children.isNotEmpty ? children.first : null
-      )];
-    case SizedBox:
-      final List children = await visit(element, options);
-      return [(widget as SizedBox).toPdfWidget(
-        children.isNotEmpty ? children.first : null
-      )];
-    case FittedBox:
-      final List children = await visit(element, options);
-      return [(widget as FittedBox).toPdfWidget(
-        children.isNotEmpty ? children.first : null
-      )];
-    case LimitedBox:
-      final List children = await visit(element, options);
-      return [(widget as LimitedBox).toPdfWidget(
-        children.isNotEmpty ? children.first : null
-      )];
-    case ConstrainedBox:
-      final List children = await visit(element, options);
-      return [(widget as ConstrainedBox).toPdfWidget(
-        children.isNotEmpty ? children.first : null
-      )];
-    case ClipRect:
-      final List children = await visit(element, options);
-      return [(widget as ClipRect).toPdfWidget(
-        children.isNotEmpty ? children.first : null
-      )];
-    case ClipRRect:
-      final List children = await visit(element, options);
-      return [(widget as ClipRRect).toPdfWidget(
-        children.isNotEmpty ? children.first : null
-      )];
-    case ClipOval:
-      final List children = await visit(element, options);
-      return [(widget as ClipOval).toPdfWidget(
-        children.isNotEmpty ? children.first : null
-      )];
-    case Transform:
-      final List children = await visit(element, options);
-      return [(widget as Transform).toPdfWidget(
-        children.isNotEmpty ? children.first : null
-      )];
-    case Opacity:
-      final List children = await visit(element, options);
-      return [(widget as Opacity).toPdfWidget(
-        children.isNotEmpty ? children.first : null
-      )];
-    case Padding:
-      final List children = await visit(element, options);
-      return [(widget as Padding).toPdfWidget(
-        children.isNotEmpty ? children.first : null
-      )];
-    case Align:
-      final List children = await visit(element, options);
-      return [(widget as Align).toPdfWidget(
-        children.isNotEmpty ? children.first : null
-      )];
-    case Positioned:
-      return [(widget as Positioned).toPdfWidget((await visit(element, options)).first)];
-    case Expanded:
-      return[(widget as Expanded).toPdfWidget((await visit(element, options)).first)];
-    case Flexible:
-      return [(widget as Flexible).toPdfWidget((await visit(element, options)).first)];
-    case Placeholder:
-      return [(widget as Placeholder).toPdfWidget()];
-    case Text:
-      return [(widget as Text).toPdfWidget()];
-    case TextField:
-      return [await (widget as TextField).toPdfWidget(options)];
-    case Divider:
-      return [(widget as Divider).toPdfWidget()];
-    case Image:
-      return [await (widget as Image).toPdfWidget()];
-    case Checkbox:
-      return [await (widget as Checkbox).toPdfWidget(options.checkboxOptions)];
-    case TextButton:
-    case ElevatedButton:
-    case OutlinedButton:
-    case FilledButton:
-      return [(widget as ButtonStyleButton).toPdfWidget((await visit(element, options)).first)];
-    case Column:
-      return [(widget as Column).toPdfWidget(await visit(element, options))];
-    case Row:
-      return [(widget as Row).toPdfWidget(await visit(element, options))];
-    case Stack:
-      return [(widget as Stack).toPdfWidget(await visit(element, options))];
-    case ListView:
-        return [(widget as ListView).toPdfWidget(await visit(element, options))];
-    case GridView:
-      final BoxConstraints constraints = (element.renderObject! as RenderRepaintBoundary).constraints;
-      return [(widget as GridView).toPdfWidget(await visit(element, options), constraints)];
-    case Wrap:
-      return [(widget as Wrap).toPdfWidget(await visit(element, options))];
-    case Table:
-      return [await (widget as Table).toPdfWidget(await visit(element, options))];
-    default:
-      debugPrint('Uncaught: ${widget.runtimeType}');
-      return await visit(element, options);
+    return frame;
+  }
+
+  /// Copies the [ExportDelegate] with the given [options].
+  ExportDelegate copyWith({ExportOptions? options}) => ExportDelegate(
+    options: options ?? this.options,
+  );
+
+  /// Exports the [ExportFrame] with the given [frameId] to a [pw.Document].
+  Future<pw.Document> exportToPdfDocument(String frameId, {ExportOptions? overrideOptions}) async {
+    final ExportFrame? frame = _registeredFrames[frameId];
+
+    if (frame == null) {
+      throw Exception('No frame with id $frameId found');
+    }
+
+    if (overrideOptions != null) {
+      ExportDelegate delegate = copyWith(options: overrideOptions);
+      return await delegate._exportDocument(frame.exportWidget, frame.exportContext!);
+    }
+
+    return await _exportDocument(frame.exportWidget, frame.exportContext!);
+  }
+
+  /// Exports the [ExportFrame] with the given [frameId] to a [pw.Page].
+  Future<pw.Page> exportToPdfPage(String frameId, {ExportOptions? overrideOptions}) async {
+    final ExportFrame frame = getFrame(frameId);
+
+    if (overrideOptions != null) {
+      ExportDelegate delegate = copyWith(options: overrideOptions);
+      return await delegate._exportPage(frame.exportWidget, frame.exportContext!);
+    }
+
+    return await _exportPage(frame.exportWidget, frame.exportContext!);
+  }
+
+  /// Exports the [ExportFrame] with the given [frameId] to a [pw.Widget].
+  Future<pw.Widget> exportToPdfWidget(String frameId, {ExportOptions? overrideOptions}) async {
+    final ExportFrame frame = getFrame(frameId);
+
+    if (overrideOptions != null) {
+      ExportDelegate delegate = copyWith(options: overrideOptions);
+      return await delegate._exportWidget(frame.exportWidget, frame.exportContext!);
+    }
+
+    return await _exportWidget(frame.exportWidget, frame.exportContext!);
+  }
+
+  /// Exports the given [widget] to a [pw.Widget].
+  /// If [context] is not null, the widgets´ state is provided.
+  Future<pw.Widget> _exportWidget(Widget widget, BuildContext? context) async {
+    final ExportInstance exportInstance = ExportInstance(this,
+      (Widget widget) => _exportWidget(widget, null));
+
+    final Size layoutSize = options.pageFormatOptions.getAvailableSize();
+
+    Element? element = layoutWidget(widget, layoutSize);
+
+    final List<pw.Widget> children = await exportInstance.matchWidget(element!, context);
+    // await layoutWidget(widget, layoutSize).then(
+    //   (Element? element) async => children = await exportInstance.matchWidget(element!, context));
+
+    if (children.isEmpty) {
+      throw Exception('No children found');
+    }
+
+    return children.first;
+  }
+
+  /// Exports the given [widget] to a [pw.Page].
+  /// If [context] is not null, the widgets´ state is provided.
+  Future<pw.Page> _exportPage(Widget widget, BuildContext? context) async {
+    final pw.Widget pdfWidget = await _exportWidget(widget, context);
+
+    return pw.Page(
+      pageFormat: options.pageFormatOptions.getPageFormat(),
+      clip: options.pageFormatOptions.clip,
+      build: (pw.Context context) => pdfWidget,
+    );
+  }
+
+  /// Exports the given [widget] to a [pw.Document].
+  /// If [context] is not null, the widgets´ state is provided.
+  Future<pw.Document> _exportDocument(Widget widget, BuildContext? context) async {
+    final pw.Page pdfPage = await _exportPage(widget, context);
+
+    final pw.Document pdf = pw.Document();
+
+    pdf.addPage(pdfPage);
+
+    return pdf;
   }
 }

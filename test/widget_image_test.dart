@@ -8,6 +8,7 @@ import 'utils.dart';
 
 
 late Document pdf;
+final ExportDelegate exportDelegate = ExportDelegate();
 
 void main() {
   setUpAll(() {
@@ -31,20 +32,17 @@ void main() {
       ));
     }
 
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Wrap(
-          textDirection: TextDirection.ltr,
-          children: widgets,
-        );
-      },
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'memory image',
+      exportDelegate: exportDelegate,
+      child: Wrap(
+        textDirection: TextDirection.ltr,
+        children: widgets,
+      ),
     ));
 
     await tester.runAsync(() async {
-      pdf.addPage(await exportToPdfPage(exportContext));
+      pdf.addPage(await exportDelegate.exportToPdfPage('memory image'));
     });
   });
 
