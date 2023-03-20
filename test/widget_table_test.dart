@@ -30,7 +30,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
   testWidgets('Table Widgets Widths', (tester) async {
@@ -54,7 +54,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
   testWidgets('Table Widgets VerticalAlign', (tester) async {
@@ -76,7 +76,7 @@ void main() async {
         },
       ));
 
-      pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+      pdf.addPage(await exportDelegate._exportPage(exportContext));
     }
   });
 

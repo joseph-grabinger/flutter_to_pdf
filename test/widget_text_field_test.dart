@@ -33,8 +33,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
-    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1._exportPage(exportContext));
+    pdf.addPage(await exportDelegate2._exportPage(exportContext));
   });
 
   testWidgets('TextField Widgets TextField Value', (tester) async {
@@ -53,8 +53,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
-    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1._exportPage(exportContext));
+    pdf.addPage(await exportDelegate2._exportPage(exportContext));
   });
 
   testWidgets('TextField Widgets TextField Style', (tester) async {
@@ -90,8 +90,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
-    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1._exportPage(exportContext));
+    pdf.addPage(await exportDelegate2._exportPage(exportContext));
   });
 
   testWidgets('TextField Widgets TextField Decoration', (tester) async {
@@ -135,8 +135,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
-    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1._exportPage(exportContext));
+    pdf.addPage(await exportDelegate2._exportPage(exportContext));
   });
 
   testWidgets('TextField Widgets TextFormField Empty', (tester) async {
@@ -153,8 +153,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
-    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1._exportPage(exportContext));
+    pdf.addPage(await exportDelegate2._exportPage(exportContext));
   });
 
   testWidgets('TextField Widgets TextFormField Value', (tester) async {
@@ -173,8 +173,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
-    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1._exportPage(exportContext));
+    pdf.addPage(await exportDelegate2._exportPage(exportContext));
   });
 
   testWidgets('TextField Widgets TextFormField Style', (tester) async {
@@ -210,8 +210,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
-    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1._exportPage(exportContext));
+    pdf.addPage(await exportDelegate2._exportPage(exportContext));
   });
 
   testWidgets('TextField Widgets TextFormField Decoration', (tester) async {
@@ -255,8 +255,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
-    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1._exportPage(exportContext));
+    pdf.addPage(await exportDelegate2._exportPage(exportContext));
   });
 
   tearDownAll(() async {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart' show TextField;
 import 'package:pdf/pdf.dart' show PdfColors, PdfFieldFlags;
 import 'package:pdf/widgets.dart' as pw show TextField, Text, Widget, Container, EdgeInsets, Stack, Positioned, Transform, Alignment, StackFit;
 
-import '../traversal.dart';
+import '../export_instance.dart';
 import '/args/text_style.dart';
 import '/args/input_decoration.dart';
 import '/args/text_align.dart';
@@ -11,13 +11,13 @@ import '/args/text_direction.dart';
 
 
 extension TextFieldConverter on TextField {
-  Future<pw.Widget> toPdfWidget(ExportDelegate delegate, TextField? contextWidget) async {
+  Future<pw.Widget> toPdfWidget(ExportInstance instance, TextField? contextWidget) async {
     final TextField textField = contextWidget ?? this;
 
     pw.Widget? label;
 
     if (textField.decoration?.label != null) {
-      final pw.Widget labelWidget = await delegate.exportToPdfWidget(textField.decoration!.label!, null);
+      final pw.Widget labelWidget = await instance.exportFunc(textField.decoration!.label!);
 
       label = pw.Transform.scale(
         scale: 0.6,
@@ -36,14 +36,15 @@ extension TextFieldConverter on TextField {
         pw.Container(
           padding: const pw.EdgeInsets.all(4.0),
           margin: const pw.EdgeInsets.all(8.0),
-          decoration: !delegate.options.textFieldOptions.ignoreDecoration
+          decoration: !instance.delegate.options.textFieldOptions.ignoreDecoration
               ? textField.decoration?.border?.toPdfInputBorder()
               : null,
-          child: delegate.options.textFieldOptions.interactive ? pw.TextField(
+          child: instance.delegate.options.textFieldOptions.interactive ? pw.TextField(
             width: double.infinity,
             name: textField.hashCode.toString(),
             defaultValue: textField.controller?.value.text,
-            textStyle: (delegate.options.textFieldOptions.getTextStyle(textField.key) ?? textField.style)?.toPdfTextStyle(), // TODO textStyle not applied within pdf package
+            textStyle: (instance.delegate.options.textFieldOptions.getTextStyle(textField.key)
+                ?? textField.style)?.toPdfTextStyle(), // TODO textStyle not applied within pdf package
             maxLength: textField.maxLength,
             fieldFlags: { // TODO flags not applied by pdf package
               if (textField.maxLines != null && textField.maxLines! > 1) PdfFieldFlags.multiline,
@@ -54,7 +55,8 @@ extension TextFieldConverter on TextField {
             maxLines: textField.maxLines,
             textAlign: textField.textAlign.toPdfTextAlign(),
             textDirection: textField.textDirection?.toPdfTextDirection(),
-            style: (delegate.options.textFieldOptions.getTextStyle(textField.key) ?? textField.style)?.toPdfTextStyle(),
+            style: (instance.delegate.options.textFieldOptions.getTextStyle(textField.key)
+                ?? textField.style)?.toPdfTextStyle(),
           ),
         ),
         if (label != null) pw.Positioned(

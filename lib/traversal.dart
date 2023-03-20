@@ -34,12 +34,12 @@ class ExportDelegate {
   }
 
   /// Copies the [ExportDelegate] with the given [options].
-  ExportDelegate copyWith({ExportOptions? options}) {
-    return ExportDelegate(options: options ?? this.options);
-  }
+  ExportDelegate copyWith({ExportOptions? options}) => ExportDelegate(
+    options: options ?? this.options,
+  );
 
   /// Exports the [ExportFrame] with the given [frameId] to a [pw.Document].
-  Future<pw.Document> exportFrame(String frameId, {ExportOptions? overrideOptions}) async {
+  Future<pw.Document> exportToPdfDocument(String frameId, {ExportOptions? overrideOptions}) async {
     final ExportFrame? frame = _registeredFrames[frameId];
 
     if (frame == null) {
@@ -48,29 +48,43 @@ class ExportDelegate {
 
     if (overrideOptions != null) {
       ExportDelegate delegate = copyWith(options: overrideOptions);
-      return await delegate.exportToPdfDocument(frame.exportChild, frame.exportContext!);
+      return await delegate._exportDocument(frame.exportChild, frame.exportContext!);
     }
 
-    return await exportToPdfDocument(frame.exportChild, frame.exportContext!);
+    return await _exportDocument(frame.exportChild, frame.exportContext!);
   }
 
-  Future<pw.Page> exportFrameToPdfPage(String frameId, {ExportOptions? overrideOptions}) async {
+  /// Exports the [ExportFrame] with the given [frameId] to a [pw.Page].
+  Future<pw.Page> exportToPdfPage(String frameId, {ExportOptions? overrideOptions}) async {
     final ExportFrame frame = getFrame(frameId);
 
     if (overrideOptions != null) {
       ExportDelegate delegate = copyWith(options: overrideOptions);
-      return await delegate.exportToPdfPage(frame.exportChild, frame.exportContext!);
+      return await delegate._exportPage(frame.exportChild, frame.exportContext!);
     }
 
-    return await exportToPdfPage(frame.exportChild, frame.exportContext!);
+    return await _exportPage(frame.exportChild, frame.exportContext!);
+  }
+
+  /// Exports the [ExportFrame] with the given [frameId] to a [pw.Widget].
+  Future<pw.Widget> exportToPdfWidget(String frameId, {ExportOptions? overrideOptions}) async {
+    final ExportFrame frame = getFrame(frameId);
+
+    if (overrideOptions != null) {
+      ExportDelegate delegate = copyWith(options: overrideOptions);
+      return await delegate._exportWidget(frame.exportChild, frame.exportContext!);
+    }
+
+    return await _exportWidget(frame.exportChild, frame.exportContext!);
   }
 
   /// Exports the given [widget] to a [pw.Widget].
   /// If [context] is not null, the widgets´ state is provided.
-  Future<pw.Widget> exportToPdfWidget(Widget widget, BuildContext? context) async {
+  Future<pw.Widget> _exportWidget(Widget widget, BuildContext? context) async {
     List<pw.Widget> children = [];
 
-    final ExportInstance exportInstance = ExportInstance(this);
+    final ExportInstance exportInstance = ExportInstance(this,
+      (Widget widget) => _exportWidget(widget, null));
 
     await layoutWidget(widget, const Size(600, 400)).then(
       (Element? element) async => children = await exportInstance.matchWidget(element!, context));
@@ -84,8 +98,8 @@ class ExportDelegate {
 
   /// Exports the given [widget] to a [pw.Page].
   /// If [context] is not null, the widgets´ state is provided.
-  Future<pw.Page> exportToPdfPage(Widget widget, BuildContext? context) async {
-    final pw.Widget pdfWidget = await exportToPdfWidget(widget, context);
+  Future<pw.Page> _exportPage(Widget widget, BuildContext? context) async {
+    final pw.Widget pdfWidget = await _exportWidget(widget, context);
 
     return pw.Page(
       pageFormat: options.pageFormatOptions.getPageFormat(),
@@ -96,8 +110,8 @@ class ExportDelegate {
 
   /// Exports the given [widget] to a [pw.Document].
   /// If [context] is not null, the widgets´ state is provided.
-  Future<pw.Document> exportToPdfDocument(Widget widget, BuildContext? context) async {
-    final pw.Page pdfPage = await exportToPdfPage(widget, context);
+  Future<pw.Document> _exportDocument(Widget widget, BuildContext? context) async {
+    final pw.Page pdfPage = await _exportPage(widget, context);
 
     final pw.Document pdf = pw.Document();
 

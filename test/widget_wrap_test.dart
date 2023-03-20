@@ -53,7 +53,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1._exportPage(exportContext));
   });
 
   testWidgets('Wrap Widgets Wrap Horizontal 2', (tester) async {
@@ -90,7 +90,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1._exportPage(exportContext));
   });
 
   testWidgets('Wrap Widgets Wrap Vertical 1', (tester) async {
@@ -126,7 +126,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate2._exportPage(exportContext));
   });
 
   testWidgets('Wrap Widgets Wrap Vertical 2', (tester) async {
@@ -167,7 +167,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate2._exportPage(exportContext));
   });
 
   testWidgets('Wrap Widgets Empty', (tester) async {
@@ -185,7 +185,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1._exportPage(exportContext));
   });
 
   tearDownAll(() async {

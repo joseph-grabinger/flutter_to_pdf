@@ -28,7 +28,7 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate.exportFrameToPdfPage('align 1'));
+    pdf.addPage(await exportDelegate.exportToPdfPage('align 1'));
   });
 
   testWidgets('Basic Widgets Align 2', (tester) async {
@@ -45,7 +45,7 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate.exportFrameToPdfPage('align 2'));
+    pdf.addPage(await exportDelegate.exportToPdfPage('align 2'));
   });
 
   testWidgets('Basic Widgets AspectRatio', (tester) async {
@@ -58,7 +58,7 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate.exportFrameToPdfPage('aspect ratio'));
+    pdf.addPage(await exportDelegate.exportToPdfPage('aspect ratio'));
   });
 
   testWidgets('Basic Widgets Center', (tester) async {
@@ -74,7 +74,7 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate.exportFrameToPdfPage('center'));
+    pdf.addPage(await exportDelegate.exportToPdfPage('center'));
   });
 
   testWidgets('Basic Widgets ConstrainedBox', (tester) async {
@@ -87,7 +87,7 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate.exportFrameToPdfPage('constrained box'));
+    pdf.addPage(await exportDelegate.exportToPdfPage('constrained box'));
   });
 
   testWidgets('Basic Widgets FittedBox', (tester) async {
@@ -114,7 +114,7 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate.exportFrameToPdfPage('fitted box'));
+    pdf.addPage(await exportDelegate.exportToPdfPage('fitted box'));
   });
 
   testWidgets('Basic Widgets LimitedBox', (tester) async {
@@ -134,7 +134,7 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate.exportFrameToPdfPage('limited box'));
+    pdf.addPage(await exportDelegate.exportToPdfPage('limited box'));
   });
 
   testWidgets('Basic Widgets Padding', (tester) async {
@@ -151,7 +151,7 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate.exportFrameToPdfPage('padding'));
+    pdf.addPage(await exportDelegate.exportToPdfPage('padding'));
   });
 
   testWidgets('Basic Widgets SizedBox', (tester) async {
@@ -166,7 +166,7 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate.exportFrameToPdfPage('sized box'));
+    pdf.addPage(await exportDelegate.exportToPdfPage('sized box'));
   });
 
   testWidgets('Basic Widgets Transform', (tester) async {
@@ -182,7 +182,7 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate.exportFrameToPdfPage('transform'));
+    pdf.addPage(await exportDelegate.exportToPdfPage('transform'));
   });
 
   testWidgets('Basic Widgets Opacity', (tester) async {
@@ -208,7 +208,7 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate.exportFrameToPdfPage('opacity'));
+    pdf.addPage(await exportDelegate.exportToPdfPage('opacity'));
   });
 
   testWidgets('Basic Widgets Positioned', (tester) async {
@@ -244,7 +244,7 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate.exportFrameToPdfPage('positioned'));
+    pdf.addPage(await exportDelegate.exportToPdfPage('positioned'));
   });
 
   tearDownAll(() async {

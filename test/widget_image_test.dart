@@ -45,7 +45,7 @@ void main() {
     ));
 
     await tester.runAsync(() async {
-      pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+      pdf.addPage(await exportDelegate._exportPage(exportContext));
     });
   });
 

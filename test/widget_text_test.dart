@@ -27,7 +27,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
   testWidgets('Text Widgets SoftWrap', (tester) async {
@@ -66,7 +66,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
   testWidgets('Text Widgets Alignment', (tester) async {
@@ -97,7 +97,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
   testWidgets('Text Widgets WordSpacing', (tester) async {
@@ -127,7 +127,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
   testWidgets('Text Widgets LetterSpacing', (tester) async {
@@ -157,7 +157,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
   testWidgets('Text Widgets Font', (tester) async {
@@ -187,7 +187,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
   testWidgets('Text Widgets FontStyle', (tester) async {
@@ -217,7 +217,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
   testWidgets('Text Widgets Decoration', (tester) async {
@@ -253,7 +253,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
   testWidgets('Text Widgets Overflow', (tester) async {
@@ -283,7 +283,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
   testWidgets('Text Widgets Direction', (tester) async {
@@ -306,7 +306,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
 tearDownAll(() async {

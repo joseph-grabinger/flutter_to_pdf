@@ -37,7 +37,7 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
   testWidgets('Clip Widgets ClipRRect', (tester) async {
@@ -61,7 +61,7 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
   testWidgets('Clip Widgets ClipOval', (tester) async {
@@ -84,7 +84,7 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
   tearDownAll(() async {

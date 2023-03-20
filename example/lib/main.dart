@@ -97,7 +97,7 @@ class _ExamplePageState extends State<ExamplePage> {
                 interactive: false,
               ),
             );
-            final Document pdf = await exportDelegate.exportFrame('test', overrideOptions: overrideOptions);
+            final Document pdf = await exportDelegate.exportToPdfDocument('test', overrideOptions: overrideOptions);
             saveFile(pdf, 'static-example');
           },
           child: const Row(
@@ -109,7 +109,7 @@ class _ExamplePageState extends State<ExamplePage> {
         ),
         TextButton(
           onPressed: () async {
-            final Document pdf = await exportDelegate.exportFrame('test');
+            final Document pdf = await exportDelegate.exportToPdfDocument('test');
             // final Document pdf = await exportDelegate.exportToPDF(exportContext);
             saveFile(pdf, 'interactive-example');
           },

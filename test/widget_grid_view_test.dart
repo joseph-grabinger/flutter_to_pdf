@@ -33,7 +33,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
   testWidgets('GridView Widgets Vertical', (tester) async {
@@ -58,7 +58,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
   testWidgets('GridView Widgets Horizontal', (tester) async {
@@ -83,7 +83,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
   testWidgets('GridView Widgets Count', (tester) async {
@@ -104,7 +104,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
   testWidgets('GridView Widgets Extent', (tester) async {
@@ -125,7 +125,7 @@ void main() async {
       },
     ));
 
-    pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate._exportPage(exportContext));
   });
 
   tearDownAll(() async {

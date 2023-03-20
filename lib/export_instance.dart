@@ -35,9 +35,10 @@ import 'widgets/wrap.dart';
 import 'widgets/table.dart';
 
 class ExportInstance {
-  final ExportDelegate exportDelegate;
+  final ExportDelegate delegate;
+  final Future<pw.Widget> Function(Widget widget) exportFunc;
 
-  const ExportInstance(this.exportDelegate);
+  const ExportInstance(this.delegate, this.exportFunc);
 
   /// Recursive helper to visit all child elements of the provided [element].
   Future<List<pw.Widget>> _visit(Element element, BuildContext? context) async {
@@ -156,7 +157,7 @@ class ExportInstance {
             (TextField e) => e.decoration!.label == (widget as TextField).decoration!.label);
           contextWidget = contextElement!.widget as TextField;
         }
-        return [await (widget as TextField).toPdfWidget(exportDelegate, contextWidget)];
+        return [await (widget as TextField).toPdfWidget(this, contextWidget)];
       case Divider:
         return [(widget as Divider).toPdfWidget()];
       case Image:
@@ -168,7 +169,7 @@ class ExportInstance {
             (Checkbox e) => true); // TODO find a way to match checkboxes
           contextWidget = contextElement!.widget as Checkbox;
         }
-        return [await (widget as Checkbox).toPdfWidget(exportDelegate.options.checkboxOptions, contextWidget)];
+        return [await (widget as Checkbox).toPdfWidget(delegate.options.checkboxOptions, contextWidget)];
       case TextButton:
       case ElevatedButton:
       case OutlinedButton:

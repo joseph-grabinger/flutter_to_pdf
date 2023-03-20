@@ -43,8 +43,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
-    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1._exportPage(exportContext));
+    pdf.addPage(await exportDelegate2._exportPage(exportContext));
   });
 
   testWidgets('Form Widgets Checkbox Decoration', (tester) async {
@@ -85,8 +85,8 @@ void main() {
       ),
     ));
 
-    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
-    pdf.addPage(await exportDelegate2.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1._exportPage(exportContext));
+    pdf.addPage(await exportDelegate2._exportPage(exportContext));
   });
 
   testWidgets('Form Widgets Button Basic', (tester) async {
@@ -122,7 +122,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1._exportPage(exportContext));
   });
 
   testWidgets('Form Widgets Button Style', (tester) async {
@@ -194,7 +194,7 @@ void main() {
       },
     ));
 
-    pdf.addPage(await exportDelegate1.exportToPdfPage(exportContext));
+    pdf.addPage(await exportDelegate1._exportPage(exportContext));
   });
 
   tearDownAll(() async {

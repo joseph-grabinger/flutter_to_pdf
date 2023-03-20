@@ -72,7 +72,7 @@ void main() {
           },
         ));
 
-        pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+        pdf.addPage(await exportDelegate._exportPage(exportContext));
       }
     }
   });
@@ -130,7 +130,7 @@ void main() {
         },
       ));
 
-      pdf.addPage(await exportDelegate.exportToPdfPage(exportContext));
+      pdf.addPage(await exportDelegate._exportPage(exportContext));
     }
   });
 
