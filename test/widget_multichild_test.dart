@@ -15,112 +15,142 @@ void main() {
   });
 
   testWidgets('Multichild Widgets Row', (tester) async {
-    late BuildContext exportContext;
-
     for (final crossAxisAlignment in CrossAxisAlignment.values.where(
       (alignment) => alignment != CrossAxisAlignment.baseline)) {
       for (final mainAxisAlignment in MainAxisAlignment.values) {
-        await tester.pumpWidget(Builder(
-          builder: (BuildContext context) {
-            exportContext = context;
-            return Row(
-              mainAxisAlignment: mainAxisAlignment,
-              crossAxisAlignment: crossAxisAlignment,
-              textDirection: TextDirection.ltr,
-              children: [
-                Container(
-                  width: 100,
-                  height: 400,
-                  color: Colors.blue,
-                ),
-                Container(
-                  width: 100,
-                  height: 400,
-                  color: Colors.red,
-                ),
-                Container(
-                  width: 100,
-                  height: 400,
-                  color: Colors.yellow,
-                ),
-                Container(
-                  width: 100,
-                  height: 400,
-                  color: Colors.green,
-                ),
-              ],
-            );
-          },
+        await tester.pumpWidget(ExportFrame(
+          frameId: 'row $mainAxisAlignment $crossAxisAlignment',
+          exportDelegate: exportDelegate,
+          child: Row(
+            mainAxisAlignment: mainAxisAlignment,
+            crossAxisAlignment: crossAxisAlignment,
+            textDirection: TextDirection.ltr,
+            children: [
+              Container(
+                width: 100,
+                height: 400,
+                color: Colors.blue,
+              ),
+              Container(
+                width: 100,
+                height: 400,
+                color: Colors.red,
+              ),
+              Container(
+                width: 100,
+                height: 400,
+                color: Colors.yellow,
+              ),
+              Container(
+                width: 100,
+                height: 400,
+                color: Colors.green,
+              ),
+            ],
+          ),
         ));
 
-        pdf.addPage(await exportDelegate._exportPage(exportContext));
+        pdf.addPage(await exportDelegate.exportToPdfPage('row $mainAxisAlignment $crossAxisAlignment'));
       }
     }
   });
 
   testWidgets('Multichild Widgets Column', (tester) async {
-    late BuildContext exportContext;
-
     for (final crossAxisAlignment in CrossAxisAlignment.values.where(
       (alignment) => alignment != CrossAxisAlignment.baseline)) {
       for (final mainAxisAlignment in MainAxisAlignment.values) {
-        await tester.pumpWidget(Builder(
-          builder: (BuildContext context) {
-            exportContext = context;
-            return Column(
-              mainAxisAlignment: mainAxisAlignment,
-              crossAxisAlignment: crossAxisAlignment,
-              textDirection: TextDirection.ltr,
-              children: [
-                Container(
-                  width: 400,
-                  height: 100,
-                  color: Colors.blue,
-                ),
-                Container(
-                  width: 400,
-                  height: 100,
-                  color: Colors.red,
-                ),
-                Container(
-                  width: 400,
-                  height: 100,
-                  color: Colors.yellow,
-                ),
-                Container(
-                  width: 400,
-                  height: 100,
-                  color: Colors.green,
-                ),
-              ],
-            );
-          },
+        await tester.pumpWidget(ExportFrame(
+          frameId: 'column $mainAxisAlignment $crossAxisAlignment',
+          exportDelegate: exportDelegate,
+          child: Column(
+            mainAxisAlignment: mainAxisAlignment,
+            crossAxisAlignment: crossAxisAlignment,
+            textDirection: TextDirection.ltr,
+            children: [
+              Container(
+                width: 400,
+                height: 100,
+                color: Colors.blue,
+              ),
+              Container(
+                width: 400,
+                height: 100,
+                color: Colors.red,
+              ),
+              Container(
+                width: 400,
+                height: 100,
+                color: Colors.yellow,
+              ),
+              Container(
+                width: 400,
+                height: 100,
+                color: Colors.green,
+              ),
+            ],
+          ),
         ));
 
-        pdf.addPage(await exportDelegate._exportPage(exportContext));
+        pdf.addPage(await exportDelegate.exportToPdfPage('column $mainAxisAlignment $crossAxisAlignment'));
       }
     }
   });
 
   testWidgets('Multichild Widgets Stack', (tester) async {
-    late BuildContext exportContext;
-
     for (final fit in StackFit.values) {
-      await tester.pumpWidget(Builder(
-        builder: (BuildContext context) {
-          exportContext = context;
-          return Stack(
-            fit: fit,
-            textDirection: TextDirection.ltr,
+      await tester.pumpWidget(ExportFrame(
+        frameId: 'stack $fit',
+        exportDelegate: exportDelegate,
+        child: Stack(
+          fit: fit,
+          textDirection: TextDirection.ltr,
+          children: [
+            Container(
+              width: 400,
+              height: 400,
+              color: Colors.blue,
+            ),
+            Container(
+              width: 200,
+              height: 200,
+              color: Colors.red,
+            ),
+            Container(
+              width: 100,
+              height: 100,
+              color: Colors.yellow,
+            ),
+            Container(
+              width: 50,
+              height: 50,
+              color: Colors.green,
+            ),
+          ],
+        ),
+      ));
+
+      pdf.addPage(await exportDelegate.exportToPdfPage('stack $fit'));
+    }
+  });
+
+  testWidgets('Multichild Widgets ListView', (tester) async {
+    for (final scrollDirection in Axis.values) {
+      await tester.pumpWidget(ExportFrame(
+        frameId: 'listview $scrollDirection',
+        exportDelegate: exportDelegate,
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: ListView(
+            scrollDirection: scrollDirection,
             children: [
               Container(
-                width: 400,
-                height: 400,
+                width: 100,
+                height: 100,
                 color: Colors.blue,
               ),
               Container(
-                width: 200,
-                height: 200,
+                width: 100,
+                height: 100,
                 color: Colors.red,
               ),
               Container(
@@ -129,113 +159,65 @@ void main() {
                 color: Colors.yellow,
               ),
               Container(
-                width: 50,
-                height: 50,
+                width: 100,
+                height: 100,
                 color: Colors.green,
               ),
             ],
-          );
-        },
+          ),
+        ),
       ));
 
-      pdf.addPage(await exportDelegate._exportPage(exportContext));
-    }
-  });
-
-  testWidgets('Multichild Widgets ListView', (tester) async {
-    late BuildContext exportContext;
-
-    for (final scrollDirection in Axis.values) {
-      await tester.pumpWidget(Builder(
-        builder: (BuildContext context) {
-          exportContext = context;
-          return Directionality(
-            textDirection: TextDirection.ltr,
-            child: ListView(
-              scrollDirection: scrollDirection,
-              children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.blue,
-                ),
-                Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.red,
-                ),
-                Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.yellow,
-                ),
-                Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.green,
-                ),
-              ],
-            ),
-          );
-        },
-      ));
-
-      pdf.addPage(await exportDelegate._exportPage(exportContext));
+      pdf.addPage(await exportDelegate.exportToPdfPage('listview $scrollDirection'));
     }
   });
 
   testWidgets('Multichild Widgets ListView Builder', (tester) async {
-    late BuildContext exportContext;
-
     for (final scrollDirection in Axis.values) {
-      await tester.pumpWidget(Builder(
-        builder: (BuildContext context) {
-          exportContext = context;
-          return Directionality(
-            textDirection: TextDirection.ltr,
-            child: ListView.builder(
-              scrollDirection: scrollDirection,
-              itemCount: 100,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  width: 10,
-                  height: 10,
-                  color: index%2 == 0 ?Colors.blue : Colors.red,
-                );
-              },
-            ),
-          );
-        },
+      await tester.pumpWidget(ExportFrame(
+        frameId: 'listview builder $scrollDirection',
+        exportDelegate: exportDelegate,
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: ListView.builder(
+            scrollDirection: scrollDirection,
+            itemCount: 100,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                width: 10,
+                height: 10,
+                color: index%2 == 0 ?Colors.blue : Colors.red,
+              );
+            },
+          ),
+        ),
       ));
 
-      pdf.addPage(await exportDelegate._exportPage(exportContext));
+      pdf.addPage(await exportDelegate.exportToPdfPage('listview builder $scrollDirection'));
     }
   });
 
   testWidgets('Multichild Widgets ListView Separated', (tester) async {
-    late BuildContext exportContext;
-
     for (final scrollDirection in Axis.values) {
-      await tester.pumpWidget(Builder(
-        builder: (BuildContext context) {
-          exportContext = context;
-          return Directionality(
-            textDirection: TextDirection.ltr,
-            child: ListView.separated(
-              scrollDirection: scrollDirection,
-              itemCount: 100,
-              separatorBuilder: (BuildContext context, int index) {
-                return const Divider(height: 10);
-              },
-              itemBuilder: (BuildContext context, int index) {
-                return Text(index.toString());
-              },
-            ),
-          );
-        },
+      await tester.pumpWidget(ExportFrame(
+        frameId: 'listview separated $scrollDirection',
+        exportDelegate: exportDelegate,
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: ListView.separated(
+            scrollDirection: scrollDirection,
+            itemCount: 100,
+            separatorBuilder: (BuildContext context, int index) {
+              return const Divider(height: 10);
+            },
+            itemBuilder: (BuildContext context, int index) {
+              return Text(index.toString());
+            },
+          ),
+        ),
       ));
 
-      pdf.addPage(await exportDelegate._exportPage(exportContext));
+      pdf.addPage(await exportDelegate.exportToPdfPage('listview separated $scrollDirection'));
     }
   });
 
