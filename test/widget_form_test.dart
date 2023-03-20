@@ -6,10 +6,10 @@ import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
 
 late Document pdf;
-final ExportDelegate exportDelegate1 = ExportDelegate();
-final ExportDelegate exportDelegate2 = ExportDelegate(options: ExportOptions(
+final ExportDelegate exportDelegate = ExportDelegate();
+final ExportOptions overrideOptions = ExportOptions(
   checkboxOptions: CheckboxOptions.uniform(interactive: false),
-));
+);
 
 
 void main() {
@@ -19,182 +19,172 @@ void main() {
   });
 
   testWidgets('Form Widgets Checkbox Basic', (tester) async {
-    late BuildContext exportContext;
-
     await tester.pumpWidget(MaterialApp(
       home: Material(
-        child: Builder(
-          builder: (BuildContext context) {
-            exportContext = context;
-            return const Row(
-              children: <Widget>[
-                Checkbox(
-                  value: true,
-                  onChanged: null,
-                ),
-                Checkbox(
-                  value: false,
-                  onChanged: null,
-                ),
-              ],
-            );
-          },
+        child: ExportFrame(
+          frameId: 'checkbox basic',
+          exportDelegate: exportDelegate,
+          child: const Row(
+            children: <Widget>[
+              Checkbox(
+                value: true,
+                onChanged: null,
+              ),
+              Checkbox(
+                value: false,
+                onChanged: null,
+              ),
+            ],
+          ),
         ),
       ),
     ));
 
-    pdf.addPage(await exportDelegate1._exportPage(exportContext));
-    pdf.addPage(await exportDelegate2._exportPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('checkbox basic'));
+    pdf.addPage(await exportDelegate.exportToPdfPage('checkbox basic',
+      overrideOptions: overrideOptions));
   });
 
   testWidgets('Form Widgets Checkbox Decoration', (tester) async {
-    late BuildContext exportContext;
-
     await tester.pumpWidget(MaterialApp(
       home: Material(
-        child: Builder(
-          builder: (BuildContext context) {
-            exportContext = context;
-            return const Row(
-              children: <Widget>[
-                Checkbox(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(4)),
-                  ),
-                  activeColor: Colors.purple,
-                  checkColor: Colors.green,
-                  value: true,
-                  onChanged: null,
+        child: ExportFrame(
+          frameId: 'checkbox decoration',
+          exportDelegate: exportDelegate,
+          child: const Row(
+            children: <Widget>[
+              Checkbox(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(4)),
                 ),
-                Checkbox(
-                  shape: CircleBorder(
-                    side: BorderSide(
-                      color: Colors.red,
-                      width: 2,
-                    ),
+                activeColor: Colors.purple,
+                checkColor: Colors.green,
+                value: true,
+                onChanged: null,
+              ),
+              Checkbox(
+                shape: CircleBorder(
+                  side: BorderSide(
+                    color: Colors.red,
+                    width: 2,
                   ),
-                  activeColor: Colors.purple,
-                  checkColor: Colors.green,
-                  value: false,
-                  onChanged: null,
                 ),
-              ],
-            );
-          },
+                activeColor: Colors.purple,
+                checkColor: Colors.green,
+                value: false,
+                onChanged: null,
+              ),
+            ],
+          ),
         ),
       ),
     ));
 
-    pdf.addPage(await exportDelegate1._exportPage(exportContext));
-    pdf.addPage(await exportDelegate2._exportPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('checkbox decoration'));
+    pdf.addPage(await exportDelegate.exportToPdfPage('checkbox decoration',
+      overrideOptions: overrideOptions));
   });
 
   testWidgets('Form Widgets Button Basic', (tester) async {
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return const Directionality(
-          textDirection: TextDirection.ltr,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              TextButton(
-                onPressed: null,
-                child: Text('TextButton'),
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'button basic',
+      exportDelegate: exportDelegate,
+      child: const Directionality(
+        textDirection: TextDirection.ltr,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            TextButton(
+              onPressed: null,
+              child: Text('TextButton'),
+            ),
+            ElevatedButton(
+              onPressed: null,
+              child: Text('ElevatedButton'),
+            ),
+            OutlinedButton(
+              onPressed: null,
+              child: Text('OutlinedButton'),
+            ),
+            FilledButton(
+              onPressed: null,
+              child: Text('FilledButton'),
               ),
-              ElevatedButton(
-                onPressed: null,
-                child: Text('ElevatedButton'),
-              ),
-              OutlinedButton(
-                onPressed: null,
-                child: Text('OutlinedButton'),
-              ),
-              FilledButton(
-                onPressed: null,
-                child: Text('FilledButton'),
-                ),
-            ],
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportDelegate1._exportPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('button basic'));
   });
 
   testWidgets('Form Widgets Button Style', (tester) async {
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              TextButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.purple),
-                  foregroundColor: MaterialStateProperty.all(Colors.green),
-                  shape: MaterialStateProperty.all(
-                    const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(4)),
-                    ),
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'button style',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.purple),
+                foregroundColor: MaterialStateProperty.all(Colors.green),
+                shape: MaterialStateProperty.all(
+                  const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
                   ),
                 ),
-                onPressed: null,
-                child: const Text('TextButton'),
               ),
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.purple),
-                  foregroundColor: MaterialStateProperty.all(Colors.green),
-                  shape: MaterialStateProperty.all(
-                    const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(4)),
-                    ),
+              onPressed: null,
+              child: const Text('TextButton'),
+            ),
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.purple),
+                foregroundColor: MaterialStateProperty.all(Colors.green),
+                shape: MaterialStateProperty.all(
+                  const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
                   ),
                 ),
-                onPressed: null,
-                child: const Text('ElevatedButton'),
               ),
-              OutlinedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.purple),
-                  foregroundColor: MaterialStateProperty.all(Colors.green),
-                  shape: MaterialStateProperty.all(
-                    const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(4)),
-                    ),
+              onPressed: null,
+              child: const Text('ElevatedButton'),
+            ),
+            OutlinedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.purple),
+                foregroundColor: MaterialStateProperty.all(Colors.green),
+                shape: MaterialStateProperty.all(
+                  const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
                   ),
                 ),
-                onPressed: null,
-                child: const Text('OutlinedButton'),
               ),
-              FilledButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.purple),
-                  foregroundColor: MaterialStateProperty.all(Colors.green),
-                  shape: MaterialStateProperty.all(
-                    const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(4)),
-                    ),
+              onPressed: null,
+              child: const Text('OutlinedButton'),
+            ),
+            FilledButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.purple),
+                foregroundColor: MaterialStateProperty.all(Colors.green),
+                shape: MaterialStateProperty.all(
+                  const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
                   ),
                 ),
-                onPressed: null,
-                child: const Text('FilledButton'),
-                ),
-            ],
-          ),
-        );
-      },
+              ),
+              onPressed: null,
+              child: const Text('FilledButton'),
+              ),
+          ],
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportDelegate1._exportPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('button style'));
   });
 
   tearDownAll(() async {
