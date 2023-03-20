@@ -35,7 +35,10 @@ import 'widgets/wrap.dart';
 import 'widgets/table.dart';
 
 class ExportInstance {
+  /// The delegate that is used to export the widget.
   final ExportDelegate delegate;
+
+  /// The function to export a [Widget] to a [pw.Widget].
   final Future<pw.Widget> Function(Widget widget) exportFunc;
 
   const ExportInstance(this.delegate, this.exportFunc);

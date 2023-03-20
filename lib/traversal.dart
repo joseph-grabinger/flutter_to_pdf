@@ -8,7 +8,6 @@ import 'utils.dart';
 import 'options/export_options.dart';
 
 
-const Key exportFrameKey = Key('FlutterToPDF.exportFrameKey');
 class ExportDelegate {
   final ExportOptions options;
 
@@ -48,10 +47,10 @@ class ExportDelegate {
 
     if (overrideOptions != null) {
       ExportDelegate delegate = copyWith(options: overrideOptions);
-      return await delegate._exportDocument(frame.exportChild, frame.exportContext!);
+      return await delegate._exportDocument(frame.exportWidget, frame.exportContext!);
     }
 
-    return await _exportDocument(frame.exportChild, frame.exportContext!);
+    return await _exportDocument(frame.exportWidget, frame.exportContext!);
   }
 
   /// Exports the [ExportFrame] with the given [frameId] to a [pw.Page].
@@ -60,10 +59,10 @@ class ExportDelegate {
 
     if (overrideOptions != null) {
       ExportDelegate delegate = copyWith(options: overrideOptions);
-      return await delegate._exportPage(frame.exportChild, frame.exportContext!);
+      return await delegate._exportPage(frame.exportWidget, frame.exportContext!);
     }
 
-    return await _exportPage(frame.exportChild, frame.exportContext!);
+    return await _exportPage(frame.exportWidget, frame.exportContext!);
   }
 
   /// Exports the [ExportFrame] with the given [frameId] to a [pw.Widget].
@@ -72,10 +71,10 @@ class ExportDelegate {
 
     if (overrideOptions != null) {
       ExportDelegate delegate = copyWith(options: overrideOptions);
-      return await delegate._exportWidget(frame.exportChild, frame.exportContext!);
+      return await delegate._exportWidget(frame.exportWidget, frame.exportContext!);
     }
 
-    return await _exportWidget(frame.exportChild, frame.exportContext!);
+    return await _exportWidget(frame.exportWidget, frame.exportContext!);
   }
 
   /// Exports the given [widget] to a [pw.Widget].
@@ -86,7 +85,9 @@ class ExportDelegate {
     final ExportInstance exportInstance = ExportInstance(this,
       (Widget widget) => _exportWidget(widget, null));
 
-    await layoutWidget(widget, const Size(600, 400)).then(
+    final Size layoutSize = options.pageFormatOptions.getAvailableSize();
+
+    await layoutWidget(widget, layoutSize).then(
       (Element? element) async => children = await exportInstance.matchWidget(element!, context));
 
     if (children.isEmpty) {

@@ -19,7 +19,7 @@ class ExportFrame extends StatelessWidget {
 
   BuildContext? get exportContext => _exportContext;
 
-  Widget get exportChild => child;
+  Widget get exportWidget => child;
 
   @override
   Widget build(BuildContext context) {

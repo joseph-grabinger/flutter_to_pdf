@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import 'traversal.dart';
 
+const Key exportFrameKey = Key('FlutterToPDF.exportFrameKey');
 
 /// Extracts the ExportFrame as [Element] from the provided [element]. 
 /// ExportFrame is identified by checking if the widget contains the [exportFrameKey].
@@ -32,11 +32,11 @@ Element? findElement<T>(BuildContext context, bool Function(T) compare) {
 
   context.visitChildElements((Element e) => element = e);
 
-  return findByElement(element!, compare);
+  return _findByElement(element!, compare);
 }
 
 /// Recursive helper function for [findElement].
-Element? findByElement<T>(Element element, bool Function(T) compare) {
+Element? _findByElement<T>(Element element, bool Function(T) compare) {
   if (element.widget is T && compare(element.widget as T)) {
     return element;
   }
@@ -48,7 +48,7 @@ Element? findByElement<T>(Element element, bool Function(T) compare) {
 
 
   for (Element child in children) {
-    Element? found = findByElement(child, compare);
+    Element? found = _findByElement(child, compare);
     if (found != null) {
       return found;
     }
@@ -84,7 +84,7 @@ Future<Element?> layoutWidget(Widget widget, Size size) async {
       child: MaterialApp(
         home: Material(
           child: Directionality(
-            key: exportFrameKey, // TODO: check if exportFrameKey can also be added to the ExportFrame
+            key: exportFrameKey,
             textDirection: TextDirection.ltr,
             child: widget,
           ),

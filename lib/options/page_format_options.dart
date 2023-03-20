@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart' show BuildContext;
+import 'package:flutter/widgets.dart' show BuildContext, Size;
 
 import 'package:pdf/pdf.dart' show PdfPageFormat;
 
@@ -15,7 +15,6 @@ class PageFormatOptions {
   final double? marginAll;
   final BuildContext? context;
   final bool clip;
-
 
   const PageFormatOptions({
     this.pageFormat,
@@ -189,6 +188,20 @@ class PageFormatOptions {
       default:
         return null;
     }
+  }
+
+  /// Returns the available [Size] of the page.
+  Size getAvailableSize() {
+    final PdfPageFormat? pageFormat = getPageFormat();
+    if (pageFormat == null) {
+      print('Available size is zero');
+      return Size.zero;
+    }
+
+    print('Available width: ${pageFormat.availableWidth}');
+    print('Available height: ${pageFormat.availableHeight}');
+
+    return Size(pageFormat.availableWidth, pageFormat.availableHeight);
   }
 }
 
