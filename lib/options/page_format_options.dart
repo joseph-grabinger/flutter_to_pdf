@@ -194,12 +194,8 @@ class PageFormatOptions {
   Size getAvailableSize() {
     final PdfPageFormat? pageFormat = getPageFormat();
     if (pageFormat == null) {
-      print('Available size is zero');
       return Size.zero;
     }
-
-    print('Available width: ${pageFormat.availableWidth}');
-    print('Available height: ${pageFormat.availableHeight}');
 
     return Size(pageFormat.availableWidth, pageFormat.availableHeight);
   }

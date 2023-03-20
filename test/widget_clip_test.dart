@@ -15,76 +15,55 @@ void main() {
   });
 
   testWidgets('Clip Widgets ClipRect', (tester) async {
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(MaterialApp(
-      home: Material(
-        child: Builder(
-          builder: (BuildContext context) {
-            exportContext = context;
-            return ClipRect(
-              child: Transform.rotate(
-                angle: 0.1,
-                child: Container(
-                  width: 200,
-                  height: 200,
-                  color: Colors.blue,
-                ),
-              ),
-            );
-          },
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'clip rect',
+      exportDelegate: exportDelegate,
+      child: ClipRect(
+        child: Transform.rotate(
+          angle: 0.1,
+          child: Container(
+            width: 200,
+            height: 200,
+            color: Colors.blue,
+          ),
         ),
       ),
     ));
 
-    pdf.addPage(await exportDelegate._exportPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('clip rect'));
   });
 
   testWidgets('Clip Widgets ClipRRect', (tester) async {
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(MaterialApp(
-      home: Material(
-        child: Builder(
-          builder: (BuildContext context) {
-            exportContext = context;
-            return ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Container(
-                width: 200,
-                height: 200,
-                color: Colors.blue,
-              ),
-            );
-          },
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'clip rrect',
+      exportDelegate: exportDelegate,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          width: 200,
+          height: 200,
+          color: Colors.blue,
         ),
       ),
     ));
 
-    pdf.addPage(await exportDelegate._exportPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('clip rrect'));
   });
 
   testWidgets('Clip Widgets ClipOval', (tester) async {
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(MaterialApp(
-      home: Material(
-        child: Builder(
-          builder: (BuildContext context) {
-            exportContext = context;
-            return ClipOval(
-              child: Container(
-                width: 200,
-                height: 200,
-                color: Colors.blue,
-              ),
-            );
-          },
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'clip oval',
+      exportDelegate: exportDelegate,
+      child: ClipOval(
+        child: Container(
+          width: 200,
+          height: 200,
+          color: Colors.blue,
         ),
       ),
     ));
 
-    pdf.addPage(await exportDelegate._exportPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('clip oval'));
   });
 
   tearDownAll(() async {
