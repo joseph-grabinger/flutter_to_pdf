@@ -15,63 +15,58 @@ void main() async {
   });
 
   testWidgets('Text Widgets Quotes', (tester) async {
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return const Directionality(
-          textDirection: TextDirection.ltr,
-          child: Text('Text containing \' or " works!'),
-        );
-      },
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'text quotes',
+      exportDelegate: exportDelegate,
+      child: const Directionality(
+        textDirection: TextDirection.ltr,
+        child: Text('Text containing \' or " works!'),
+      ),
     ));
 
-    pdf.addPage(await exportDelegate._exportPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('text quotes'));
   });
 
   testWidgets('Text Widgets SoftWrap', (tester) async {
-    late BuildContext exportContext;
-
     String lore = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor';
 
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return  Directionality(
-          textDirection: TextDirection.ltr,
-          child: Column(
-            children: [
-              const Expanded(child: Text('Text with\nsoft wrap\nenabled', softWrap: true)),
-              const Expanded(child: Text('Text with\nsoft wrap\nenabled', softWrap: false)),
-              Expanded(
-                child: SizedBox(
-                  width: 120,
-                  child: Text(lore,
-                    softWrap: false,
-                  ),
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'text soft wrap',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Column(
+          children: [
+            const Expanded(child: Text('Text with\nsoft wrap\nenabled', softWrap: true)),
+            const Expanded(child: Text('Text with\nsoft wrap\nenabled', softWrap: false)),
+            Expanded(
+              child: SizedBox(
+                width: 120,
+                child: Text(lore,
+                  softWrap: false,
                 ),
               ),
-              Expanded(
-                child: SizedBox(
-                  width: 120,
-                  child: Text(lore,
-                    softWrap: true,
-                  ),
+            ),
+            Expanded(
+              child: SizedBox(
+                width: 120,
+                child: Text(lore,
+                  softWrap: true,
                 ),
               ),
-            ],
-          ),
-        );
-      },
+            ),
+          ],
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportDelegate._exportPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('text soft wrap'));
   });
 
   testWidgets('Text Widgets Alignment', (tester) async {
     final children = <Widget>[];
-    for (final align in TextAlign.values.where((element) => element != TextAlign.end)) {
+    for (final align in TextAlign.values.where(
+      (element) => element != TextAlign.end)) {
       children.add(
         SizedBox(
           width: 120,
@@ -82,22 +77,19 @@ void main() async {
       );
     }
 
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: children,
-          ),
-        );
-      },
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'text alignment',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: children,
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportDelegate._exportPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('text alignment'));
   });
 
   testWidgets('Text Widgets WordSpacing', (tester) async {
@@ -112,22 +104,19 @@ void main() async {
       );
     }
 
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: children,
-          ),
-        );
-      },
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'text word spacing',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: children,
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportDelegate._exportPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('text word spacing'));
   });
 
   testWidgets('Text Widgets LetterSpacing', (tester) async {
@@ -142,22 +131,19 @@ void main() async {
       );
     }
 
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: children,
-          ),
-        );
-      },
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'text letter spacing',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: children,
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportDelegate._exportPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('text letter spacing'));
   });
 
   testWidgets('Text Widgets Font', (tester) async {
@@ -172,22 +158,19 @@ void main() async {
       );
     }
 
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: children,
-          ),
-        );
-      },
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'text font',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: children,
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportDelegate._exportPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('text font'));
   });
 
   testWidgets('Text Widgets FontStyle', (tester) async {
@@ -202,22 +185,19 @@ void main() async {
       );
     }
 
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: children,
-          ),
-        );
-      },
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'text font style',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: children,
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportDelegate._exportPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('text font style'));
   });
 
   testWidgets('Text Widgets Decoration', (tester) async {
@@ -238,22 +218,19 @@ void main() async {
       );
     }
 
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: children,
-          ),
-        );
-      },
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'text decoration',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: children,
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportDelegate._exportPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('text decoration'));
   });
 
   testWidgets('Text Widgets Overflow', (tester) async {
@@ -268,45 +245,39 @@ void main() async {
       );
     }
 
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: children,
-          ),
-        );
-      },
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'text overflow',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: children,
+        ),
+      ),
     ));
 
-    pdf.addPage(await exportDelegate._exportPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('text overflow'));
   });
 
   testWidgets('Text Widgets Direction', (tester) async {
-    late BuildContext exportContext;
-
-    await tester.pumpWidget(Builder(
-      builder: (BuildContext context) {
-        exportContext = context;
-        return const Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text('Text with TextDirection ltr',
-              textDirection: TextDirection.ltr,
-            ),
-            Text('Text with TextDirection rtl',
-              textDirection: TextDirection.rtl,
-            ),
-          ],
-        );
-      },
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'text direction',
+      exportDelegate: exportDelegate,
+      child: const Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text('Text with TextDirection ltr',
+            textDirection: TextDirection.ltr,
+          ),
+          Text('Text with TextDirection rtl',
+            textDirection: TextDirection.rtl,
+          ),
+        ],
+      ),
     ));
 
-    pdf.addPage(await exportDelegate._exportPage(exportContext));
+    pdf.addPage(await exportDelegate.exportToPdfPage('text direction'));
   });
 
 tearDownAll(() async {
