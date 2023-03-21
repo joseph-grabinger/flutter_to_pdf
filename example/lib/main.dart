@@ -20,7 +20,6 @@ class Demo extends StatelessWidget {
     'Image Example': imageExample,
     'Table Example': tableExample,
     'Button Example': buttonExample,
-    'Responsize Layout Example': const DocumentExample(),
   };
 
   @override

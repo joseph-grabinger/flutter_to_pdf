@@ -95,23 +95,23 @@ void main() async {
     pdf.addPage(await exportDelegate.exportToPdfPage('grid view count'));
   });
 
-  // testWidgets('GridView Widgets Extent', (tester) async {
-  //   await tester.pumpWidget(ExportFrame(
-  //     frameId: 'grid view extent',
-  //     exportDelegate: exportDelegate,
-  //     child: Directionality(
-  //       textDirection: TextDirection.ltr,
-  //       child: GridView.extent(
-  //         maxCrossAxisExtent: 20,
-  //         children: List<Widget>.generate(40,
-  //           (int index) => Center(child: Text('$index')),
-  //         ),
-  //       ),
-  //     ),
-  //   ));
+  testWidgets('GridView Widgets Extent', (tester) async {
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'grid view extent',
+      exportDelegate: exportDelegate,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: GridView.extent(
+          maxCrossAxisExtent: 70,
+          children: List<Widget>.generate(40,
+            (int index) => Center(child: Text('$index')),
+          ),
+        ),
+      ),
+    ));
 
-  //   pdf.addPage(await exportDelegate.exportToPdfPage('grid view extent'));
-  // });
+    pdf.addPage(await exportDelegate.exportToPdfPage('grid view extent'));
+  });
 
   tearDownAll(() async {
     final file = File('./test/output/widgets-gridview.pdf');

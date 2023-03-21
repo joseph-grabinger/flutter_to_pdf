@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 import 'package:pdf/widgets.dart' as pw;
 
@@ -62,6 +61,7 @@ class ExportInstance {
 
   /// Matches the widget provided as [element]
   /// and returns the corresponding [pw.Widget].
+  /// The [context] is only null when called from [exportFunc].
   Future<List<pw.Widget>> matchWidget(Element element, BuildContext? context) async {
     final Widget widget = element.widget;
 
@@ -187,7 +187,11 @@ class ExportInstance {
       case ListView:
           return [(widget as ListView).toPdfWidget(await _visit(element, context))];
       case GridView:
-        final BoxConstraints constraints = (element.renderObject! as RenderRepaintBoundary).constraints;
+        // final constraints = (element.renderObject! as RenderRepaintBoundary).constraints;
+        final constraints = BoxConstraints(
+          maxWidth: element.renderObject!.paintBounds.right,
+          maxHeight: element.renderObject!.paintBounds.bottom,
+        );
         return [(widget as GridView).toPdfWidget(await _visit(element, context), constraints)];
       case Wrap:
         return [(widget as Wrap).toPdfWidget(await _visit(element, context))];
