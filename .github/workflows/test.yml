@@ -18,8 +18,8 @@ jobs:
       - name: Clone Flutter repository with master channel
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.9.0-12.0.pre.15'
           channel: master
+      - run: git config --global --add safe.directory /opt/hostedtoolcache/flutter/
       - run: flutter doctor -v
 
       - name: Checkout the code
