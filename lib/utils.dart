@@ -58,7 +58,6 @@ Element? _findByElement<T>(Element element, bool Function(T) compare) {
 
 /// Lays out the provided [widget] in a view of [size] and returns it as [Element].
 Element? layoutWidget(Widget widget, Size size) {
-  print('Layout Widget called with: $widget, $size');
   RenderRepaintBoundary repaintBoundary = RenderRepaintBoundary();
 
   RenderView renderView = RenderView(
