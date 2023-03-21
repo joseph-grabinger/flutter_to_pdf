@@ -88,8 +88,6 @@ class ExportDelegate {
     Element? element = layoutWidget(widget, layoutSize);
 
     final List<pw.Widget> children = await exportInstance.matchWidget(element!, context);
-    // await layoutWidget(widget, layoutSize).then(
-    //   (Element? element) async => children = await exportInstance.matchWidget(element!, context));
 
     if (children.isEmpty) {
       throw Exception('No children found');

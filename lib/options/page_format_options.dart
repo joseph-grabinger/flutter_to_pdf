@@ -5,7 +5,7 @@ import 'package:pdf/pdf.dart' show PdfPageFormat;
 
 /// Configuration options on how the page is formatted.
 class PageFormatOptions {
-  final PageFormat? pageFormat;
+  final PageFormat pageFormat;
   final double? width;
   final double? height;
   final double marginTop;
@@ -17,7 +17,7 @@ class PageFormatOptions {
   final bool clip;
 
   const PageFormatOptions({
-    this.pageFormat,
+    this.pageFormat = PageFormat.a4,
     this.width,
     this.height,
     this.marginTop = 0.0,
@@ -150,7 +150,7 @@ class PageFormatOptions {
 
   /// Returns the [PdfPageFormat].
   /// The [context] is required if [PageFormat.screenSize] is used.
-  PdfPageFormat? getPageFormat() {
+  PdfPageFormat getPageFormat() {
     switch (pageFormat) {
       case PageFormat.a3:
         return PdfPageFormat.a3;
@@ -185,17 +185,15 @@ class PageFormatOptions {
           marginRight: marginRight,
           marginAll: marginAll,
         );
-      default:
-        return null;
     }
   }
 
   /// Returns the available [Size] of the page.
   Size getAvailableSize() {
-    final PdfPageFormat? pageFormat = getPageFormat();
-    if (pageFormat == null) {
-      return Size.zero;
-    }
+    final PdfPageFormat pageFormat = getPageFormat();
+    // if (pageFormat == null) {
+    //   return Size.zero;
+    // }
 
     return Size(pageFormat.availableWidth, pageFormat.availableHeight);
   }

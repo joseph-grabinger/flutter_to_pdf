@@ -15,14 +15,15 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+
       - name: Clone Flutter repository with master channel
         uses: subosito/flutter-action@v2
         with:
-          channel: master
+          flutter-version: '3.9.0-0.1.pre'
+          channel: 'beta'
       - run: flutter doctor -v
-
-      - name: Checkout the code
-        uses: actions/checkout@v3
       - run: flutter pub get
 
       # Uncomment this step to verify the use of 'dart format' on each commit.
