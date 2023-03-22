@@ -27,30 +27,32 @@ extension CheckboxConverter on Checkbox {
         ),
       );
     } else {
-      return pw.Container(
-        height: 13,
-        width: 13,
-        decoration: checkbox.value == null || !checkbox.value!
-          ? (await options.getBoxDecoration(checkbox.key)?.toPdfBoxDecoration())
-              ?? getCheckboxDecoration(checkbox)
-          : null,
-        child: checkbox.value != null && checkbox.value! ? pw.Center(
-          child: pw.CustomPaint(
-            size: const PdfPoint(13, 13),
-            painter: (PdfGraphics canvas, PdfPoint size) {
-              canvas
-                ..drawRect(0, 0, 13, 13)
-                ..setFillColor(checkbox.activeColor?.toPdfColor() ?? PdfColors.blue)
-                ..fillPath()
-                ..moveTo(2, 13 / 2)
-                ..lineTo(13 / 3, 13 / 4)
-                ..lineTo(13 - 2, 13 / 4 * 3)
-                ..setStrokeColor(checkbox.checkColor?.toPdfColor() ?? PdfColors.white)
-                ..setLineWidth(2)
-                ..strokePath();
-            },
-          ),
-        ) : null,
+      return pw.Center(
+        child: pw.Container(
+          height: 13,
+          width: 13,
+          decoration: checkbox.value == null || !checkbox.value!
+            ? (await options.getBoxDecoration(checkbox.key)?.toPdfBoxDecoration())
+                ?? getCheckboxDecoration(checkbox)
+            : null,
+          child: checkbox.value != null && checkbox.value! ? pw.Center(
+            child: pw.CustomPaint(
+              size: const PdfPoint(13, 13),
+              painter: (PdfGraphics canvas, PdfPoint size) {
+                canvas
+                  ..drawRect(0, 0, 13, 13)
+                  ..setFillColor(checkbox.activeColor?.toPdfColor() ?? PdfColors.blue)
+                  ..fillPath()
+                  ..moveTo(2, 13 / 2)
+                  ..lineTo(13 / 3, 13 / 4)
+                  ..lineTo(13 - 2, 13 / 4 * 3)
+                  ..setStrokeColor(checkbox.checkColor?.toPdfColor() ?? PdfColors.white)
+                  ..setLineWidth(2)
+                  ..strokePath();
+              },
+            ),
+          ) : null,
+        ),
       );
     }
   }
