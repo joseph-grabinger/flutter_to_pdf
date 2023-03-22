@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' show TextField;
 
 import 'package:pdf/pdf.dart' show PdfColors, PdfFieldFlags;
-import 'package:pdf/widgets.dart' as pw show TextField, Text, Widget, Container, EdgeInsets, Stack, Positioned, Transform, Alignment, StackFit;
+import 'package:pdf/widgets.dart' as pw show TextField, Text, Widget, Container, EdgeInsets, Stack, Positioned, Transform, Alignment, StackFit, ConstrainedBox, BoxConstraints;
 
 import '../export_instance.dart';
 import '/args/text_style.dart';
@@ -63,14 +63,16 @@ extension TextFieldConverter on TextField {
               if (textField.maxLines != null && textField.maxLines! > 1) PdfFieldFlags.multiline,
               if (textField.obscureText) PdfFieldFlags.password,
             },
-          ) : pw.Text(
+          ) : pw.ConstrainedBox(
+            constraints: const pw.BoxConstraints(minHeight: 13),
+            child: pw.Text(
             textField.controller?.value.text ?? '',
             maxLines: textField.maxLines,
             textAlign: textField.textAlign.toPdfTextAlign(),
             textDirection: textField.textDirection?.toPdfTextDirection(),
             style: (instance.delegate.options.textFieldOptions.getTextStyle(textField.key)
                 ?? textField.style)?.toPdfTextStyle(),
-          ),
+          )),
         ),
         if (label != null) pw.Positioned(
           left: 10.0,
