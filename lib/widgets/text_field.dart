@@ -29,6 +29,19 @@ extension TextFieldConverter on TextField {
       );
     }
 
+    if (textField.decoration?.labelText != null) {
+      label = pw.Transform.scale(
+        scale: 0.6,
+        child: pw.Container(
+          color: PdfColors.white,
+          padding: const pw.EdgeInsets.symmetric(horizontal: 2.0),
+          child: pw.Text(
+            textField.decoration!.labelText!,
+          ),
+        ),
+      );
+    }
+
     return pw.Stack(
       alignment: pw.Alignment.center,
       fit: pw.StackFit.passthrough,
