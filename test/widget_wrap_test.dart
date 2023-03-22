@@ -10,7 +10,7 @@ import 'utils.dart';
 
 late Document pdf;
 final ExportDelegate exportDelegate = ExportDelegate();
-const  ExportOptions overrideOptions =  ExportOptions(
+final  ExportOptions overrideOptions =  ExportOptions(
   pageFormatOptions: PageFormatOptions.custom(width: 1000, height: 500),
 );
 
