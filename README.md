@@ -1,4 +1,4 @@
-[![codecov](https://codecov.io/gh/dunef-com/flutter_to_pdf/branch/main/graph/badge.svg?token=5WIYFJ6VND)](https://codecov.io/gh/dunef-com/teaplates)
+[![codecov](https://codecov.io/gh/dunef-com/flutter_to_pdf/branch/main/graph/badge.svg?token=5WIYFJ6VND)](https://codecov.io/gh/dunef-com/flutter_to_pdf)
 
 The [FlutterToPDF](https://dunef.io/de) package lets you export any Flutter view to PDF Documents and is written natively in Dart.
 
