@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
 import 'examples/document_example.dart';
+import 'examples/questionnaire_example.dart';
 import 'examples/image_example.dart';
 import 'examples/table_example.dart';
 import 'examples/button_example.dart';
@@ -17,6 +18,7 @@ class Demo extends StatelessWidget {
 
   static final Map<String, Widget> examples = {
     'Document Example': const DocumentExample(),
+    'Questionnaire Example': const QuestionnaireExample(),
     'Image Example': imageExample,
     'Table Example': tableExample,
     'Button Example': buttonExample,

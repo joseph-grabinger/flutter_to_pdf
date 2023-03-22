@@ -156,9 +156,24 @@ class ExportInstance {
       case TextField:
       TextField? contextWidget;
         if (context != null) {
-          Element? contextElement = findElement(context,
-            (TextField e) => e.decoration!.label == (widget as TextField).decoration!.label);
-          contextWidget = contextElement!.widget as TextField;
+          TextFormField? textFormField;
+          if (widget.key == null) {
+            textFormField = element.findAncestorWidgetOfExactType<TextFormField>();
+            if (textFormField?.key == null) {
+              throw Exception('TextField must have a key to be exported');
+            }
+          }
+
+          if (textFormField == null) {
+            Element? contextElement = findElement(context,
+              (TextField e) => e.key == widget.key);
+            contextWidget = contextElement!.widget as TextField;
+          } else {
+            Element? contextElement = findElement(context,
+              (TextFormField e) => e.key == textFormField!.key);
+            contextElement = findFirstDescendantElement<TextField>(contextElement!);
+            contextWidget = contextElement!.widget as TextField;
+          }
         }
         return [await (widget as TextField).toPdfWidget(this, contextWidget)];
       case Divider:
@@ -168,8 +183,11 @@ class ExportInstance {
       case Checkbox:
         Checkbox? contextWidget;
         if (context != null) {
+          if (widget.key == null) {
+            throw Exception('Checkbox must have a key to be exported');
+          }
           Element? contextElement = findElement(context,
-            (Checkbox e) => true); // TODO find a way to match checkboxes
+            (Checkbox e) => e.key == widget.key);
           contextWidget = contextElement!.widget as Checkbox;
         }
         return [await (widget as Checkbox).toPdfWidget(delegate.options.checkboxOptions, contextWidget)];

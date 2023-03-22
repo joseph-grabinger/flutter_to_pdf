@@ -46,7 +46,6 @@ Element? _findByElement<T>(Element element, bool Function(T) compare) {
     children.add(e);
   });
 
-
   for (Element child in children) {
     Element? found = _findByElement(child, compare);
     if (found != null) {
@@ -54,6 +53,11 @@ Element? _findByElement<T>(Element element, bool Function(T) compare) {
     }
   }
   return null;
+}
+
+/// Finds the first descendant [Element] of the provided [element] of type [T].
+Element? findFirstDescendantElement<T>(Element element) {
+  return _findByElement(element, (T _) => true);
 }
 
 /// Lays out the provided [widget] in a view of [size] and returns it as [Element].

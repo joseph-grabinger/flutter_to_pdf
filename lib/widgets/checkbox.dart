@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' show BorderRadius, Checkbox, CircleBorder, RoundedRectangleBorder, debugPrint;
+import 'package:flutter/material.dart' show BorderRadius, Checkbox, CircleBorder, RoundedRectangleBorder;
 
 import 'package:pdf/pdf.dart' show PdfColors, PdfGraphics, PdfPoint;
 import 'package:pdf/widgets.dart' as pw show Checkbox, Widget, Container, BoxDecoration, BoxShape, Border, BorderStyle, Center, CustomPaint;
@@ -15,14 +15,16 @@ extension CheckboxConverter on Checkbox {
     final Checkbox checkbox = contextWidget ?? this;
 
     if (options.interactive) {
-      return pw.Checkbox(
-        name: checkbox.hashCode.toString(),
-        value: checkbox.value!,
-        tristate: checkbox.tristate,
-        activeColor: checkbox.activeColor?.toPdfColor() ?? PdfColors.blue,
-        checkColor: checkbox.checkColor?.toPdfColor() ?? PdfColors.white,
-        decoration: (await options.getBoxDecoration(checkbox.key)?.toPdfBoxDecoration())
-            ?? getCheckboxDecoration(checkbox),
+      return pw.Center(
+        child: pw.Checkbox(
+          name: checkbox.hashCode.toString(),
+          value: checkbox.value!,
+          tristate: checkbox.tristate,
+          activeColor: checkbox.activeColor?.toPdfColor() ?? PdfColors.blue,
+          checkColor: checkbox.checkColor?.toPdfColor() ?? PdfColors.white,
+          decoration: (await options.getBoxDecoration(checkbox.key)?.toPdfBoxDecoration())
+              ?? getCheckboxDecoration(checkbox),
+        ),
       );
     } else {
       return pw.Container(
@@ -61,7 +63,7 @@ pw.BoxDecoration getCheckboxDecoration(Checkbox checkbox) {
     style: checkbox.side?.style.toPdfBorderStyle() ?? pw.BorderStyle.solid,
   );
 
-  switch (checkbox.shape.runtimeType) {
+  switch (checkbox.shape.runtimeType) {    
     case RoundedRectangleBorder:
       return pw.BoxDecoration(
         color: checkbox.fillColor?.resolve({})?.toPdfColor(),
@@ -75,7 +77,6 @@ pw.BoxDecoration getCheckboxDecoration(Checkbox checkbox) {
         border: defaultBorder,
       );
     default:
-      debugPrint('Unsupported OutlineBorder: ${checkbox.shape.runtimeType}');
-      return const pw.BoxDecoration();
+      return pw.BoxDecoration(border: defaultBorder);
   }
 }

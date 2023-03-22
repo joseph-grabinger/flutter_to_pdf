@@ -25,7 +25,9 @@ void main() {
         child: ExportFrame(
           frameId: 'text field empty',
           exportDelegate: exportDelegate,
-          child: const TextField(),
+          child: const TextField(
+            key: Key('text field empty'),
+          ),
         ),
       ),
     ));
@@ -42,6 +44,7 @@ void main() {
           frameId: 'text field value',
           exportDelegate: exportDelegate,
           child: TextField(
+            key: const Key('text field value'),
             controller: TextEditingController(text: 'Hello World!'),
           ),
         ),
@@ -63,6 +66,7 @@ void main() {
           child: Column(
             children: [
               TextField(
+                key: const Key('text field red'),
                 controller: TextEditingController(text: 'Red, 20, bold'),
                 style: const TextStyle(
                   color: Colors.red,
@@ -71,6 +75,7 @@ void main() {
                 ),
               ),
               TextField(
+                key: const Key('text field blue'),
                 controller: TextEditingController(text: 'Blue, 25, w600'),
                 style: const TextStyle(
                   color: Colors.blue,
@@ -104,6 +109,7 @@ void main() {
             children: [
               for (final radius in radii)
                 TextField(
+                  key: Key('text field outline $radius'),
                   controller: TextEditingController(text: radius.toString()),
                   decoration: InputDecoration(
                     label: const Text('OutlineInputBorder'), 
@@ -114,6 +120,7 @@ void main() {
                 ),
               for (final radius in radii)
                 TextField(
+                  key: Key('text field underline $radius'),
                   controller: TextEditingController(text: radius.toString()),
                   decoration: InputDecoration(
                     label: const Text('UnderlineInputBorder'), 
@@ -140,7 +147,9 @@ void main() {
         child: ExportFrame(
           frameId: 'text form field empty',
           exportDelegate: exportDelegate,
-          child: TextFormField(),
+          child: TextFormField(
+            key: const Key('text form field empty'),
+          ),
         ),
       ),
     ));
@@ -158,6 +167,7 @@ void main() {
           frameId: 'text form field value',
           exportDelegate: exportDelegate,
           child: TextFormField(
+            key: const Key('text form field value'),
             controller: TextEditingController(text: 'Hello World!'),
           ),
         ),
@@ -179,6 +189,7 @@ void main() {
           child: Column(
             children: [
               TextFormField(
+                key: const Key('text form field red'),
                 controller: TextEditingController(text: 'Red, 20, bold'),
                 style: const TextStyle(
                   color: Colors.red,
@@ -187,6 +198,7 @@ void main() {
                 ),
               ),
               TextField(
+                key: const Key('text form field blue'),
                 controller: TextEditingController(text: 'Blue, 25, w600'),
                 style: const TextStyle(
                   color: Colors.blue,
@@ -220,6 +232,7 @@ void main() {
             children: [
               for (final radius in radii)
                 TextFormField(
+                  key: Key('text form field outline $radius'),
                   controller: TextEditingController(text: radius.toString()),
                   decoration: InputDecoration(
                     label: const Text('OutlineInputBorder'), 
@@ -230,6 +243,7 @@ void main() {
                 ),
               for (final radius in radii)
                 TextFormField(
+                  key: Key('text form field underline $radius'),
                   controller: TextEditingController(text: radius.toString()),
                   decoration: InputDecoration(
                     label: const Text('UnderlineInputBorder'), 
