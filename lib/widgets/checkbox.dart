@@ -15,14 +15,16 @@ extension CheckboxConverter on Checkbox {
     final Checkbox checkbox = contextWidget ?? this;
 
     if (options.interactive) {
-      return pw.Checkbox(
-        name: checkbox.hashCode.toString(),
-        value: checkbox.value!,
-        tristate: checkbox.tristate,
-        activeColor: checkbox.activeColor?.toPdfColor() ?? PdfColors.blue,
-        checkColor: checkbox.checkColor?.toPdfColor() ?? PdfColors.white,
-        decoration: (await options.getBoxDecoration(checkbox.key)?.toPdfBoxDecoration())
-            ?? getCheckboxDecoration(checkbox),
+      return pw.Center(
+        child: pw.Checkbox(
+          name: checkbox.hashCode.toString(),
+          value: checkbox.value!,
+          tristate: checkbox.tristate,
+          activeColor: checkbox.activeColor?.toPdfColor() ?? PdfColors.blue,
+          checkColor: checkbox.checkColor?.toPdfColor() ?? PdfColors.white,
+          decoration: (await options.getBoxDecoration(checkbox.key)?.toPdfBoxDecoration())
+              ?? getCheckboxDecoration(checkbox),
+        ),
       );
     } else {
       return pw.Container(
