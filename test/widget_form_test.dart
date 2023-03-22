@@ -27,10 +27,12 @@ void main() {
           child: const Row(
             children: <Widget>[
               Checkbox(
+                key: Key('checkbox1 basic'),
                 value: true,
                 onChanged: null,
               ),
               Checkbox(
+                key: Key('checkbox2 basic'),
                 value: false,
                 onChanged: null,
               ),
@@ -54,6 +56,7 @@ void main() {
           child: const Row(
             children: <Widget>[
               Checkbox(
+                key: Key('checkbox1 decoration'),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(4)),
                 ),
@@ -63,6 +66,7 @@ void main() {
                 onChanged: null,
               ),
               Checkbox(
+                key: Key('checkbox2 decoration'),
                 shape: CircleBorder(
                   side: BorderSide(
                     color: Colors.red,

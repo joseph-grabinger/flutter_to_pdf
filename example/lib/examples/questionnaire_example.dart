@@ -82,6 +82,7 @@ class _QuestionnaireExampleState extends State<QuestionnaireExample> {
         Row(
           children: [
             Checkbox(
+              key: const Key('acceptLorem'),
               value: acceptLorem, 
               onChanged: (newValue) => setState(() {
                 acceptLorem = newValue ?? false;
