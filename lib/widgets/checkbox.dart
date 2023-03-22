@@ -65,7 +65,7 @@ pw.BoxDecoration getCheckboxDecoration(Checkbox checkbox) {
     style: checkbox.side?.style.toPdfBorderStyle() ?? pw.BorderStyle.solid,
   );
 
-  switch (checkbox.shape.runtimeType) {    
+  switch (checkbox.shape.runtimeType) {
     case RoundedRectangleBorder:
       return pw.BoxDecoration(
         color: checkbox.fillColor?.resolve({})?.toPdfColor(),
