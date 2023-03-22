@@ -87,6 +87,7 @@ class _DocumentExampleState extends State<DocumentExample> {
             width: 200,
             height: 50,
             child: TextField(
+              key: const Key('name'),
               controller: controller,
               decoration: const InputDecoration(
                 label: Text('Name'), border: OutlineInputBorder(),
@@ -94,6 +95,7 @@ class _DocumentExampleState extends State<DocumentExample> {
             ),
           ),
           Checkbox(
+            key: const Key('checkbox'),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
             ),
