@@ -61,13 +61,13 @@ Element? findFirstDescendantElement<T>(Element element) {
 }
 
 /// Lays out the provided [widget] in a view of [size] and returns it as [Element].
-Element? layoutWidget(Widget widget, Size size) {
+Element? layoutWidget(Widget widget, Size size, double? pixelRatio) {
   RenderRepaintBoundary repaintBoundary = RenderRepaintBoundary();
 
   RenderView renderView = RenderView(
     configuration: ViewConfiguration(
       size: size,
-      devicePixelRatio: 1.0,
+      devicePixelRatio: pixelRatio ?? 1.0,
     ),
     window: WidgetsBinding.instance.platformDispatcher.views.first,
     child: RenderPositionedBox(
@@ -80,21 +80,23 @@ Element? layoutWidget(Widget widget, Size size) {
   pipelineOwner.rootNode = renderView;
   renderView.prepareInitialFrame();
 
-  BuildOwner buildOwner = BuildOwner(focusManager: FocusManager());
-  RenderObjectToWidgetElement rootElement = RenderObjectToWidgetAdapter(
-    container: repaintBoundary,
-    child: MediaQuery(
-      data: MediaQueryData(size: size),
-      child: MaterialApp(
-        home: Material(
-          child: Directionality(
-            key: exportFrameKey,
-            textDirection: TextDirection.ltr,
-            child: widget,
-          ),
+  widget = MediaQuery(
+    data: MediaQueryData(size: size),
+    child: MaterialApp(
+      home: Material(
+        child: Directionality(
+          key: exportFrameKey,
+          textDirection: TextDirection.ltr,
+          child: widget,
         ),
       ),
     ),
+  );
+
+  BuildOwner buildOwner = BuildOwner(focusManager: FocusManager());
+  RenderObjectToWidgetElement rootElement = RenderObjectToWidgetAdapter(
+    container: repaintBoundary,
+    child: widget,
   ).attachToRenderTree(buildOwner);
   buildOwner.buildScope(rootElement);
   buildOwner.finalizeTree();

@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart' show FontWeight;
+import 'package:flutter/widgets.dart' show FontWeight, debugPrint;
 
 import 'package:pdf/widgets.dart' as pw show FontWeight;
 
@@ -10,10 +10,9 @@ extension FontWeightConverter on FontWeight {
         return pw.FontWeight.normal;
       case FontWeight.bold:
         return pw.FontWeight.bold;
-      // TODO hanlde unsupported values
-      default: 
+      default:
+        debugPrint('Unsupported FontWeight: $this; defaulting to FontWeight.normal');
         return pw.FontWeight.normal;
     }
   }
-
 }

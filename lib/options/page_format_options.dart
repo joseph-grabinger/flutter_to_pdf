@@ -31,99 +31,99 @@ class PageFormatOptions {
 
   const PageFormatOptions.a3({
     this.clip = false,
-  }) : pageFormat = PageFormat.a3,
-    width = null,
-    height = null,
-    marginTop = 0.0,
-    marginBottom = 0.0,
-    marginLeft = 0.0,
-    marginRight = 0.0,
-    marginAll = null,
-    context = null;
+  })  : pageFormat = PageFormat.a3,
+        width = null,
+        height = null,
+        marginTop = 0.0,
+        marginBottom = 0.0,
+        marginLeft = 0.0,
+        marginRight = 0.0,
+        marginAll = null,
+        context = null;
 
   const PageFormatOptions.a4({
     this.clip = false,
-  }) : pageFormat = PageFormat.a4,
-    width = null,
-    height = null,
-    marginTop = 0.0,
-    marginBottom = 0.0,
-    marginLeft = 0.0,
-    marginRight = 0.0,
-    marginAll = null,
-    context = null;
+  })  : pageFormat = PageFormat.a4,
+        width = null,
+        height = null,
+        marginTop = 0.0,
+        marginBottom = 0.0,
+        marginLeft = 0.0,
+        marginRight = 0.0,
+        marginAll = null,
+        context = null;
 
   const PageFormatOptions.a5({
     this.clip = false,
-  }) : pageFormat = PageFormat.a5,
-    width = null,
-    height = null,
-    marginTop = 0.0,
-    marginBottom = 0.0,
-    marginLeft = 0.0,
-    marginRight = 0.0,
-    marginAll = null,
-    context = null;
+  })  : pageFormat = PageFormat.a5,
+        width = null,
+        height = null,
+        marginTop = 0.0,
+        marginBottom = 0.0,
+        marginLeft = 0.0,
+        marginRight = 0.0,
+        marginAll = null,
+        context = null;
   
   const PageFormatOptions.a6({
     this.clip = false,
-  }) : pageFormat = PageFormat.a6,
-    width = null,
-    height = null,
-    marginTop = 0.0,
-    marginBottom = 0.0,
-    marginLeft = 0.0,
-    marginRight = 0.0,
-    marginAll = null,
-    context = null;
+  })  : pageFormat = PageFormat.a6,
+        width = null,
+        height = null,
+        marginTop = 0.0,
+        marginBottom = 0.0,
+        marginLeft = 0.0,
+        marginRight = 0.0,
+        marginAll = null,
+        context = null;
   
   const PageFormatOptions.letter({
     this.clip = false,
-  }) : pageFormat = PageFormat.letter,
-    width = null,
-    height = null,
-    marginTop = 0.0,
-    marginBottom = 0.0,
-    marginLeft = 0.0,
-    marginRight = 0.0,
-    marginAll = null,
-    context = null;
+  })  : pageFormat = PageFormat.letter,
+        width = null,
+        height = null,
+        marginTop = 0.0,
+        marginBottom = 0.0,
+        marginLeft = 0.0,
+        marginRight = 0.0,
+        marginAll = null,
+        context = null;
 
   const PageFormatOptions.legal({
     this.clip = false,
-  }) : pageFormat = PageFormat.legal,
-    width = null,
-    height = null,
-    marginTop = 0.0,
-    marginBottom = 0.0,
-    marginLeft = 0.0,
-    marginRight = 0.0,
-    marginAll = null,
-    context = null;
+  })  : pageFormat = PageFormat.legal,
+        width = null,
+        height = null,
+        marginTop = 0.0,
+        marginBottom = 0.0,
+        marginLeft = 0.0,
+        marginRight = 0.0,
+        marginAll = null,
+        context = null;
 
   const PageFormatOptions.roll57({
     this.clip = false,
-  }) : pageFormat = PageFormat.roll57,
-    width = null,
-    height = null,
-    marginTop = 0.0,
-    marginBottom = 0.0,
-    marginLeft = 0.0,
-    marginRight = 0.0,
-    marginAll = null,
-    context = null;
+  })  : pageFormat = PageFormat.roll57,
+        width = null,
+        height = null,
+        marginTop = 0.0,
+        marginBottom = 0.0,
+        marginLeft = 0.0,
+        marginRight = 0.0,
+        marginAll = null,
+        context = null;
 
   const PageFormatOptions.roll80({
     this.clip = false,
-  }) : pageFormat = PageFormat.roll80,
-    width = null,
-    height = null,
-    marginTop = 0.0,
-    marginBottom = 0.0,
-    marginLeft = 0.0,
-    marginRight = 0.0,
-    marginAll = null,
-    context = null;
+  })  : pageFormat = PageFormat.roll80,
+        width = null,
+        height = null,
+        marginTop = 0.0,
+        marginBottom = 0.0,
+        marginLeft = 0.0,
+        marginRight = 0.0,
+        marginAll = null,
+        context = null;
   
   const PageFormatOptions.screenSize(
     BuildContext this.context, {
@@ -133,11 +133,11 @@ class PageFormatOptions {
     this.marginRight = 0.0,
     this.marginAll,
     this.clip = false,
-  }) : pageFormat = PageFormat.screenSize,
-    width = null,
-    height = null;
+  })  : pageFormat = PageFormat.screenSize,
+        width = null,
+        height = null;
 
-  const PageFormatOptions.custom({
+  PageFormatOptions.custom({
     required this.width,
     this.height,
     this.marginTop = 0.0,
@@ -146,7 +146,9 @@ class PageFormatOptions {
     this.marginRight = 0.0,
     this.marginAll,
     this.clip = false,
-  }) : pageFormat = PageFormat.custom, context = null;
+  })  : assert(width != null && width > 0, 'width is null or less than 0'),
+        pageFormat = PageFormat.custom,
+        context = null;
 
   /// Returns the [PdfPageFormat].
   /// The [context] is required if [PageFormat.screenSize] is used.
@@ -177,7 +179,6 @@ class PageFormatOptions {
           marginAll: marginAll,
         );
       case PageFormat.custom:
-        assert(width != null && width! > 0, 'width is null or less than 0');
         return PdfPageFormat(width!, height!,
           marginTop: marginTop,
           marginBottom: marginBottom,
@@ -191,9 +192,6 @@ class PageFormatOptions {
   /// Returns the available [Size] of the page.
   Size getAvailableSize() {
     final PdfPageFormat pageFormat = getPageFormat();
-    // if (pageFormat == null) {
-    //   return Size.zero;
-    // }
 
     return Size(pageFormat.availableWidth, pageFormat.availableHeight);
   }

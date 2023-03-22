@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart' show CrossAxisAlignment;
+import 'package:flutter/widgets.dart' show CrossAxisAlignment, debugPrint;
 
 import 'package:pdf/widgets.dart' as pw show CrossAxisAlignment;
 
@@ -17,7 +17,8 @@ extension CrossAxisAlignmentConverter on CrossAxisAlignment {
       // not supported in pdf package:
       // - CrossAxisAlignment.baseline
       default: 
-        throw Exception('Unsupported CrossAxisAlignment: $this');
+        debugPrint('Unsupported CrossAxisAlignment: $this; defualting to CrossAxisAlignment.start');
+        return pw.CrossAxisAlignment.start;
     }
   }
 }

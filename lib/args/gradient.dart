@@ -24,36 +24,29 @@ extension GradientConverter on Gradient {
 }
 
 extension LinearGradientConverter on LinearGradient {
-  pw.LinearGradient toPdfLinearGradient() {
-    debugPrint('LinearGradientConverter: $this');
-    return pw.LinearGradient(
-      colors: colors.map<PdfColor>((Color color) => color.toPdfColor()).toList(),
-      begin: (begin as Alignment).toPdfAlignment(),
-      end: (end as Alignment).toPdfAlignment(),
-      stops: stops,
-      tileMode: tileMode.toPdfTileMode(),
-    );
-  }
+  pw.LinearGradient toPdfLinearGradient() => pw.LinearGradient(
+    colors: colors.map<PdfColor>((Color color) => color.toPdfColor()).toList(),
+    begin: (begin as Alignment).toPdfAlignment(),
+    end: (end as Alignment).toPdfAlignment(),
+    stops: stops,
+    tileMode: tileMode.toPdfTileMode(),
+  );
 }
 
 extension RadialGradientConverter on RadialGradient {
-  pw.RadialGradient toPdfRadialGradient() {
-    debugPrint('RadialGradientConverter: $this');
-    return pw.RadialGradient(
-      colors: colors.map<PdfColor>((Color color) => color.toPdfColor()).toList(),
-      center: (center as Alignment).toPdfAlignment(),
-      radius: radius,
-      stops: stops,
-      focal: (focal as Alignment).toPdfAlignment(),
-      focalRadius: focalRadius,
-      tileMode: tileMode.toPdfTileMode(),
-    );
-  }
+  pw.RadialGradient toPdfRadialGradient() => pw.RadialGradient(
+    colors: colors.map<PdfColor>((Color color) => color.toPdfColor()).toList(),
+    center: (center as Alignment).toPdfAlignment(),
+    radius: radius,
+    stops: stops,
+    focal: (focal as Alignment).toPdfAlignment(),
+    focalRadius: focalRadius,
+    tileMode: tileMode.toPdfTileMode(),
+  );
 }
 
 extension TileModeConverter on TileMode {
   pw.TileMode toPdfTileMode() {
-    debugPrint('TileModeConverter: $this');
     switch (this) {
       case TileMode.clamp:
         return pw.TileMode.clamp;
@@ -61,7 +54,8 @@ extension TileModeConverter on TileMode {
       // - TileMode.mirror:
       // - TileMode.repeated:
       default:
-        throw Exception('Unsupported TileMode: $this');
+        debugPrint('Unsupported TileMode: $this; defaulting to TileMode.clamp');
+        return pw.TileMode.clamp;
     }
   }
 }

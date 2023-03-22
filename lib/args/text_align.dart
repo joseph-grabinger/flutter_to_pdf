@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart' show TextAlign;
+import 'package:flutter/widgets.dart' show TextAlign, debugPrint;
 
 import 'package:pdf/widgets.dart' as pw show TextAlign;
 
@@ -17,10 +17,9 @@ extension TextAlignConverter on TextAlign {
       // not supported in pdf package:
       // - TextAlign.end
       // - TextAlign.start
-      case TextAlign.start:
-        return null;
       default:
-        throw Exception('Unsupported TextAlign: $this');
+        debugPrint('Unsupported TextAlign: $this');
+        return null;
     }
   }
 }
