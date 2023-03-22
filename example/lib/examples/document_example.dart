@@ -90,7 +90,7 @@ class _DocumentExampleState extends State<DocumentExample> {
               key: const Key('name'),
               controller: controller,
               decoration: const InputDecoration(
-                label: Text('Name'), border: OutlineInputBorder(),
+                label: Text('Name'), border: UnderlineInputBorder(),
               ),
             ),
           ),

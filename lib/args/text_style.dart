@@ -1,7 +1,7 @@
 
 import 'package:flutter/widgets.dart' show TextDecoration, TextDecorationStyle, TextStyle, debugPrint;
 
-import 'package:pdf/widgets.dart' as pw show TextStyle, TextDecoration, TextDecorationStyle, Font;
+import 'package:pdf/widgets.dart' as pw show TextStyle, TextDecoration, TextDecorationStyle, Font, BoxDecoration;
 
 import 'color.dart';
 import 'font_style.dart';
@@ -9,9 +9,7 @@ import 'font_weight.dart';
 
 
 extension TextStyleConverter on TextStyle {
-  pw.TextStyle toPdfTextStyle() {
-    debugPrint('TextStyleConverter: $this');
-    return pw.TextStyle(
+  pw.TextStyle toPdfTextStyle() => pw.TextStyle(
     color: color?.toPdfColor(),
     fontSize: fontSize,
     fontStyle: fontStyle?.toPdfFontStyle(),
@@ -27,9 +25,10 @@ extension TextStyleConverter on TextStyle {
     font: fontFamily != null ? resolveFont(fontFamily!) : null,
     fontFallback: fontFamilyFallback?.map<pw.Font>(
       (String font) => resolveFont(font)).toList() ?? [],
-    // TODO add remaining style options
+    background: backgroundColor != null ? pw.BoxDecoration(
+      color: backgroundColor!.toPdfColor(),
+    ) : null,
   );
-  }
 
   pw.Font resolveFont(String font) {
     switch (fontFamily) {
@@ -78,7 +77,8 @@ extension TextDecorationStyleConverter on TextDecorationStyle {
       // - TextDecorationStyle.dashed
       // - TextDecorationStyle.wavy
       default:
-        throw Exception('Unsupported TextDecorationStyle: $this');
+        debugPrint('Unsupported TextDecorationStyle: $this; defaulting to TextDecorationStyle.solid');
+        return pw.TextDecorationStyle.solid;
     }
   }
 }

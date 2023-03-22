@@ -18,14 +18,23 @@ extension ImageProviderConverter on ImageProvider {
     );
   }
   
-  Future<MapEntry<Uint8List?, Size>> getBytes({ImageByteFormat format = ImageByteFormat.rawRgba}) async {
+  /// Resolves the [ImaeProvider]´s bytes
+  /// and returns the bytes toghether with their [Size].
+  Future<MapEntry<Uint8List?, Size>> getBytes({
+    ImageByteFormat format = ImageByteFormat.rawRgba,
+  }) async {
     Size? size;
     final imageStream = resolve(ImageConfiguration.empty);
     final Completer<Uint8List?> completer = Completer<Uint8List?>();
     final ImageStreamListener listener = ImageStreamListener(
       (imageInfo, synchronousCall) async {
-        size = Size(imageInfo.image.width.toDouble(), imageInfo.image.height.toDouble());
+        size = Size(
+          imageInfo.image.width.toDouble(),
+          imageInfo.image.height.toDouble(),
+        );
+
         final bytes = await imageInfo.image.toByteData(format: format);
+
         if (!completer.isCompleted) {
           completer.complete(bytes?.buffer.asUint8List());
         }

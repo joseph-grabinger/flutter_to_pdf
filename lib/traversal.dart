@@ -85,7 +85,12 @@ class ExportDelegate {
 
     final Size layoutSize = options.pageFormatOptions.getAvailableSize();
 
-    Element? element = layoutWidget(widget, layoutSize);
+    double? pixelRatio;
+    if (context != null) {
+      pixelRatio = MediaQuery.of(context).devicePixelRatio;
+    }
+
+    Element? element = layoutWidget(widget, layoutSize, pixelRatio);
 
     final List<pw.Widget> children = await exportInstance.matchWidget(element!, context);
 
