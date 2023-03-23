@@ -14,7 +14,7 @@ extension InputBorderConverter on InputBorder {
       case UnderlineInputBorder:
         return (this as UnderlineInputBorder).toPdfUnderlineInputBorder();
       default:
-        debugPrint('Unsupported InputBorder: $this');
+        debugPrint('Unsupported InputBorder: $this; defaulting to empty BoxDecoration');
         return const pw.BoxDecoration();
     }
   }

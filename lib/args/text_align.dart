@@ -18,7 +18,7 @@ extension TextAlignConverter on TextAlign {
       // - TextAlign.end
       // - TextAlign.start
       default:
-        debugPrint('Unsupported TextAlign: $this');
+        debugPrint('Unsupported TextAlign: $this; defaulting to null');
         return null;
     }
   }

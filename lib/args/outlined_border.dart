@@ -24,7 +24,7 @@ extension OutlinedBorderConverter on OutlinedBorder {
       // - BeveledRectangleBorder
       // - ContinuousRectangleBorder
       default:
-        debugPrint('Unsupported OutlinedBorder: $this');
+        debugPrint('Unsupported OutlinedBorder: $this; defaulting to rectangle border shape');
         return pw.BoxShape.rectangle;
     }
   }
@@ -42,7 +42,7 @@ extension OutlinedBorderConverter on OutlinedBorder {
       case ContinuousRectangleBorder:
         return ((this as ContinuousRectangleBorder).borderRadius as BorderRadius).toPdfBorderRadius();
       default:
-        debugPrint('Unsupported OutlinedBorder: $this');
+        debugPrint('Unsupported OutlinedBorder: $this; defaulting to circular border radius');
         return pw.BorderRadius.circular(1000);
     }
   }
