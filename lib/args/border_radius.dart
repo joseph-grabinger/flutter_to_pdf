@@ -1,8 +1,6 @@
-import 'package:flutter/widgets.dart' show BorderRadius;
+import 'package:flutter/widgets.dart' show BorderRadius, Radius;
 
-import 'package:pdf/widgets.dart' as pw show BorderRadius;
-
-import 'radius.dart';
+import 'package:pdf/widgets.dart' as pw show BorderRadius, Radius;
 
 
 extension BorderRadiusConverter on BorderRadius {
@@ -16,4 +14,8 @@ extension BorderRadiusConverter on BorderRadius {
   double toPdfHorizontalRadius() => topLeft.x;
 
   double toPdfVerticalRadius() => topLeft.y;
+}
+
+extension RadiusConverter on Radius {
+  pw.Radius toPdfRadius() => pw.Radius.elliptical(x, y);
 }

@@ -1,11 +1,9 @@
 
-import 'package:flutter/widgets.dart' show TextDecoration, TextDecorationStyle, TextStyle, debugPrint;
+import 'package:flutter/widgets.dart' show TextDecoration, TextDecorationStyle, TextStyle, FontStyle, FontWeight, debugPrint;
 
-import 'package:pdf/widgets.dart' as pw show TextStyle, TextDecoration, TextDecorationStyle, Font, BoxDecoration;
+import 'package:pdf/widgets.dart' as pw show TextStyle, TextDecoration, TextDecorationStyle, Font, BoxDecoration, FontStyle, FontWeight;
 
 import 'color.dart';
-import 'font_style.dart';
-import 'font_weight.dart';
 
 
 extension TextStyleConverter on TextStyle {
@@ -79,6 +77,31 @@ extension TextDecorationStyleConverter on TextDecorationStyle {
       default:
         debugPrint('Unsupported TextDecorationStyle: $this; defaulting to TextDecorationStyle.solid');
         return pw.TextDecorationStyle.solid;
+    }
+  }
+}
+
+extension FontStyleConverter on FontStyle {
+  pw.FontStyle toPdfFontStyle() {
+    switch (this) {
+      case FontStyle.normal:
+        return pw.FontStyle.normal;
+      case FontStyle.italic:
+        return pw.FontStyle.italic;
+    }
+  }
+}
+
+extension FontWeightConverter on FontWeight {
+  pw.FontWeight toPdfFontWeight() {
+    switch (this) {
+      case FontWeight.normal:
+        return pw.FontWeight.normal;
+      case FontWeight.bold:
+        return pw.FontWeight.bold;
+      default:
+        debugPrint('Unsupported FontWeight: $this; defaulting to FontWeight.normal');
+        return pw.FontWeight.normal;
     }
   }
 }

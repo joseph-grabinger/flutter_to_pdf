@@ -1,6 +1,6 @@
 [![codecov](https://codecov.io/gh/dunef-com/flutter_to_pdf/branch/main/graph/badge.svg?token=5WIYFJ6VND)](https://codecov.io/gh/dunef-com/flutter_to_pdf)
 
-The [FlutterToPDF](https://dunef.io/de) package lets you export any Flutter view to PDF Documents and is written natively in Dart.
+The [FlutterToPDF](https://dunef.io/de) package lets you export any Flutter widget to PDF Documents and is written natively in Dart.
 
 ## Installing
 ### Depend on it 
@@ -29,7 +29,9 @@ import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
 ## Features
 
-- basic export to PDF by `BuildContext`
+- export to PDF Document
+- export to PDF Page
+- export to PDF Widget
 - export with options
     - Page format options
     - Text field options
@@ -38,22 +40,51 @@ import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
 ## Usage
 
-Call the `exportToPDF` function with the `BuildContext` of the view you want to export to PDF. The function will return a `Document` object which can be used to save the PDF Document to a file or to display it in a PDF Viewer.
+Create an instance of the `ExportDelegate`, wrap your widget with a `ExportFrame` widget and provide a `frameId`, as well as the `exportDelegate`.
+
+When you want to export the widget call the desired export function (either `exportToPdfDocument`, `exportToPdfPage` or `exportToPdfWidget`) and pass in the `frameId`.
 
 ```dart
-Builder(
-  builder: (BuildContext context) {
-    return Container(); // any Flutter Widgets can be used here
-  }
+// create instance of ExportDelegate
+final ExportDelegate exportDelegate = ExportDelegate();
+
+ExportFrame(
+  frameId: 'someFrameId',
+  child: SomeWidget(), // the widget you want to export
 )
 
-// export the view to a PDF Document
-final Document pdf = await exportToPDF(context);
+// export the frame to a PDF Document
+final pdf = await exportDelegate.exportToPdfDocument('someFrameId');
+
+// export the frame to a PDF Page
+final page = await exportDelegate.exportToPdfPage('someFrameId');
+
+// export the frame to a PDF Widget
+final widget = await exportDelegate.exportToPdfWidget('someFrameId');
 ```
 
+**Note:** If you wish to use types on the variables `pdf`, `page` and `widget`, you can use the `Document`, `Page` and `Widget` classes provided by [PDF-package](https://pub.dev/packages/pdf).
+
+### TextFields and Checkboxes
+
+If the widget you want to export contains any `TextField`, `TextFormField` or `Checkbox`, a **unique** `Key` must be provided to each `TextField`, `TextFormField` and `Checkbox`.
+
+```dart
+TextField(
+  key: Key('someUniqueTextFieldKey'),
+  controller: TextEditingController(),
+  ...
+)
+
+Checkbox(
+  key: Key('someUniqueCheckboxKey'),
+  value: false,
+  ...
+)
+```
 ## Export Options
 
-The `exportToPDF` function has an optional parameter `options` which can be used to customize the export process.
+The `ExportDelegate`´s constructor has a named optional parameter `options` which can be used to customize the export process.
 
 ```dart
 final ExportOptions options = ExportOptions(
@@ -66,7 +97,40 @@ final ExportOptions options = ExportOptions(
   ),
 );
 
-final Document pdf = await exportToPDF(context, options: options);
+final ExportDelegate exportDelegate = ExportDelegate(options: options);
+```
+
+The  `ExportDelegate`´s `options` can also be overriden using the named optional parameter `overrideOptions` in the export function.
+```dart
+final ExportOptions options = ExportOptions(
+  pageFormatOptions: PageFormatOptions.a3,
+  textFieldOptions: TextFieldOptions.uniform(
+    interactive: false,
+  ),
+  checkboxOptions: CheckboxOptions.uniform(
+    interactive: false,
+  ),
+);
+
+final ExportDelegate exportDelegate = ExportDelegate(options: options);
+
+final ExportOptions overrideOptions = ExportOptions(
+  pageFormatOptions: PageFormatOptions.a4,
+  textFieldOptions: TextFieldOptions.uniform(
+    interactive: true,
+  ),
+  checkboxOptions: CheckboxOptions.uniform(
+    interactive: true,
+  ),
+);
+
+// export the frame to a PDF Document, using the overriden options
+final pdf = await exportDelegate.exportToPdfDocument('someFrameId', overrideOptions: overrideOptions);
+
+// export the frame to a PDF Page, using the overriden options
+final page = await exportDelegate.exportToPdfPage('someFrameId', overrideOptions: overrideOptions);
+
+final widget = await exportDelegate.exportToPdfWidget('someFrameId', overrideOptions: overrideOptions);
 ```
 
 ### Page Format Options
@@ -84,8 +148,6 @@ For the `PageFormatOptions` class there are several predefined constructors avai
 -   `PageFormatOptions.legal` - Legal page format
 -   `PageFormatOptions.roll57` - Roll57 page format
 -   `PageFormatOptions.roll80` - Roll80 page format
--   `PageFormatOptions.screenSize` - Screen size page format
-    > The screen size page format will use the size of the screen to determine the page format. This is useful if you want to export a view to PDF which is displayed on the screen. <br> It therefore requires the `BuildContext`, and has following optional parameters: `width`, `height`, `marginTop`, `marginBottom`, `marginLeft`, `marginRight` and `marginAll`.
 -   `PageFormatOptions.custom` - Custom page format
     > The custom page format can be used to define a custom page format. <br> It therefore requires at least the `width` parameter, and has the following optional parameters: `height`, `marginTop`, `marginBottom`, `marginLeft`, `marginRight` and `marginAll`.
 

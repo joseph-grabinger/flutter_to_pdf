@@ -4,14 +4,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
-Builder(
-  builder: (BuildContext context) {
-    return Container(); // any Flutter Widgets can be used here
-  }
+// create instance of ExportDelegate
+final ExportDelegate exportDelegate = ExportDelegate();
+
+// wrap the widget you want to export with a ExportFrame widget
+ExportFrame(
+  frameId: 'someFrameId', // identifies the frame
+  child: SomeWidget(), // the widget you want to export
 )
 
-// export the view to a PDF Document
-final Document pdf = await exportToPDF(context);
+// export the frame to a PDF Document
+final pdf = await exportDelegate.exportToPdfDocument('someFrameId');
 ```
 
 ## Save the PDF Document

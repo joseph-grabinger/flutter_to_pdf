@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:pdf/widgets.dart' as pw;
 
-import 'traversal.dart';
+import 'export_delegate.dart';
 import 'utils.dart';
 import 'widgets/container.dart';
 import 'widgets/center.dart';
@@ -32,6 +32,7 @@ import 'widgets/list_view.dart';
 import 'widgets/grid_view.dart';
 import 'widgets/wrap.dart';
 import 'widgets/table.dart';
+
 
 class ExportInstance {
   /// The delegate that is used to export the widget.
@@ -205,7 +206,6 @@ class ExportInstance {
       case ListView:
           return [(widget as ListView).toPdfWidget(await _visit(element, context))];
       case GridView:
-        // final constraints = (element.renderObject! as RenderRepaintBoundary).constraints;
         final constraints = BoxConstraints(
           maxWidth: element.renderObject!.paintBounds.right,
           maxHeight: element.renderObject!.paintBounds.bottom,

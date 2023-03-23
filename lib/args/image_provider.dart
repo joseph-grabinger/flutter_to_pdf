@@ -18,8 +18,8 @@ extension ImageProviderConverter on ImageProvider {
     );
   }
   
-  /// Resolves the [ImaeProvider]´s bytes
-  /// and returns the bytes toghether with their [Size].
+  /// Resolves the [ImageProvider]´s bytes
+  /// and returns the bytes together with their [Size].
   Future<MapEntry<Uint8List?, Size>> getBytes({
     ImageByteFormat format = ImageByteFormat.rawRgba,
   }) async {
