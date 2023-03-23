@@ -14,7 +14,7 @@ ExportFrame(
 )
 
 // export the frame to a PDF Document
-final Document pdf = await exportDelegate.exportToPdfDocument('someFrameId');
+final pdf = await exportDelegate.exportToPdfDocument('someFrameId');
 ```
 
 ## Save the PDF Document

@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_to_pdf/flutter_to_pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 import 'utils.dart';
 
 
-late Document pdf;
+late pw.Document pdf;
 final ExportDelegate exportDelegate = ExportDelegate();
 final ExportOptions overrideOptions = ExportOptions(
   textFieldOptions: TextFieldOptions.uniform(interactive: false),
@@ -15,8 +16,8 @@ final ExportOptions overrideOptions = ExportOptions(
 
 void main() {
   setUpAll(() {
-    Document.debug = true;
-    pdf = Document();
+    pw.Document.debug = true;
+    pdf = pw.Document();
   });
 
   testWidgets('TextField Widgets TextField Empty', (tester) async {

@@ -54,14 +54,17 @@ ExportFrame(
 )
 
 // export the frame to a PDF Document
-final Document pdf = await exportDelegate.exportToPdfDocument('someFrameId');
+final pdf = await exportDelegate.exportToPdfDocument('someFrameId');
 
 // export the frame to a PDF Page
-final Page page = await exportDelegate.exportToPdfPage('someFrameId');
+final page = await exportDelegate.exportToPdfPage('someFrameId');
 
 // export the frame to a PDF Widget
-final Widget widget = await exportDelegate.exportToPdfWidget('someFrameId');
+final widget = await exportDelegate.exportToPdfWidget('someFrameId');
 ```
+
+**Note:** If you wish to use types on the variables `pdf`, `page` and `widget`, you can use the `Document`, `Page` and `Widget` classes provided by [PDF-package](https://pub.dev/packages/pdf).
+
 
 ## Export Options
 
@@ -104,13 +107,14 @@ final ExportOptions overrideOptions = ExportOptions(
     interactive: true,
   ),
 );
+
 // export the frame to a PDF Document, using the overriden options
-final Document pdf = await exportDelegate.exportToPdfDocument('someFrameId', overrideOptions: overrideOptions);
+final pdf = await exportDelegate.exportToPdfDocument('someFrameId', overrideOptions: overrideOptions);
 
 // export the frame to a PDF Page, using the overriden options
-final Page page = await exportDelegate.exportToPdfPage('someFrameId', overrideOptions: overrideOptions);
+final page = await exportDelegate.exportToPdfPage('someFrameId', overrideOptions: overrideOptions);
 
-final Widget widget = await exportDelegate.exportToPdfWidget('someFrameId', overrideOptions: overrideOptions);
+final widget = await exportDelegate.exportToPdfWidget('someFrameId', overrideOptions: overrideOptions);
 ```
 
 ### Page Format Options

@@ -71,11 +71,11 @@ class ExamplePage extends StatefulWidget {
 class _ExamplePageState extends State<ExamplePage> {
   final ExportDelegate exportDelegate = ExportDelegate();
 
-  Future<void> saveFile(Document doc, String name) async {
+  Future<void> saveFile(document, String name) async {
     final Directory dir = await getApplicationDocumentsDirectory();
     final File file = File('${dir.path}/$name.pdf');
 
-    await file.writeAsBytes(await doc.save());
+    await file.writeAsBytes(await document.save());
     debugPrint('Saved exported PDF at: ${file.path}');
   }
 
@@ -98,7 +98,7 @@ class _ExamplePageState extends State<ExamplePage> {
                 interactive: false,
               ),
             );
-            final Document pdf = await exportDelegate.exportToPdfDocument('test',
+            final pdf = await exportDelegate.exportToPdfDocument('test',
               overrideOptions: overrideOptions);
             saveFile(pdf, 'static-example');
           },
@@ -111,7 +111,7 @@ class _ExamplePageState extends State<ExamplePage> {
         ),
         TextButton(
           onPressed: () async {
-            final Document pdf = await exportDelegate.exportToPdfDocument('test');
+            final pdf = await exportDelegate.exportToPdfDocument('test');
             saveFile(pdf, 'interactive-example');
           },
           child: const Row(
