@@ -205,7 +205,6 @@ class ExportInstance {
       case ListView:
           return [(widget as ListView).toPdfWidget(await _visit(element, context))];
       case GridView:
-        // final constraints = (element.renderObject! as RenderRepaintBoundary).constraints;
         final constraints = BoxConstraints(
           maxWidth: element.renderObject!.paintBounds.right,
           maxHeight: element.renderObject!.paintBounds.bottom,
