@@ -1,13 +1,14 @@
-import 'package:flutter/material.dart' show TextField;
+import 'package:flutter/material.dart' show TextField, InputBorder, OutlineInputBorder, UnderlineInputBorder, debugPrint;
 
 import 'package:pdf/pdf.dart' show PdfColors, PdfFieldFlags;
-import 'package:pdf/widgets.dart' as pw show TextField, Text, Widget, Container, EdgeInsets, Stack, Positioned, Transform, Alignment, ConstrainedBox, BoxConstraints;
+import 'package:pdf/widgets.dart' as pw show TextField, Text, Widget, Container, EdgeInsets, Stack, Positioned, Transform, Alignment, ConstrainedBox, BoxConstraints, BoxDecoration, Border, BorderSide;
 
 import '../export_instance.dart';
 import '/args/text_style.dart';
-import '/args/input_decoration.dart';
 import '/args/text_align.dart';
 import '/args/text_direction.dart';
+import '/args/border_radius.dart';
+import '/args/border_side.dart';
 
 
 extension TextFieldConverter on TextField {
@@ -79,6 +80,52 @@ extension TextFieldConverter on TextField {
           child: label,
         ),
       ],
+    );
+  }
+}
+
+extension InputBorderConverter on InputBorder {
+  pw.BoxDecoration toPdfInputBorder() {
+    switch (runtimeType) {
+      case OutlineInputBorder:
+        return (this as OutlineInputBorder).toPdfOutlineInputBorder();
+      case UnderlineInputBorder:
+        return (this as UnderlineInputBorder).toPdfUnderlineInputBorder();
+      default:
+        debugPrint('Unsupported InputBorder: $this; defaulting to empty BoxDecoration');
+        return const pw.BoxDecoration();
+    }
+  }
+}
+
+extension OutlineInputBorderConverter on OutlineInputBorder {
+  pw.BoxDecoration toPdfOutlineInputBorder() {
+    final pw.BorderSide pdfBorderSide = borderSide.toPdfBorderSide();
+
+    return pw.BoxDecoration(
+      borderRadius: borderRadius.toPdfBorderRadius(),
+      border: pw.Border.all(
+        color: pdfBorderSide.color,
+        width: pdfBorderSide.width,
+        style: pdfBorderSide.style,
+      ),
+    );
+
+  }
+}
+
+extension UnderLineInputBorderConverter on UnderlineInputBorder {
+  pw.BoxDecoration toPdfUnderlineInputBorder() {
+    final pw.BorderSide pdfBorderSide = borderSide.toPdfBorderSide();
+
+    return pw.BoxDecoration(
+      border: pw.Border(
+        bottom: pw.BorderSide(
+          color: pdfBorderSide.color,
+          width: pdfBorderSide.width,
+          style: pdfBorderSide.style,
+        ),
+      ),
     );
   }
 }
