@@ -132,8 +132,6 @@ For the `PageFormatOptions` class there are several predefined constructors avai
 -   `PageFormatOptions.legal` - Legal page format
 -   `PageFormatOptions.roll57` - Roll57 page format
 -   `PageFormatOptions.roll80` - Roll80 page format
--   `PageFormatOptions.screenSize` - Screen size page format
-    > The screen size page format will use the size of the screen to determine the page format. This is useful if you want to export a view to PDF which is displayed on the screen. <br> It therefore requires the `BuildContext`, and has following optional parameters: `width`, `height`, `marginTop`, `marginBottom`, `marginLeft`, `marginRight` and `marginAll`.
 -   `PageFormatOptions.custom` - Custom page format
     > The custom page format can be used to define a custom page format. <br> It therefore requires at least the `width` parameter, and has the following optional parameters: `height`, `marginTop`, `marginBottom`, `marginLeft`, `marginRight` and `marginAll`.
 

@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart' show BuildContext, Size;
+import 'package:flutter/widgets.dart' show Size;
 
 import 'package:pdf/pdf.dart' show PdfPageFormat;
 
@@ -13,7 +13,6 @@ class PageFormatOptions {
   final double marginLeft;
   final double marginRight;
   final double? marginAll;
-  final BuildContext? context;
   final bool clip;
 
   const PageFormatOptions({
@@ -25,7 +24,6 @@ class PageFormatOptions {
     this.marginLeft = 0.0,
     this.marginRight = 0.0,
     this.marginAll,
-    this.context,
     this.clip = false,
   });
 
@@ -38,8 +36,7 @@ class PageFormatOptions {
         marginBottom = 0.0,
         marginLeft = 0.0,
         marginRight = 0.0,
-        marginAll = null,
-        context = null;
+        marginAll = null;
 
   const PageFormatOptions.a4({
     this.clip = false,
@@ -50,8 +47,7 @@ class PageFormatOptions {
         marginBottom = 0.0,
         marginLeft = 0.0,
         marginRight = 0.0,
-        marginAll = null,
-        context = null;
+        marginAll = null;
 
   const PageFormatOptions.a5({
     this.clip = false,
@@ -62,8 +58,7 @@ class PageFormatOptions {
         marginBottom = 0.0,
         marginLeft = 0.0,
         marginRight = 0.0,
-        marginAll = null,
-        context = null;
+        marginAll = null;
   
   const PageFormatOptions.a6({
     this.clip = false,
@@ -74,8 +69,7 @@ class PageFormatOptions {
         marginBottom = 0.0,
         marginLeft = 0.0,
         marginRight = 0.0,
-        marginAll = null,
-        context = null;
+        marginAll = null;
   
   const PageFormatOptions.letter({
     this.clip = false,
@@ -86,8 +80,7 @@ class PageFormatOptions {
         marginBottom = 0.0,
         marginLeft = 0.0,
         marginRight = 0.0,
-        marginAll = null,
-        context = null;
+        marginAll = null;
 
   const PageFormatOptions.legal({
     this.clip = false,
@@ -98,8 +91,7 @@ class PageFormatOptions {
         marginBottom = 0.0,
         marginLeft = 0.0,
         marginRight = 0.0,
-        marginAll = null,
-        context = null;
+        marginAll = null;
 
   const PageFormatOptions.roll57({
     this.clip = false,
@@ -110,8 +102,7 @@ class PageFormatOptions {
         marginBottom = 0.0,
         marginLeft = 0.0,
         marginRight = 0.0,
-        marginAll = null,
-        context = null;
+        marginAll = null;
 
   const PageFormatOptions.roll80({
     this.clip = false,
@@ -122,20 +113,7 @@ class PageFormatOptions {
         marginBottom = 0.0,
         marginLeft = 0.0,
         marginRight = 0.0,
-        marginAll = null,
-        context = null;
-  
-  const PageFormatOptions.screenSize(
-    BuildContext this.context, {
-    this.marginTop = 0.0,
-    this.marginBottom = 0.0,
-    this.marginLeft = 0.0,
-    this.marginRight = 0.0,
-    this.marginAll,
-    this.clip = false,
-  })  : pageFormat = PageFormat.screenSize,
-        width = null,
-        height = null;
+        marginAll = null;
 
   PageFormatOptions.custom({
     required this.width,
@@ -147,11 +125,9 @@ class PageFormatOptions {
     this.marginAll,
     this.clip = false,
   })  : assert(width != null && width > 0, 'width is null or less than 0'),
-        pageFormat = PageFormat.custom,
-        context = null;
+        pageFormat = PageFormat.custom;
 
   /// Returns the [PdfPageFormat].
-  /// The [context] is required if [PageFormat.screenSize] is used.
   PdfPageFormat getPageFormat() {
     switch (pageFormat) {
       case PageFormat.a3:
@@ -170,14 +146,6 @@ class PageFormatOptions {
         return PdfPageFormat.roll57;
       case PageFormat.roll80:
         return PdfPageFormat.roll80;
-      case PageFormat.screenSize:
-        return PdfPageFormat(context!.size!.width, context!.size!.height,
-          marginTop: marginTop,
-          marginBottom: marginBottom,
-          marginLeft: marginLeft,
-          marginRight: marginRight,
-          marginAll: marginAll,
-        );
       case PageFormat.custom:
         return PdfPageFormat(width!, height!,
           marginTop: marginTop,
@@ -206,6 +174,5 @@ enum PageFormat {
   legal,
   roll57,
   roll80,
-  screenSize,
   custom,
 }
