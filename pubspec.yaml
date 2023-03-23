@@ -10,14 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  # use this as soon as pdf 3.10.0 has been released to pub.dev
-  # pdf: ^3.9.0
-
-  pdf:
-    git:
-      url: git@github.com:DavBfr/dart_pdf.git
-      ref: master
-      path: pdf
+  pdf: ^3.9.0
 
 dev_dependencies:
   flutter_test:

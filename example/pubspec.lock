@@ -253,12 +253,11 @@ packages:
   pdf:
     dependency: transitive
     description:
-      path: pdf
-      ref: master
-      resolved-ref: "605865f05983cd9168185e545fb9caae86c5f921"
-      url: "git@github.com:DavBfr/dart_pdf.git"
-    source: git
-    version: "3.10.0"
+      name: pdf
+      sha256: "6cd57e8e6d052bd1078f18e0dc7cd6701fad6288231c1ce99d66ef5034d14e61"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.9.0"
   petitparser:
     dependency: transitive
     description:
