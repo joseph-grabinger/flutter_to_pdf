@@ -6,7 +6,7 @@ repository: https://github.com/dunef-com/flutter_to_pdf
 issue_tracker: https://github.com/dunef-com/flutter_to_pdf/issues
 
 environment:
-  sdk: '>=3.0.0-196.0.dev <4.0.0'
+  sdk: '>=2.19.5<4.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
