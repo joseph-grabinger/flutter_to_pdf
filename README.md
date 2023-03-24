@@ -88,7 +88,7 @@ The `ExportDelegate`´s constructor has a named optional parameter `options` whi
 
 ```dart
 final ExportOptions options = ExportOptions(
-  pageFormatOptions: PageFormatOptions.a3,
+  pageFormatOptions: PageFormatOptions.a3(),
   textFieldOptions: TextFieldOptions.uniform(
     interactive: false,
   ),
@@ -103,7 +103,7 @@ final ExportDelegate exportDelegate = ExportDelegate(options: options);
 The  `ExportDelegate`´s `options` can also be overriden using the named optional parameter `overrideOptions` in the export function.
 ```dart
 final ExportOptions options = ExportOptions(
-  pageFormatOptions: PageFormatOptions.a3,
+  pageFormatOptions: PageFormatOptions.a3(),
   textFieldOptions: TextFieldOptions.uniform(
     interactive: false,
   ),
@@ -115,7 +115,7 @@ final ExportOptions options = ExportOptions(
 final ExportDelegate exportDelegate = ExportDelegate(options: options);
 
 final ExportOptions overrideOptions = ExportOptions(
-  pageFormatOptions: PageFormatOptions.a4,
+  pageFormatOptions: PageFormatOptions.a4(),
   textFieldOptions: TextFieldOptions.uniform(
     interactive: true,
   ),
@@ -124,12 +124,13 @@ final ExportOptions overrideOptions = ExportOptions(
   ),
 );
 
-// export the frame to a PDF Document, using the overriden options
+// export the frame to a PDF Document, using the override options
 final pdf = await exportDelegate.exportToPdfDocument('someFrameId', overrideOptions: overrideOptions);
 
-// export the frame to a PDF Page, using the overriden options
+// export the frame to a PDF Page, using the override options
 final page = await exportDelegate.exportToPdfPage('someFrameId', overrideOptions: overrideOptions);
 
+// export the frame to a PDF Widget, using the override options
 final widget = await exportDelegate.exportToPdfWidget('someFrameId', overrideOptions: overrideOptions);
 ```
 
@@ -166,7 +167,7 @@ For the `TextFieldOptions` class there are several predefined constructors avail
     > The individual text field options can be used to define an individual `TextStyle` for **each** text field. <br> It has an optional parameter `styleMap` which maps the textfield´s `Key` to a `TextStyle`.  <br> **Note:** The TextField therefore requires a `Key` to be able to map the `TextStyle` to the text field.
 
 -  `TextFieldOptions.none` - No text field options
-    > The text fields will be interactive and will not have any `TextStyle`.
+    > The text fields will be interactive and will be styled as found in the widget tree.
 
 ### Checkbox Options
 The `CheckboxOptions` class can be used to customize the checkboxes of the exported PDF Document.
@@ -183,4 +184,4 @@ For the `CheckboxOptions` class there are several predefined constructors availa
     > The individual checkbox options can be used to define an individual `BoxDecoration` for **each** checkbox. <br> It has an optional parameter `decorationMap` which maps the checkbox´s `Key` to a `BoxDecoration`.  <br> **Note:** The Checkbox therefore requires a `Key` to be able to map the `BoxDecoration` to the checkbox.
 
 -  `CheckboxOptions.none` - No checkbox options
-    > The checkboxes will be interactive and will not have any `BoxDecoration`.
+    > The checkboxes will be interactive and will be styled as found in the widget tree.
