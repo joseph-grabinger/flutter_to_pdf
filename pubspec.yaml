@@ -12,7 +12,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  pdf: ^3.9.0
+  pdf: ^3.10.1
 
 dev_dependencies:
   flutter_test:
