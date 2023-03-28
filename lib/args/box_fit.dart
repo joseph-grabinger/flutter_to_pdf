@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart' show BoxFit;
 
 import 'package:pdf/widgets.dart' as pw show BoxFit;
 
-
 extension BoxFitConverter on BoxFit {
   pw.BoxFit toPdfBoxFit() {
     switch (this) {

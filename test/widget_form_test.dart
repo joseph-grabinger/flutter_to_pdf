@@ -5,13 +5,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-
 late pw.Document pdf;
 final ExportDelegate exportDelegate = ExportDelegate();
 final ExportOptions overrideOptions = ExportOptions(
   checkboxOptions: CheckboxOptions.uniform(interactive: false),
 );
-
 
 void main() {
   setUpAll(() {
@@ -45,7 +43,7 @@ void main() {
 
     pdf.addPage(await exportDelegate.exportToPdfPage('checkbox basic'));
     pdf.addPage(await exportDelegate.exportToPdfPage('checkbox basic',
-      overrideOptions: overrideOptions));
+        overrideOptions: overrideOptions));
   });
 
   testWidgets('Form Widgets Checkbox Decoration', (tester) async {
@@ -87,7 +85,7 @@ void main() {
 
     pdf.addPage(await exportDelegate.exportToPdfPage('checkbox decoration'));
     pdf.addPage(await exportDelegate.exportToPdfPage('checkbox decoration',
-      overrideOptions: overrideOptions));
+        overrideOptions: overrideOptions));
   });
 
   testWidgets('Form Widgets Button Basic', (tester) async {
@@ -114,7 +112,7 @@ void main() {
             FilledButton(
               onPressed: null,
               child: Text('FilledButton'),
-              ),
+            ),
           ],
         ),
       ),
@@ -183,7 +181,7 @@ void main() {
               ),
               onPressed: null,
               child: const Text('FilledButton'),
-              ),
+            ),
           ],
         ),
       ),

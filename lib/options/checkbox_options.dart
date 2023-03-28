@@ -1,5 +1,4 @@
-import 'package:flutter/widgets.dart' show BoxDecoration, Key, debugPrint;
-
+import 'package:flutter/widgets.dart' show BoxDecoration, Key;
 
 /// Configuration options on how Checkbxes are exported.
 class CheckboxOptions {
@@ -17,14 +16,15 @@ class CheckboxOptions {
     this.interactive = true,
   });
 
-  const CheckboxOptions.none() : decorationMap = null, interactive = true;
+  const CheckboxOptions.none()
+      : decorationMap = null,
+        interactive = true;
 
   CheckboxOptions.uniform({
     final BoxDecoration? boxDecoration,
     this.interactive = true,
-  }) : decorationMap = boxDecoration != null 
-        ? {_standardKey: boxDecoration} 
-        : null;
+  }) : decorationMap =
+            boxDecoration != null ? {_standardKey: boxDecoration} : null;
 
   const CheckboxOptions.individual({
     this.decorationMap,
@@ -40,7 +40,6 @@ class CheckboxOptions {
     if (decorationMap != null && decorationMap!.containsKey(key)) {
       return decorationMap![key];
     } else {
-      debugPrint('getBoxDecoration retruned null');
       return null;
     }
   }

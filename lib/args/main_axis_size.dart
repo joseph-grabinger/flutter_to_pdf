@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart' show MainAxisSize;
 
 import 'package:pdf/widgets.dart' as pw show MainAxisSize;
 
-
 extension MainAxisSizeConverter on MainAxisSize {
   pw.MainAxisSize toPdfMainAxisSize() {
     switch (this) {

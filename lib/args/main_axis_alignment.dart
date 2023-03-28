@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart' show MainAxisAlignment;
 
 import 'package:pdf/widgets.dart' as pw show MainAxisAlignment;
 
-
 extension MainAxisAlignmentConverter on MainAxisAlignment {
   pw.MainAxisAlignment toPdfMainAxisAlignment() {
     switch (this) {

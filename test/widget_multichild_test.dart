@@ -5,7 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-
 late pw.Document pdf;
 final ExportDelegate exportDelegate = ExportDelegate();
 
@@ -16,8 +15,8 @@ void main() {
   });
 
   testWidgets('Multichild Widgets Row', (tester) async {
-    for (final crossAxisAlignment in CrossAxisAlignment.values.where(
-      (alignment) => alignment != CrossAxisAlignment.baseline)) {
+    for (final crossAxisAlignment in CrossAxisAlignment.values
+        .where((alignment) => alignment != CrossAxisAlignment.baseline)) {
       for (final mainAxisAlignment in MainAxisAlignment.values) {
         await tester.pumpWidget(ExportFrame(
           frameId: 'row $mainAxisAlignment $crossAxisAlignment',
@@ -51,14 +50,15 @@ void main() {
           ),
         ));
 
-        pdf.addPage(await exportDelegate.exportToPdfPage('row $mainAxisAlignment $crossAxisAlignment'));
+        pdf.addPage(await exportDelegate
+            .exportToPdfPage('row $mainAxisAlignment $crossAxisAlignment'));
       }
     }
   });
 
   testWidgets('Multichild Widgets Column', (tester) async {
-    for (final crossAxisAlignment in CrossAxisAlignment.values.where(
-      (alignment) => alignment != CrossAxisAlignment.baseline)) {
+    for (final crossAxisAlignment in CrossAxisAlignment.values
+        .where((alignment) => alignment != CrossAxisAlignment.baseline)) {
       for (final mainAxisAlignment in MainAxisAlignment.values) {
         await tester.pumpWidget(ExportFrame(
           frameId: 'column $mainAxisAlignment $crossAxisAlignment',
@@ -92,7 +92,8 @@ void main() {
           ),
         ));
 
-        pdf.addPage(await exportDelegate.exportToPdfPage('column $mainAxisAlignment $crossAxisAlignment'));
+        pdf.addPage(await exportDelegate
+            .exportToPdfPage('column $mainAxisAlignment $crossAxisAlignment'));
       }
     }
   });
@@ -169,7 +170,8 @@ void main() {
         ),
       ));
 
-      pdf.addPage(await exportDelegate.exportToPdfPage('listview $scrollDirection'));
+      pdf.addPage(
+          await exportDelegate.exportToPdfPage('listview $scrollDirection'));
     }
   });
 
@@ -187,14 +189,15 @@ void main() {
               return Container(
                 width: 10,
                 height: 10,
-                color: index%2 == 0 ?Colors.blue : Colors.red,
+                color: index % 2 == 0 ? Colors.blue : Colors.red,
               );
             },
           ),
         ),
       ));
 
-      pdf.addPage(await exportDelegate.exportToPdfPage('listview builder $scrollDirection'));
+      pdf.addPage(await exportDelegate
+          .exportToPdfPage('listview builder $scrollDirection'));
     }
   });
 
@@ -218,7 +221,8 @@ void main() {
         ),
       ));
 
-      pdf.addPage(await exportDelegate.exportToPdfPage('listview separated $scrollDirection'));
+      pdf.addPage(await exportDelegate
+          .exportToPdfPage('listview separated $scrollDirection'));
     }
   });
 

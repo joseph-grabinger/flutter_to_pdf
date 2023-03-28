@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart' show Key, TextStyle;
 
-
 /// Configuration options on how TextFields are exported.
 class TextFieldOptions {
   /// [Key] used wihin the styleMap if it only contains one item.
@@ -21,7 +20,10 @@ class TextFieldOptions {
     this.ignoreDecoration = false,
   });
 
-  const TextFieldOptions.none() : styleMap = null, interactive = true, ignoreDecoration = false;
+  const TextFieldOptions.none()
+      : styleMap = null,
+        interactive = true,
+        ignoreDecoration = false;
 
   TextFieldOptions.uniform({
     final TextStyle textStyle = const TextStyle(),
@@ -30,7 +32,7 @@ class TextFieldOptions {
   }) : styleMap = {_standardKey: textStyle};
 
   const TextFieldOptions.individual({
-    this.styleMap, 
+    this.styleMap,
     this.interactive = true,
     this.ignoreDecoration = false,
   });

@@ -5,7 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-
 late pw.Document pdf;
 final ExportDelegate exportDelegate = ExportDelegate();
 
@@ -70,12 +69,13 @@ void main() {
           ),
         ));
 
-        pdf.addPage(await exportDelegate.exportToPdfPage('flexible $fit $flex'));
+        pdf.addPage(
+            await exportDelegate.exportToPdfPage('flexible $fit $flex'));
       }
     }
   });
 
-    testWidgets('Flex Widgets Expanded', (tester) async {
+  testWidgets('Flex Widgets Expanded', (tester) async {
     for (final flex in [0, 1, 2, 3, 4, 5]) {
       await tester.pumpWidget(ExportFrame(
         frameId: 'expanded $flex',

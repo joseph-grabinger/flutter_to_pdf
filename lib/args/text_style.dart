@@ -1,32 +1,49 @@
+import 'package:flutter/widgets.dart'
+    show
+        TextDecoration,
+        TextDecorationStyle,
+        TextStyle,
+        FontStyle,
+        FontWeight,
+        debugPrint;
 
-import 'package:flutter/widgets.dart' show TextDecoration, TextDecorationStyle, TextStyle, FontStyle, FontWeight, debugPrint;
-
-import 'package:pdf/widgets.dart' as pw show TextStyle, TextDecoration, TextDecorationStyle, Font, BoxDecoration, FontStyle, FontWeight;
+import 'package:pdf/widgets.dart' as pw
+    show
+        TextStyle,
+        TextDecoration,
+        TextDecorationStyle,
+        Font,
+        BoxDecoration,
+        FontStyle,
+        FontWeight;
 
 import 'color.dart';
 
-
 extension TextStyleConverter on TextStyle {
   pw.TextStyle toPdfTextStyle() => pw.TextStyle(
-    color: color?.toPdfColor(),
-    fontSize: fontSize,
-    fontStyle: fontStyle?.toPdfFontStyle(),
-    fontWeight: fontWeight?.toPdfFontWeight(),
-    height: height,
-    letterSpacing: letterSpacing,
-    wordSpacing: wordSpacing,
-    decoration: decoration?.toPdfTextDecoration(),
-    decorationColor: decorationColor?.toPdfColor(),
-    decorationStyle: decorationStyle?.toPdfTextDecorationStyle(),
-    decorationThickness: decorationThickness,
-    inherit: inherit,
-    font: fontFamily != null ? resolveFont(fontFamily!) : null,
-    fontFallback: fontFamilyFallback?.map<pw.Font>(
-      (String font) => resolveFont(font)).toList() ?? [],
-    background: backgroundColor != null ? pw.BoxDecoration(
-      color: backgroundColor!.toPdfColor(),
-    ) : null,
-  );
+        color: color?.toPdfColor(),
+        fontSize: fontSize,
+        fontStyle: fontStyle?.toPdfFontStyle(),
+        fontWeight: fontWeight?.toPdfFontWeight(),
+        height: height,
+        letterSpacing: letterSpacing,
+        wordSpacing: wordSpacing,
+        decoration: decoration?.toPdfTextDecoration(),
+        decorationColor: decorationColor?.toPdfColor(),
+        decorationStyle: decorationStyle?.toPdfTextDecorationStyle(),
+        decorationThickness: decorationThickness,
+        inherit: inherit,
+        font: fontFamily != null ? resolveFont(fontFamily!) : null,
+        fontFallback: fontFamilyFallback
+                ?.map<pw.Font>((String font) => resolveFont(font))
+                .toList() ??
+            [],
+        background: backgroundColor != null
+            ? pw.BoxDecoration(
+                color: backgroundColor!.toPdfColor(),
+              )
+            : null,
+      );
 
   pw.Font resolveFont(String font) {
     switch (fontFamily) {
@@ -75,7 +92,8 @@ extension TextDecorationStyleConverter on TextDecorationStyle {
       // - TextDecorationStyle.dashed
       // - TextDecorationStyle.wavy
       default:
-        debugPrint('Unsupported TextDecorationStyle: $this; defaulting to TextDecorationStyle.solid');
+        debugPrint(
+            'Unsupported TextDecorationStyle: $this; defaulting to TextDecorationStyle.solid');
         return pw.TextDecorationStyle.solid;
     }
   }
@@ -100,7 +118,8 @@ extension FontWeightConverter on FontWeight {
       case FontWeight.bold:
         return pw.FontWeight.bold;
       default:
-        debugPrint('Unsupported FontWeight: $this; defaulting to FontWeight.normal');
+        debugPrint(
+            'Unsupported FontWeight: $this; defaulting to FontWeight.normal');
         return pw.FontWeight.normal;
     }
   }

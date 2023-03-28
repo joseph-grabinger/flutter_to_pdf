@@ -7,7 +7,6 @@ import 'package:pdf/widgets.dart' as pw;
 
 import 'utils.dart';
 
-
 late pw.Document pdf;
 final ExportDelegate exportDelegate = ExportDelegate();
 

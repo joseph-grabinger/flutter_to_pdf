@@ -5,7 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-
 late pw.Document pdf;
 final ExportDelegate exportDelegate = ExportDelegate();
 
@@ -46,7 +45,8 @@ void main() async {
             crossAxisCount: 3,
             childAspectRatio: 1,
           ),
-          children: List<Widget>.generate(20,
+          children: List<Widget>.generate(
+            20,
             (int index) => Center(child: Text('$index')),
           ),
         ),
@@ -68,7 +68,8 @@ void main() async {
             crossAxisCount: 5,
             childAspectRatio: 1,
           ),
-          children: List<Widget>.generate(20,
+          children: List<Widget>.generate(
+            20,
             (int index) => Center(child: Text('$index')),
           ),
         ),
@@ -86,7 +87,8 @@ void main() async {
         textDirection: TextDirection.ltr,
         child: GridView.count(
           crossAxisCount: 20,
-          children: List<Widget>.generate(40,
+          children: List<Widget>.generate(
+            40,
             (int index) => Center(child: Text('$index')),
           ),
         ),
@@ -104,7 +106,8 @@ void main() async {
         textDirection: TextDirection.ltr,
         child: GridView.extent(
           maxCrossAxisExtent: 70,
-          children: List<Widget>.generate(40,
+          children: List<Widget>.generate(
+            40,
             (int index) => Center(child: Text('$index')),
           ),
         ),

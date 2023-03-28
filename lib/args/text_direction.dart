@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart' show TextDirection;
 
 import 'package:pdf/widgets.dart' as pw show TextDirection;
 
-
 extension TextDirectionConverter on TextDirection {
   pw.TextDirection toPdfTextDirection() {
     switch (this) {

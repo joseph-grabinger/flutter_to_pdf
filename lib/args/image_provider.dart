@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui';
 
-import 'package:flutter/widgets.dart' show ImageConfiguration, ImageProvider, ImageStreamListener;
+import 'package:flutter/widgets.dart'
+    show ImageConfiguration, ImageProvider, ImageStreamListener;
 
 import 'package:pdf/widgets.dart' as pw show ImageProvider, RawImage;
-
 
 extension ImageProviderConverter on ImageProvider {
   Future<pw.ImageProvider> toPdfImageProvider() async {
@@ -17,7 +17,7 @@ extension ImageProviderConverter on ImageProvider {
       height: tuple.value.height.toInt(),
     );
   }
-  
+
   /// Resolves the [ImageProvider]´s bytes
   /// and returns the bytes together with their [Size].
   Future<MapEntry<Uint8List?, Size>> getBytes({

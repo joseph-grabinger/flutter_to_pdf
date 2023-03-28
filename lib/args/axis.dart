@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart' show Axis;
 
 import 'package:pdf/widgets.dart' as pw show Axis;
 
-
 extension AxisConverter on Axis {
   pw.Axis toPdfAxis() {
     switch (this) {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-
+/// The key used to identify the ExportFrame in the widget tree.
 const Key exportFrameKey = Key('FlutterToPDF.exportFrameKey');
 
-/// Extracts the ExportFrame as [Element] from the provided [element]. 
+/// Extracts the ExportFrame as [Element] from the provided [element].
 /// ExportFrame is identified by checking if the widget contains the [exportFrameKey].
 Element? extractExportFrame(Element element) {
   if (element.widget.key == exportFrameKey) {
@@ -25,7 +25,7 @@ Element? extractExportFrame(Element element) {
   return null;
 }
 
-/// Finds the first [Element] in the provided [context] 
+/// Finds the first [Element] in the provided [context]
 /// that matches the provided [compare] function.
 Element? findElement<T>(BuildContext context, bool Function(T) compare) {
   Element? element;

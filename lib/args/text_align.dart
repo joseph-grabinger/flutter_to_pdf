@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart' show TextAlign, debugPrint;
 
 import 'package:pdf/widgets.dart' as pw show TextAlign;
 
-
 extension TextAlignConverter on TextAlign {
   pw.TextAlign? toPdfTextAlign() {
     switch (this) {
