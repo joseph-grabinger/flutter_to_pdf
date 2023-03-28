@@ -6,7 +6,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-
 late pw.Document pdf;
 final ExportDelegate exportDelegate = ExportDelegate();
 
@@ -53,8 +52,8 @@ void main() async {
   });
 
   testWidgets('Table Widgets VerticalAlign', (tester) async {
-    for (final verticalAlign in TableCellVerticalAlignment.values.where(
-      (element) => element != TableCellVerticalAlignment.baseline)) {
+    for (final verticalAlign in TableCellVerticalAlignment.values
+        .where((element) => element != TableCellVerticalAlignment.baseline)) {
       await tester.pumpWidget(ExportFrame(
         frameId: 'table vertical align $verticalAlign',
         exportDelegate: exportDelegate,
@@ -68,7 +67,8 @@ void main() async {
         ),
       ));
 
-      pdf.addPage(await exportDelegate.exportToPdfPage('table vertical align $verticalAlign'));
+      pdf.addPage(await exportDelegate
+          .exportToPdfPage('table vertical align $verticalAlign'));
     }
   });
 

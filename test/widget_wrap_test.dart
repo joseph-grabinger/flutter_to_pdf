@@ -8,10 +8,9 @@ import 'package:pdf/widgets.dart' as pw;
 
 import 'utils.dart';
 
-
 late pw.Document pdf;
 final ExportDelegate exportDelegate = ExportDelegate();
-final  ExportOptions overrideOptions =  ExportOptions(
+final ExportOptions overrideOptions = ExportOptions(
   pageFormatOptions: PageFormatOptions.custom(width: 1000, height: 500),
 );
 
@@ -40,7 +39,7 @@ void main() {
     await tester.pumpWidget(ExportFrame(
       frameId: 'wrap horizontal 1',
       exportDelegate: exportDelegate,
-      child:Directionality(
+      child: Directionality(
         textDirection: TextDirection.ltr,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -63,11 +62,13 @@ void main() {
         runSpacing: 20,
         spacing: 20,
         textDirection: TextDirection.ltr,
-        children: List<Widget>.generate(15, (int n) => SizedBox(
-          width: rnd.nextDouble() * 100,
-          height: rnd.nextDouble() * 50,
-          child: const Placeholder(),
-        )),
+        children: List<Widget>.generate(
+            15,
+            (int n) => SizedBox(
+                  width: rnd.nextDouble() * 100,
+                  height: rnd.nextDouble() * 50,
+                  child: const Placeholder(),
+                )),
       ));
     }
 
@@ -91,9 +92,11 @@ void main() {
 
     final children = <Widget>[];
     for (final direction in VerticalDirection.values) {
-      children.add(Transform.rotate(angle: math.pi / 2, child: Text('$direction')));
+      children
+          .add(Transform.rotate(angle: math.pi / 2, child: Text('$direction')));
       for (final alignment in WrapAlignment.values) {
-        children.add(Transform.rotate(angle: math.pi / 2, child: Text('$alignment')));
+        children.add(
+            Transform.rotate(angle: math.pi / 2, child: Text('$alignment')));
         children.add(Wrap(
           direction: Axis.vertical,
           alignment: alignment,
@@ -117,7 +120,7 @@ void main() {
     ));
 
     pdf.addPage(await exportDelegate.exportToPdfPage('wrap vertical 1',
-      overrideOptions: overrideOptions));
+        overrideOptions: overrideOptions));
   });
 
   testWidgets('Wrap Widgets Wrap Vertical 2', (tester) async {
@@ -126,7 +129,8 @@ void main() {
     final children = <Widget>[];
     for (final alignment in WrapCrossAlignment.values) {
       final rnd = math.Random(42);
-      children.add(Transform.rotate(angle: math.pi / 2, child: Text('$alignment')));
+      children
+          .add(Transform.rotate(angle: math.pi / 2, child: Text('$alignment')));
       children.add(Expanded(
         child: Wrap(
           direction: Axis.vertical,
@@ -134,11 +138,13 @@ void main() {
           runSpacing: 20,
           spacing: 20,
           textDirection: TextDirection.ltr,
-          children: List<Widget>.generate(10, (int n) => SizedBox(
-            width: rnd.nextDouble() * 50,
-            height: rnd.nextDouble() * 100,
-            child: const Placeholder(),
-          )),
+          children: List<Widget>.generate(
+              10,
+              (int n) => SizedBox(
+                    width: rnd.nextDouble() * 50,
+                    height: rnd.nextDouble() * 100,
+                    child: const Placeholder(),
+                  )),
         ),
       ));
     }
@@ -156,7 +162,7 @@ void main() {
     ));
 
     pdf.addPage(await exportDelegate.exportToPdfPage('wrap vertical 2',
-      overrideOptions: overrideOptions));
+        overrideOptions: overrideOptions));
   });
 
   testWidgets('Wrap Widgets Empty', (tester) async {

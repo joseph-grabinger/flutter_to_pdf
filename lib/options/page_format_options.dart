@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart' show Size;
 
 import 'package:pdf/pdf.dart' show PdfPageFormat;
 
-
 /// Configuration options on how the page is formatted.
 class PageFormatOptions {
   final PageFormat pageFormat;
@@ -59,7 +58,7 @@ class PageFormatOptions {
         marginLeft = 0.0,
         marginRight = 0.0,
         marginAll = null;
-  
+
   const PageFormatOptions.a6({
     this.clip = false,
   })  : pageFormat = PageFormat.a6,
@@ -70,7 +69,7 @@ class PageFormatOptions {
         marginLeft = 0.0,
         marginRight = 0.0,
         marginAll = null;
-  
+
   const PageFormatOptions.letter({
     this.clip = false,
   })  : pageFormat = PageFormat.letter,
@@ -147,7 +146,9 @@ class PageFormatOptions {
       case PageFormat.roll80:
         return PdfPageFormat.roll80;
       case PageFormat.custom:
-        return PdfPageFormat(width!, height!,
+        return PdfPageFormat(
+          width!,
+          height!,
           marginTop: marginTop,
           marginBottom: marginBottom,
           marginLeft: marginLeft,

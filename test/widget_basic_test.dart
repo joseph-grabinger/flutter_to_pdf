@@ -5,7 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-
 late pw.Document pdf;
 final ExportDelegate exportDelegate = ExportDelegate();
 
@@ -17,8 +16,8 @@ void main() {
 
   testWidgets('Basic Widgets Align 1', (tester) async {
     await tester.pumpWidget(ExportFrame(
-      frameId: 'align 1', 
-      exportDelegate: exportDelegate, 
+      frameId: 'align 1',
+      exportDelegate: exportDelegate,
       child: Align(
         alignment: Alignment.bottomRight,
         child: Container(
@@ -34,8 +33,8 @@ void main() {
 
   testWidgets('Basic Widgets Align 2', (tester) async {
     await tester.pumpWidget(ExportFrame(
-      frameId: 'align 2', 
-      exportDelegate: exportDelegate, 
+      frameId: 'align 2',
+      exportDelegate: exportDelegate,
       child: Align(
         alignment: const Alignment(0.8, 0.2),
         child: Container(
@@ -51,8 +50,8 @@ void main() {
 
   testWidgets('Basic Widgets AspectRatio', (tester) async {
     await tester.pumpWidget(ExportFrame(
-      frameId: 'aspect ratio', 
-      exportDelegate: exportDelegate, 
+      frameId: 'aspect ratio',
+      exportDelegate: exportDelegate,
       child: const AspectRatio(
         aspectRatio: 1.618,
         child: Placeholder(),
@@ -64,8 +63,8 @@ void main() {
 
   testWidgets('Basic Widgets Center', (tester) async {
     await tester.pumpWidget(ExportFrame(
-      frameId: 'center', 
-      exportDelegate: exportDelegate, 
+      frameId: 'center',
+      exportDelegate: exportDelegate,
       child: Center(
         child: Container(
           width: 200,
@@ -99,18 +98,19 @@ void main() {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.max,
         children: [
-          for (final fit in BoxFit.values) SizedBox(
-            height: 80,
-            width: 80,
-            child: FittedBox(
-              fit: fit,
-              child: const SizedBox(
-                width: 100,
-                height: 50,
-                child: Placeholder(),
+          for (final fit in BoxFit.values)
+            SizedBox(
+              height: 80,
+              width: 80,
+              child: FittedBox(
+                fit: fit,
+                child: const SizedBox(
+                  width: 100,
+                  height: 50,
+                  child: Placeholder(),
+                ),
               ),
             ),
-          ),
         ],
       ),
     ));
@@ -157,9 +157,8 @@ void main() {
 
   testWidgets('Basic Widgets SizedBox', (tester) async {
     await tester.pumpWidget(ExportFrame(
-      frameId: 'sized box', 
-      exportDelegate: 
-      exportDelegate, 
+      frameId: 'sized box',
+      exportDelegate: exportDelegate,
       child: const SizedBox(
         width: 200,
         height: 100,
@@ -172,8 +171,8 @@ void main() {
 
   testWidgets('Basic Widgets Transform', (tester) async {
     await tester.pumpWidget(ExportFrame(
-      frameId: 'transform', 
-      exportDelegate: exportDelegate, 
+      frameId: 'transform',
+      exportDelegate: exportDelegate,
       child: Transform.scale(
         scale: 0.5,
         child: Transform.rotate(
@@ -223,22 +222,22 @@ void main() {
             Positioned(
               top: 10,
               left: 10,
-                child: Text('Top Left', textScaleFactor: 3),
+              child: Text('Top Left', textScaleFactor: 3),
             ),
             Positioned(
               top: 10,
               right: 10,
-                child: Text('Top Right', textScaleFactor: 3),
+              child: Text('Top Right', textScaleFactor: 3),
             ),
             Positioned(
               bottom: 10,
               left: 10,
-                child: Text('Bottom Left', textScaleFactor: 3),
+              child: Text('Bottom Left', textScaleFactor: 3),
             ),
             Positioned(
               bottom: 10,
               right: 10,
-                child: Text('Bottom Right', textScaleFactor: 3),
+              child: Text('Bottom Right', textScaleFactor: 3),
             ),
           ],
         ),

@@ -1,22 +1,23 @@
-import 'package:flutter/widgets.dart' show Wrap, WrapAlignment, WrapCrossAlignment;
+import 'package:flutter/widgets.dart'
+    show Wrap, WrapAlignment, WrapCrossAlignment;
 
-import 'package:pdf/widgets.dart' as pw show Wrap, Widget, WrapAlignment, WrapCrossAlignment;
+import 'package:pdf/widgets.dart' as pw
+    show Wrap, Widget, WrapAlignment, WrapCrossAlignment;
 
 import '/args/vertical_direction.dart';
 import '/args/axis.dart';
 
-
 extension WrapConverter on Wrap {
   pw.Wrap toPdfWidget(List<pw.Widget> children) => pw.Wrap(
-    alignment: alignment.toPdfWrapAlignment(),
-    crossAxisAlignment: crossAxisAlignment.toPdfWrapCrossAlignment(),
-    direction: direction.toPdfAxis(),
-    runAlignment: runAlignment.toPdfWrapAlignment(),
-    runSpacing: runSpacing,
-    spacing: spacing,
-    verticalDirection: verticalDirection.toPdfVerticalDirection(),
-    children: children,
-  );
+        alignment: alignment.toPdfWrapAlignment(),
+        crossAxisAlignment: crossAxisAlignment.toPdfWrapCrossAlignment(),
+        direction: direction.toPdfAxis(),
+        runAlignment: runAlignment.toPdfWrapAlignment(),
+        runSpacing: runSpacing,
+        spacing: spacing,
+        verticalDirection: verticalDirection.toPdfVerticalDirection(),
+        children: children,
+      );
 }
 
 extension WrapAlignmentConverter on WrapAlignment {

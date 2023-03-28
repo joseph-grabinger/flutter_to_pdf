@@ -5,7 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-
 late pw.Document pdf;
 final ExportDelegate exportDelegate = ExportDelegate();
 
@@ -29,7 +28,8 @@ void main() async {
   });
 
   testWidgets('Text Widgets SoftWrap', (tester) async {
-    String lore = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor';
+    String lore =
+        'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor';
 
     await tester.pumpWidget(ExportFrame(
       frameId: 'text soft wrap',
@@ -38,12 +38,15 @@ void main() async {
         textDirection: TextDirection.ltr,
         child: Column(
           children: [
-            const Expanded(child: Text('Text with\nsoft wrap\nenabled', softWrap: true)),
-            const Expanded(child: Text('Text with\nsoft wrap\nenabled', softWrap: false)),
+            const Expanded(
+                child: Text('Text with\nsoft wrap\nenabled', softWrap: true)),
+            const Expanded(
+                child: Text('Text with\nsoft wrap\nenabled', softWrap: false)),
             Expanded(
               child: SizedBox(
                 width: 120,
-                child: Text(lore,
+                child: Text(
+                  lore,
                   softWrap: false,
                 ),
               ),
@@ -51,7 +54,8 @@ void main() async {
             Expanded(
               child: SizedBox(
                 width: 120,
-                child: Text(lore,
+                child: Text(
+                  lore,
                   softWrap: true,
                 ),
               ),
@@ -66,12 +70,13 @@ void main() async {
 
   testWidgets('Text Widgets Alignment', (tester) async {
     final children = <Widget>[];
-    for (final align in TextAlign.values.where(
-      (element) => element != TextAlign.end)) {
+    for (final align
+        in TextAlign.values.where((element) => element != TextAlign.end)) {
       children.add(
         SizedBox(
           width: 120,
-          child: Text('Text with alignment $align',
+          child: Text(
+            'Text with alignment $align',
             textAlign: align,
           ),
         ),
@@ -97,7 +102,8 @@ void main() async {
     final children = <Widget>[];
     for (var spacing = 0.0; spacing < 10.0; spacing += 2.0) {
       children.add(
-        Text('Text with WordSpacing $spacing',
+        Text(
+          'Text with WordSpacing $spacing',
           style: TextStyle(
             wordSpacing: spacing,
           ),
@@ -124,7 +130,8 @@ void main() async {
     final children = <Widget>[];
     for (var spacing = 0.0; spacing < 10.0; spacing += 2.0) {
       children.add(
-        Text('Text with LetterSpacing $spacing',
+        Text(
+          'Text with LetterSpacing $spacing',
           style: TextStyle(
             letterSpacing: spacing,
           ),
@@ -149,9 +156,16 @@ void main() async {
 
   testWidgets('Text Widgets Font', (tester) async {
     final children = <Widget>[];
-    for (final font in ['Courier', 'Helvetica', 'Times', 'ZapfDingbats', 'Symbol']) {
+    for (final font in [
+      'Courier',
+      'Helvetica',
+      'Times',
+      'ZapfDingbats',
+      'Symbol'
+    ]) {
       children.add(
-        Text('Text with FontFamily $font',
+        Text(
+          'Text with FontFamily $font',
           style: TextStyle(
             fontFamily: font,
           ),
@@ -178,7 +192,8 @@ void main() async {
     final children = <Widget>[];
     for (final fontStyle in FontStyle.values) {
       children.add(
-        Text('Text with FontStyle $fontStyle',
+        Text(
+          'Text with FontStyle $fontStyle',
           style: TextStyle(
             fontStyle: fontStyle,
           ),
@@ -204,14 +219,15 @@ void main() async {
   testWidgets('Text Widgets Decoration', (tester) async {
     final children = <Widget>[];
     final decorations = <TextDecoration>[
-      TextDecoration.lineThrough, 
-      TextDecoration.overline, 
-      TextDecoration.underline, 
+      TextDecoration.lineThrough,
+      TextDecoration.overline,
+      TextDecoration.underline,
       TextDecoration.none,
     ];
     for (final decoration in decorations) {
       children.add(
-        Text('Text with TextDecoration $decoration',
+        Text(
+          'Text with TextDecoration $decoration',
           style: TextStyle(
             decoration: decoration,
           ),
@@ -238,7 +254,8 @@ void main() async {
     final children = <Widget>[];
     for (final overflow in TextOverflow.values) {
       children.add(
-        Text('Text with TextOverflow $overflow',
+        Text(
+          'Text with TextOverflow $overflow',
           style: TextStyle(
             overflow: overflow,
           ),
@@ -268,10 +285,12 @@ void main() async {
       child: const Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text('Text with TextDirection ltr',
+          Text(
+            'Text with TextDirection ltr',
             textDirection: TextDirection.ltr,
           ),
-          Text('Text with TextDirection rtl',
+          Text(
+            'Text with TextDirection rtl',
             textDirection: TextDirection.rtl,
           ),
         ],
@@ -281,7 +300,7 @@ void main() async {
     pdf.addPage(await exportDelegate.exportToPdfPage('text direction'));
   });
 
-tearDownAll(() async {
+  tearDownAll(() async {
     final file = File('./test/output/widgets-text.pdf');
     file.writeAsBytesSync(await pdf.save());
   });

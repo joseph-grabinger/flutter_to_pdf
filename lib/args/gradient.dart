@@ -1,11 +1,19 @@
-import 'package:flutter/widgets.dart' show Alignment, Color, Gradient, LinearGradient, RadialGradient, TileMode, debugPrint;
+import 'package:flutter/widgets.dart'
+    show
+        Alignment,
+        Color,
+        Gradient,
+        LinearGradient,
+        RadialGradient,
+        TileMode,
+        debugPrint;
 
 import 'package:pdf/pdf.dart' show PdfColor;
-import 'package:pdf/widgets.dart' as pw show Gradient, LinearGradient, RadialGradient, TileMode;
+import 'package:pdf/widgets.dart' as pw
+    show Gradient, LinearGradient, RadialGradient, TileMode;
 
 import 'alignment.dart';
 import 'color.dart';
-
 
 extension GradientConverter on Gradient {
   pw.Gradient toPdfGradient() {
@@ -25,24 +33,26 @@ extension GradientConverter on Gradient {
 
 extension LinearGradientConverter on LinearGradient {
   pw.LinearGradient toPdfLinearGradient() => pw.LinearGradient(
-    colors: colors.map<PdfColor>((Color color) => color.toPdfColor()).toList(),
-    begin: (begin as Alignment).toPdfAlignment(),
-    end: (end as Alignment).toPdfAlignment(),
-    stops: stops,
-    tileMode: tileMode.toPdfTileMode(),
-  );
+        colors:
+            colors.map<PdfColor>((Color color) => color.toPdfColor()).toList(),
+        begin: (begin as Alignment).toPdfAlignment(),
+        end: (end as Alignment).toPdfAlignment(),
+        stops: stops,
+        tileMode: tileMode.toPdfTileMode(),
+      );
 }
 
 extension RadialGradientConverter on RadialGradient {
   pw.RadialGradient toPdfRadialGradient() => pw.RadialGradient(
-    colors: colors.map<PdfColor>((Color color) => color.toPdfColor()).toList(),
-    center: (center as Alignment).toPdfAlignment(),
-    radius: radius,
-    stops: stops,
-    focal: (focal as Alignment).toPdfAlignment(),
-    focalRadius: focalRadius,
-    tileMode: tileMode.toPdfTileMode(),
-  );
+        colors:
+            colors.map<PdfColor>((Color color) => color.toPdfColor()).toList(),
+        center: (center as Alignment).toPdfAlignment(),
+        radius: radius,
+        stops: stops,
+        focal: (focal as Alignment).toPdfAlignment(),
+        focalRadius: focalRadius,
+        tileMode: tileMode.toPdfTileMode(),
+      );
 }
 
 extension TileModeConverter on TileMode {

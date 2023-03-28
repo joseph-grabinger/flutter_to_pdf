@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart' show Positioned;
 
 import 'package:pdf/widgets.dart' as pw show Positioned, Widget, SizedBox;
 
-
 extension PositionedConverter on Positioned {
   pw.Positioned toPdfWidget(pw.Widget child) {
     if (width != null || height != null) {

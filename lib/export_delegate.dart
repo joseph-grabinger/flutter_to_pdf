@@ -7,7 +7,6 @@ import 'export_instance.dart';
 import 'utils.dart';
 import 'options/export_options.dart';
 
-
 class ExportDelegate {
   final ExportOptions options;
 
@@ -34,11 +33,12 @@ class ExportDelegate {
 
   /// Copies the [ExportDelegate] with the given [options].
   ExportDelegate copyWith({ExportOptions? options}) => ExportDelegate(
-    options: options ?? this.options,
-  );
+        options: options ?? this.options,
+      );
 
   /// Exports the [ExportFrame] with the given [frameId] to a [pw.Document].
-  Future<pw.Document> exportToPdfDocument(String frameId, {ExportOptions? overrideOptions}) async {
+  Future<pw.Document> exportToPdfDocument(String frameId,
+      {ExportOptions? overrideOptions}) async {
     final ExportFrame? frame = _registeredFrames[frameId];
 
     if (frame == null) {
@@ -47,31 +47,36 @@ class ExportDelegate {
 
     if (overrideOptions != null) {
       ExportDelegate delegate = copyWith(options: overrideOptions);
-      return await delegate._exportDocument(frame.exportWidget, frame.exportContext!);
+      return await delegate._exportDocument(
+          frame.exportWidget, frame.exportContext!);
     }
 
     return await _exportDocument(frame.exportWidget, frame.exportContext!);
   }
 
   /// Exports the [ExportFrame] with the given [frameId] to a [pw.Page].
-  Future<pw.Page> exportToPdfPage(String frameId, {ExportOptions? overrideOptions}) async {
+  Future<pw.Page> exportToPdfPage(String frameId,
+      {ExportOptions? overrideOptions}) async {
     final ExportFrame frame = getFrame(frameId);
 
     if (overrideOptions != null) {
       ExportDelegate delegate = copyWith(options: overrideOptions);
-      return await delegate._exportPage(frame.exportWidget, frame.exportContext!);
+      return await delegate._exportPage(
+          frame.exportWidget, frame.exportContext!);
     }
 
     return await _exportPage(frame.exportWidget, frame.exportContext!);
   }
 
   /// Exports the [ExportFrame] with the given [frameId] to a [pw.Widget].
-  Future<pw.Widget> exportToPdfWidget(String frameId, {ExportOptions? overrideOptions}) async {
+  Future<pw.Widget> exportToPdfWidget(String frameId,
+      {ExportOptions? overrideOptions}) async {
     final ExportFrame frame = getFrame(frameId);
 
     if (overrideOptions != null) {
       ExportDelegate delegate = copyWith(options: overrideOptions);
-      return await delegate._exportWidget(frame.exportWidget, frame.exportContext!);
+      return await delegate._exportWidget(
+          frame.exportWidget, frame.exportContext!);
     }
 
     return await _exportWidget(frame.exportWidget, frame.exportContext!);
@@ -80,8 +85,8 @@ class ExportDelegate {
   /// Exports the given [widget] to a [pw.Widget].
   /// If [context] is not null, the widgets´ state is provided.
   Future<pw.Widget> _exportWidget(Widget widget, BuildContext? context) async {
-    final ExportInstance exportInstance = ExportInstance(this,
-      (Widget widget) => _exportWidget(widget, null));
+    final ExportInstance exportInstance =
+        ExportInstance(this, (Widget widget) => _exportWidget(widget, null));
 
     final Size layoutSize = options.pageFormatOptions.getAvailableSize();
 
@@ -92,7 +97,8 @@ class ExportDelegate {
 
     Element? element = layoutWidget(widget, layoutSize, pixelRatio);
 
-    final List<pw.Widget> children = await exportInstance.matchWidget(element!, context);
+    final List<pw.Widget> children =
+        await exportInstance.matchWidget(element!, context);
 
     if (children.isEmpty) {
       throw Exception('No children found');
@@ -115,7 +121,8 @@ class ExportDelegate {
 
   /// Exports the given [widget] to a [pw.Document].
   /// If [context] is not null, the widgets´ state is provided.
-  Future<pw.Document> _exportDocument(Widget widget, BuildContext? context) async {
+  Future<pw.Document> _exportDocument(
+      Widget widget, BuildContext? context) async {
     final pw.Page pdfPage = await _exportPage(widget, context);
 
     final pw.Document pdf = pw.Document();

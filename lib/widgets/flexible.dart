@@ -4,11 +4,10 @@ import 'package:pdf/widgets.dart' as pw show Flexible, Widget;
 
 import '/args/flex_fit.dart';
 
-
 extension FlexibleConverter on Flexible {
   pw.Flexible toPdfWidget(pw.Widget child) => pw.Flexible(
-    flex: flex,
-    fit: fit.toPdfFlexFit(),
-    child: child,
-  );
+        flex: flex,
+        fit: fit.toPdfFlexFit(),
+        child: child,
+      );
 }

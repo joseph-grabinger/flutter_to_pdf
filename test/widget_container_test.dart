@@ -7,7 +7,6 @@ import 'package:pdf/widgets.dart' as pw;
 
 import 'utils.dart';
 
-
 late pw.Document pdf;
 final ExportDelegate exportDelegate = ExportDelegate();
 
@@ -86,15 +85,15 @@ void main() {
           height: 100,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            shape: shape,
-            image: DecorationImage(
-              image: image,
-            )
-          ),
+              shape: shape,
+              image: DecorationImage(
+                image: image,
+              )),
           child: Container(
             width: 70,
             color: Colors.yellow,
-            child: Text('$fit\n$shape', 
+            child: Text(
+              '$fit\n$shape',
               textDirection: TextDirection.ltr,
               textAlign: TextAlign.center,
               textScaleFactor: 0.6,
