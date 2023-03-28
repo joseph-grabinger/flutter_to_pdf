@@ -47,10 +47,7 @@ class ExportInstance {
   Future<List<pw.Widget>> _visit(Element element, BuildContext? context) async {
     List<Element> elements = [];
 
-    element.visitChildElements((Element element) async {
-      debugPrint('Element ${element.depth}: ${element.widget}');
-      elements.add(element);
-    });
+    element.visitChildElements((Element element) async => elements.add(element));
 
     List<pw.Widget> children = [];
     for (Element e in elements) {
@@ -68,7 +65,6 @@ class ExportInstance {
 
     switch (widget.runtimeType) {
       case MergeSemantics: //anchor: end of widget tree
-        debugPrint('Reached Anchor');
         return [];
       case Container:
         final List children = await _visit(element, context);
@@ -216,7 +212,6 @@ class ExportInstance {
       case Table:
         return [await (widget as Table).toPdfWidget(await _visit(element, context))];
       default:
-        debugPrint('Uncaught: ${widget.runtimeType}');
         return await _visit(element, context);
     }
   }
