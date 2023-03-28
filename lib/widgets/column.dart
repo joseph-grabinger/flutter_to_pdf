@@ -7,7 +7,9 @@ import '/args/main_axis_alignment.dart';
 import '/args/main_axis_size.dart';
 import '/args/vertical_direction.dart';
 
+/// Extension on [Column] to convert it to the pdf equivalent [pw.Column].
 extension ColumnConverter on Column {
+  /// Converts the [Column] to a [pw.Column].
   pw.Column toPdfWidget(List<pw.Widget> children) => pw.Column(
         mainAxisAlignment: mainAxisAlignment.toPdfMainAxisAlignment(),
         mainAxisSize: mainAxisSize.toPdfMainAxisSize(),

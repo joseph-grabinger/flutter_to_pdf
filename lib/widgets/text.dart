@@ -6,7 +6,9 @@ import '/args/text_style.dart';
 import '/args/text_align.dart';
 import '/args/text_direction.dart';
 
+/// Extension on [Text] to convert it to the pdf equivalent [pw.Text].
 extension TextConverter on Text {
+  /// Converts the [Text] to a [pw.Text].
   pw.Text toPdfWidget() => pw.Text(
         data!,
         maxLines: maxLines,
@@ -19,7 +21,9 @@ extension TextConverter on Text {
       );
 }
 
+/// Extension on [TextOverflow] to convert it to the pdf equivalent [pw.TextOverflow].
 extension TextOverlfowConverter on TextOverflow {
+  /// Converts the [TextOverflow] to a [pw.TextOverflow].
   pw.TextOverflow toPdfTextOverflow() {
     switch (this) {
       case TextOverflow.clip:

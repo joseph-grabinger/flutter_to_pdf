@@ -31,7 +31,9 @@ import '/args/text_direction.dart';
 import '/args/border_radius.dart';
 import '/args/border_side.dart';
 
+/// Extension on [InputBorder] to convert it to the pdf equivalent [pw.BoxDecoration].
 extension TextFieldConverter on TextField {
+  /// Converts the [TextField] to a [pw.Widget].
   Future<pw.Widget> toPdfWidget(
       ExportInstance instance, TextField? contextWidget) async {
     final TextField textField = contextWidget ?? this;
@@ -117,7 +119,9 @@ extension TextFieldConverter on TextField {
   }
 }
 
+/// Extension on [InputBorder] to convert it to the pdf equivalent [pw.BoxDecoration].
 extension InputBorderConverter on InputBorder {
+  /// Converts the [InputBorder] to a [pw.BoxDecoration].
   pw.BoxDecoration toPdfInputBorder() {
     switch (runtimeType) {
       case OutlineInputBorder:
@@ -132,7 +136,9 @@ extension InputBorderConverter on InputBorder {
   }
 }
 
+/// Extension on [OutlineInputBorder] to convert it to the pdf equivalent [pw.BoxDecoration].
 extension OutlineInputBorderConverter on OutlineInputBorder {
+  /// Converts the [OutlineInputBorder] to a [pw.BoxDecoration].
   pw.BoxDecoration toPdfOutlineInputBorder() {
     final pw.BorderSide pdfBorderSide = borderSide.toPdfBorderSide();
 
@@ -147,7 +153,9 @@ extension OutlineInputBorderConverter on OutlineInputBorder {
   }
 }
 
+/// Extension on [UnderlineInputBorder] to convert it to the pdf equivalent [pw.BoxDecoration].
 extension UnderLineInputBorderConverter on UnderlineInputBorder {
+  /// Converts the [UnderlineInputBorder] to a [pw.BoxDecoration].
   pw.BoxDecoration toPdfUnderlineInputBorder() {
     final pw.BorderSide pdfBorderSide = borderSide.toPdfBorderSide();
 

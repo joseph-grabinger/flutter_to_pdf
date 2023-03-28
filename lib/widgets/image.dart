@@ -6,7 +6,9 @@ import '/args/image_provider.dart';
 import '/args/box_fit.dart';
 import '/args/alignment.dart';
 
+/// Extension on [Image] to convert it to the pdf equivalent [pw.Image].
 extension ImageConverter on Image {
+  /// Converts the [Image] to a [pw.Image].
   Future<pw.Image> toPdfWidget() async => pw.Image(
         await image.toPdfImageProvider(),
         width: width,

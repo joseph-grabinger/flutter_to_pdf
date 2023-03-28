@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+/// The key used to identify the ExportFrame in the widget tree.
 const Key exportFrameKey = Key('FlutterToPDF.exportFrameKey');
 
 /// Extracts the ExportFrame as [Element] from the provided [element].

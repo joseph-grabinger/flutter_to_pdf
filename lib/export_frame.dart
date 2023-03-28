@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'export_delegate.dart';
 
+/// A widget that can be used to export a specific part of the widget tree.
 class ExportFrame extends StatelessWidget {
   final String frameId;
   final ExportDelegate exportDelegate;

@@ -12,7 +12,9 @@ import 'package:pdf/widgets.dart' as pw show GridView, Widget, EdgeInsets;
 import '/args/edge_insets.dart';
 import '/args/axis.dart';
 
+/// Extension on [GridView] to convert it to the pdf equivalent [pw.GridView].
 extension GridViewConverter on GridView {
+  /// Converts the [GridView] to a [pw.GridView].
   pw.GridView toPdfWidget(
           List<pw.Widget> children, BoxConstraints constraints) =>
       pw.GridView(
@@ -27,7 +29,9 @@ extension GridViewConverter on GridView {
       );
 }
 
+/// Extension on [SliverGridDelegate] to convert it to the pdf equivalent [int].
 extension SliverGridDelegateConverter on SliverGridDelegate {
+  /// Gets the cross axis count of the [SliverGridDelegate].
   int toPdfCrossAxisCount(BoxConstraints constraints) {
     switch (runtimeType) {
       case SliverGridDelegateWithFixedCrossAxisCount:
@@ -43,6 +47,7 @@ extension SliverGridDelegateConverter on SliverGridDelegate {
     }
   }
 
+  /// Gets the cross axis spacing of the [SliverGridDelegate].
   double toPdfCrossAxisSpacing() {
     switch (runtimeType) {
       case SliverGridDelegateWithFixedCrossAxisCount:
@@ -56,6 +61,7 @@ extension SliverGridDelegateConverter on SliverGridDelegate {
     }
   }
 
+  /// Gets the main axis spacing of the [SliverGridDelegate].
   double toPdfMainAxisSpacing() {
     switch (runtimeType) {
       case SliverGridDelegateWithFixedCrossAxisCount:
@@ -69,6 +75,7 @@ extension SliverGridDelegateConverter on SliverGridDelegate {
     }
   }
 
+  /// Gets the child aspect ratio of the [SliverGridDelegate].
   double toPdfChildAspectRatio() {
     switch (runtimeType) {
       case SliverGridDelegateWithFixedCrossAxisCount:

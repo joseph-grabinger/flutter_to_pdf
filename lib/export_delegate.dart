@@ -7,6 +7,7 @@ import 'export_instance.dart';
 import 'utils.dart';
 import 'options/export_options.dart';
 
+/// The delegate handling the high-level export of the widget tree.
 class ExportDelegate {
   final ExportOptions options;
 

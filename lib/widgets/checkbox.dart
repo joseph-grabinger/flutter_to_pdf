@@ -20,7 +20,9 @@ import '/args/border_radius.dart';
 import '/args/border_style.dart';
 import '/args/box_decoration.dart';
 
+/// Extension on [Checkbox] to convert it to the pdf equivalent [pw.Checkbox].
 extension CheckboxConverter on Checkbox {
+  /// Converts the [Checkbox] to a [pw.Checkbox].
   Future<pw.Widget> toPdfWidget(
       CheckboxOptions options, Checkbox? contextWidget) async {
     final Checkbox checkbox = contextWidget ?? this;
@@ -77,6 +79,7 @@ extension CheckboxConverter on Checkbox {
   }
 }
 
+/// Returns the [pw.BoxDecoration] for the given [Checkbox].
 pw.BoxDecoration getCheckboxDecoration(Checkbox checkbox) {
   final pw.Border defaultBorder = pw.Border.all(
     color: checkbox.side?.color.toPdfColor() ?? PdfColors.black,

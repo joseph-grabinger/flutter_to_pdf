@@ -9,7 +9,9 @@ import '../args/color.dart';
 import '../args/box_constraints.dart';
 import '../args/edge_insets.dart';
 
+/// Extension on [Container] to convert it to the pdf equivalent [pw.Container].
 extension ContainerConverter on Container {
+  /// Converts the [Container] to a [pw.Container].
   Future<pw.Container> toPdfWidget(pw.Widget? child) async => pw.Container(
         alignment: (alignment as Alignment?)?.toPdfAlignment(),
         decoration: await (decoration as BoxDecoration?)?.toPdfBoxDecoration(),

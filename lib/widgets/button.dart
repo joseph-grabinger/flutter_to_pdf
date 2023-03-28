@@ -27,7 +27,9 @@ import '/args/color.dart';
 import '/args/edge_insets.dart';
 import '/args/border_radius.dart';
 
+/// Extension on [ButtonStyleButton] to convert it to the pdf equivalent [pw.FlatButton].
 extension ButtonConverter on ButtonStyleButton {
+  /// Converts the [ButtonStyleButton] to a [pw.FlatButton].
   pw.FlatButton toPdfWidget(pw.Widget child) => pw.FlatButton(
         name: hashCode.toString(),
         textColor: style?.foregroundColor?.resolve({})?.toPdfColor() ??
@@ -52,7 +54,9 @@ extension ButtonConverter on ButtonStyleButton {
       );
 }
 
+/// Extension on [OutlinedBorder] to convert it to the pdf equivalent [pw.BoxShape].
 extension OutlinedBorderConverter on OutlinedBorder {
+  /// Converts the [OutlinedBorder] to a [pw.BoxShape].
   pw.BoxShape toPdfBoxShape() {
     switch (runtimeType) {
       case CircleBorder:
@@ -77,6 +81,7 @@ extension OutlinedBorderConverter on OutlinedBorder {
     }
   }
 
+  /// Converts the [OutlinedBorder] to a [pw.BorderRadius].
   pw.BorderRadius toPdfBorderRadius() {
     switch (runtimeType) {
       case CircleBorder:

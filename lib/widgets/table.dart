@@ -27,7 +27,9 @@ import 'package:pdf/widgets.dart' as pw
 import '/args/box_decoration.dart';
 import '/args/border_side.dart';
 
+/// Extension on [Table] to convert it to the pdf equivalent [pw.Table].
 extension TableConverter on Table {
+  /// Converts the [Table] to a [pw.Table].
   Future<pw.Table> toPdfWidget(List<pw.Widget> children) async => pw.Table(
         border: border?.toPdfTableBorder(),
         columnWidths:
@@ -54,7 +56,9 @@ extension TableConverter on Table {
       );
 }
 
+/// Extension on [TableBorder] to convert it to the pdf equivalent [pw.TableBorder].
 extension TableBorderConverter on TableBorder {
+  /// Converts the [TableBorder] to a [pw.TableBorder].
   pw.TableBorder toPdfTableBorder() => pw.TableBorder(
         horizontalInside: horizontalInside.toPdfBorderSide(),
         verticalInside: verticalInside.toPdfBorderSide(),
@@ -65,7 +69,9 @@ extension TableBorderConverter on TableBorder {
       );
 }
 
+/// Extension on [TableColumnWidth] to convert it to the pdf equivalent [pw.TableColumnWidth].
 extension TableColumnWidthConverter on TableColumnWidth {
+  /// Converts the [TableColumnWidth] to a [pw.TableColumnWidth].
   pw.TableColumnWidth toPdfTableColumnWidth() {
     switch (runtimeType) {
       case IntrinsicColumnWidth:
@@ -84,7 +90,9 @@ extension TableColumnWidthConverter on TableColumnWidth {
   }
 }
 
+/// Extension on [TableCellVerticalAlignment] to convert it to the pdf equivalent [pw.TableCellVerticalAlignment].
 extension TableCellVerticalAlignmentConverter on TableCellVerticalAlignment {
+  /// Converts the [TableCellVerticalAlignment] to a [pw.TableCellVerticalAlignment].
   pw.TableCellVerticalAlignment toPdfTableCellVerticalAlignment() {
     switch (this) {
       case TableCellVerticalAlignment.top:
