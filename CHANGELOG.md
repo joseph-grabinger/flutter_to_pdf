@@ -14,3 +14,8 @@
 
 * upgrade package dependencies
 * formatting
+
+
+## 0.1.1
+
+* adaptations for flutter 3.10.0
