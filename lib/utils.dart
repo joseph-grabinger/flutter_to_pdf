@@ -69,7 +69,7 @@ Element? layoutWidget(Widget widget, Size size, double? pixelRatio) {
       size: size,
       devicePixelRatio: pixelRatio ?? 1.0,
     ),
-    window: WidgetsBinding.instance.platformDispatcher.views.first,
+    view: WidgetsBinding.instance.platformDispatcher.views.first,
     child: RenderPositionedBox(
       alignment: Alignment.center,
       child: repaintBoundary,
