@@ -21,7 +21,7 @@ jobs:
       - name: Clone Flutter repository with master channel
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.9.0-0.1.pre'
+          flutter-version: '3.11.0-11.0.pre.25'
           channel: 'beta'
       - run: flutter doctor -v
       - run: flutter pub get
