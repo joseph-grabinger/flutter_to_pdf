@@ -26,12 +26,14 @@ void main() {
       children.add(Text('$direction'));
       for (final alignment in WrapAlignment.values) {
         children.add(Text('$alignment'));
-        children.add(Wrap(
-          direction: Axis.horizontal,
-          alignment: alignment,
-          verticalDirection: direction,
-          textDirection: TextDirection.ltr,
-          children: List<Widget>.generate(30, (int n) => Text('${n + 1}')),
+        children.add(Expanded(
+          child: Wrap(
+            direction: Axis.horizontal,
+            alignment: alignment,
+            verticalDirection: direction,
+            textDirection: TextDirection.ltr,
+            children: List<Widget>.generate(30, (int n) => Text('${n + 1}')),
+          ),
         ));
       }
     }
