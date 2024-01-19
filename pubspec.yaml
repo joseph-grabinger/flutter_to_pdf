@@ -1,9 +1,9 @@
 name: flutter_to_pdf
 description: A package to export any Flutter widget to a PDF-Document, PDF-Page or PDF-File. Further customization of the export process is possible through the export options.
 version: 0.1.1
-homepage: https://github.com/dunef-com/flutter_to_pdf/tree/main
-repository: https://github.com/dunef-com/flutter_to_pdf
-issue_tracker: https://github.com/dunef-com/flutter_to_pdf/issues
+homepage: https://github.com/joseph-grabinger/flutter_to_pdf/tree/main
+repository: https://github.com/joseph-grabinger/flutter_to_pdf
+issue_tracker: https://github.com/joseph-grabinger/flutter_to_pdf/issues
 
 environment:
   sdk: '>=2.19.5<4.0.0'
