@@ -1,8 +1,8 @@
-[![codecov](https://codecov.io/gh/dunef-com/flutter_to_pdf/branch/main/graph/badge.svg?token=5WIYFJ6VND)](https://codecov.io/gh/dunef-com/flutter_to_pdf)
+[![codecov](https://codecov.io/gh/joseph-grabinger/flutter_to_pdf/branch/main/graph/badge.svg?token=5WIYFJ6VND)](https://codecov.io/gh/joseph-grabinger/flutter_to_pdf)
 [![Pub](https://img.shields.io/pub/v/flutter_to_pdf.svg)](https://pub.dev/packages/flutter_to_pdf)
 
 
-The [FlutterToPDF](https://dunef.io/de) package lets you export any Flutter widget to PDF Documents and is written natively in Dart.
+The [FlutterToPDF](https://pub.dev/packages/flutter_to_pdf) package lets you export any Flutter widget to PDF Documents and is written natively in Dart.
 
 ## Installing
 ### Depend on it 
