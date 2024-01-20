@@ -96,7 +96,7 @@ void main() {
               '$fit\n$shape',
               textDirection: TextDirection.ltr,
               textAlign: TextAlign.center,
-              textScaleFactor: 0.6,
+              textScaler: const TextScaler.linear(0.6),
             ),
           ),
         ));
