@@ -194,7 +194,7 @@ void main() {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            const Text('Background', textScaleFactor: 5),
+            const Text('Background', textScaler: TextScaler.linear(5)),
             Opacity(
               opacity: 0.5,
               child: Container(
@@ -222,22 +222,22 @@ void main() {
             Positioned(
               top: 10,
               left: 10,
-              child: Text('Top Left', textScaleFactor: 3),
+              child: Text('Top Left', textScaler: TextScaler.linear(3)),
             ),
             Positioned(
               top: 10,
               right: 10,
-              child: Text('Top Right', textScaleFactor: 3),
+              child: Text('Top Right', textScaler: TextScaler.linear(3)),
             ),
             Positioned(
               bottom: 10,
               left: 10,
-              child: Text('Bottom Left', textScaleFactor: 3),
+              child: Text('Bottom Left', textScaler: TextScaler.linear(3)),
             ),
             Positioned(
               bottom: 10,
               right: 10,
-              child: Text('Bottom Right', textScaleFactor: 3),
+              child: Text('Bottom Right', textScaler: TextScaler.linear(3)),
             ),
           ],
         ),
