@@ -16,6 +16,7 @@ extension TextConverter on Text {
         textDirection: textDirection?.toPdfTextDirection(),
         softWrap: softWrap,
         overflow: overflow?.toPdfTextOverflow(),
+        // ignore: deprecated_member_use
         textScaleFactor: textScaleFactor ?? 1.0,
         style: style?.toPdfTextStyle(),
       );
