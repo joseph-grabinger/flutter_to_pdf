@@ -23,7 +23,7 @@ extension TextStyleConverter on TextStyle {
   pw.TextStyle toPdfTextStyle() => pw.TextStyle(
         color: color?.toPdfColor(),
         fontSize: fontSize,
-        fontStyle: fontStyle?.toPdfFontStyle() ?? pw.FontStyle.normal,
+        fontStyle: fontStyle?.toPdfFontStyle() ?? pwFontStyle.normal,
         fontWeight: fontWeight?.toPdfFontWeight(),
         height: height,
         letterSpacing: letterSpacing,
@@ -32,7 +32,7 @@ extension TextStyleConverter on TextStyle {
         decorationColor: decorationColor?.toPdfColor(),
         decorationStyle: decorationStyle?.toPdfTextDecorationStyle(),
         decorationThickness: decorationThickness,
-        inherit: inherit,
+        inherit: true,
         font: fontFamily != null ? resolveFont(fontFamily!) : null,
         fontFallback: fontFamilyFallback
                 ?.map<pw.Font>((String font) => resolveFont(font))
