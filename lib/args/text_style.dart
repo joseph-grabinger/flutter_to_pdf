@@ -23,7 +23,7 @@ extension TextStyleConverter on TextStyle {
   pw.TextStyle toPdfTextStyle() => pw.TextStyle(
         color: color?.toPdfColor(),
         fontSize: fontSize,
-        fontStyle: fontStyle?.toPdfFontStyle() ?? FontStyle.normal,
+        fontStyle: fontStyle?.toPdfFontStyle() ?? pw.FontStyle.normal,
         fontWeight: fontWeight?.toPdfFontWeight(),
         height: height,
         letterSpacing: letterSpacing,
