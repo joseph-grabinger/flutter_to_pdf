@@ -115,16 +115,12 @@ extension FontWeightConverter on FontWeight {
     switch (this) {
       case FontWeight.normal:
         return pw.FontWeight.normal;
-      case FontWeight.w500:
-        return pw.FontWeight.w500;
-      case FontWeight.w600:
-        return pw.FontWeight.w600;
       case FontWeight.bold:
         return pw.FontWeight.bold;
       default:
         debugPrint(
-            'Unsupported FontWeight: $this; defaulting to FontWeight.normal');
-        return pw.FontWeight.normal;
+            'Unsupported FontWeight: $this; defaulting to FontWeight.bold');
+        return pw.FontWeight.bold;
     }
   }
 }
