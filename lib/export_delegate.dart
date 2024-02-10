@@ -54,6 +54,9 @@ class ExportDelegate {
 
     return await _exportDocument(frame.exportWidget, frame.exportContext!);
   }
+    Future<pw.Document> exportWidgetToPdf(Widget widget, BuildContext context) async {
+    return await _exportDocument(widget, context);
+  }
 
   /// Exports the [ExportFrame] with the given [frameId] to a [pw.Page].
   Future<pw.Page> exportToPdfPage(String frameId,
