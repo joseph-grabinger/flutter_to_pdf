@@ -58,7 +58,7 @@ extension TextStyleConverter on TextStyle {
       case 'Symbol':
         return pw.Font.symbol();
       default:
-        throw Exception('Unsupported Font: $font');
+        return pw.Font.courier();
     }
   }
 }
