@@ -23,7 +23,7 @@ extension TextStyleConverter on TextStyle {
   pw.TextStyle toPdfTextStyle() => pw.TextStyle(
         color: color?.toPdfColor(),
         fontSize: fontSize,
-        fontStyle: fontStyle?.toPdfFontStyle(),
+        fontStyle: fontStyle?.toPdfFontStyle() ?? pw.FontStyle.normal,
         fontWeight: fontWeight?.toPdfFontWeight(),
         height: height,
         letterSpacing: letterSpacing,
@@ -32,7 +32,7 @@ extension TextStyleConverter on TextStyle {
         decorationColor: decorationColor?.toPdfColor(),
         decorationStyle: decorationStyle?.toPdfTextDecorationStyle(),
         decorationThickness: decorationThickness,
-        inherit: inherit,
+        inherit: true,
         font: fontFamily != null ? resolveFont(fontFamily!) : null,
         fontFallback: fontFamilyFallback
                 ?.map<pw.Font>((String font) => resolveFont(font))
@@ -58,7 +58,7 @@ extension TextStyleConverter on TextStyle {
       case 'Symbol':
         return pw.Font.symbol();
       default:
-        throw Exception('Unsupported Font: $font');
+        return pw.Font.courier();
     }
   }
 }
@@ -106,6 +106,10 @@ extension FontStyleConverter on FontStyle {
         return pw.FontStyle.normal;
       case FontStyle.italic:
         return pw.FontStyle.italic;
+      default:
+        debugPrint(
+            'Unsupported FontStyle: $this; defaulting to FontWeight.normal');
+        return pw.FontStyle.normal;
     }
   }
 }
@@ -119,8 +123,8 @@ extension FontWeightConverter on FontWeight {
         return pw.FontWeight.bold;
       default:
         debugPrint(
-            'Unsupported FontWeight: $this; defaulting to FontWeight.normal');
-        return pw.FontWeight.normal;
+            'Unsupported FontWeight: $this; defaulting to FontWeight.bold');
+        return pw.FontWeight.bold;
     }
   }
 }
