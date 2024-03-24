@@ -21,3 +21,10 @@ dev_dependencies:
 
 flutter:
 
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: example/assets/fonts/OpenSans-Regular.ttf
+    - family: LoveDays
+      fonts:
+        - asset: example/assets/fonts/LoveDays-Regular.ttf

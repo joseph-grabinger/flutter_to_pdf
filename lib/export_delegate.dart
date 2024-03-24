@@ -12,7 +12,10 @@ class ExportDelegate {
   final ExportOptions options;
   final Map<String, String> ttfFonts;
 
-  ExportDelegate({this.options = const ExportOptions(), this.ttfFonts = const {}});
+  ExportDelegate({
+    this.options = const ExportOptions(),
+    this.ttfFonts = const {},
+  });
 
   final Map<String, ExportFrame> _registeredFrames = {};
 
