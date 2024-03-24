@@ -77,8 +77,6 @@ flutter:
     - family: OpenSans
       fonts:
         - asset: assets/fonts/OpenSans-Regular.ttf
-        - asset: assets/fonts/OpenSans-Italic.ttf
-          style: italic
     - family: LoveDays
       fonts:
         - asset: assets/fonts/LoveDays-Regular.ttf
