@@ -170,7 +170,7 @@ class ExportInstance {
       case Placeholder:
         return [(widget as Placeholder).toPdfWidget()];
       case Text:
-        return [(widget as Text).toPdfWidget()];
+        return [await (widget as Text).toPdfWidget(this)];
       case TextField:
         TextField? contextWidget;
         if (context != null) {

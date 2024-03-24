@@ -10,8 +10,9 @@ import 'options/export_options.dart';
 /// The delegate handling the high-level export of the widget tree.
 class ExportDelegate {
   final ExportOptions options;
+  final Map<String, String> ttfFonts;
 
-  ExportDelegate({this.options = const ExportOptions()});
+  ExportDelegate({this.options = const ExportOptions(), this.ttfFonts = const {}});
 
   final Map<String, ExportFrame> _registeredFrames = {};
 
@@ -35,6 +36,7 @@ class ExportDelegate {
   /// Copies the [ExportDelegate] with the given [options].
   ExportDelegate copyWith({ExportOptions? options}) => ExportDelegate(
         options: options ?? this.options,
+        ttfFonts: ttfFonts,
       );
 
   /// Exports the [ExportFrame] with the given [frameId] to a [pw.Document].
