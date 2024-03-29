@@ -9,7 +9,12 @@ void main() => runApp(Demo());
 class Demo extends StatelessWidget {
   Demo({super.key});
 
-  final ExportDelegate exportDelegate = ExportDelegate();
+  final ExportDelegate exportDelegate = ExportDelegate(
+    ttfFonts: {
+      'LoveDays': 'assets/fonts/LoveDays-Regular.ttf',
+      'OpenSans': 'assets/fonts/OpenSans-Regular.ttf',
+    },
+  );
 
   Future<void> saveFile(document, String name) async {
     final Directory dir = await getApplicationDocumentsDirectory();
@@ -167,6 +172,7 @@ class _QuestionnaireExampleState extends State<QuestionnaireExample> {
               ),
               const Text(
                 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+                style: TextStyle(fontFamily: 'LoveDays'),
               ),
               const SizedBox(height: 8),
               Row(
@@ -179,7 +185,10 @@ class _QuestionnaireExampleState extends State<QuestionnaireExample> {
                     }),
                   ),
                   const SizedBox(width: 8),
-                  const Text('I hereby accept the terms of the Lorem Ipsum.'),
+                  const Text(
+                    'I hereby accept the terms of the Lorem Ipsum.',
+                    style: TextStyle(fontFamily: 'OpenSans'),
+                  ),
                 ],
               ),
               const Padding(

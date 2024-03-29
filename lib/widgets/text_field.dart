@@ -82,10 +82,10 @@ extension TextFieldConverter on TextField {
                   width: double.infinity,
                   name: textField.hashCode.toString(),
                   defaultValue: textField.controller?.value.text,
-                  textStyle: (instance.delegate.options.textFieldOptions
+                  textStyle: await (instance.delegate.options.textFieldOptions
                               .getTextStyle(textField.key) ??
                           textField.style)
-                      ?.toPdfTextStyle(),
+                      ?.toPdfTextStyle(instance.delegate.fontData),
                   maxLength: textField.maxLength,
                   fieldFlags: {
                     if (textField.maxLines != null && textField.maxLines! > 1)
@@ -102,10 +102,10 @@ extension TextFieldConverter on TextField {
                     textAlign: textField.textAlign.toPdfTextAlign(),
                     textDirection:
                         textField.textDirection?.toPdfTextDirection(),
-                    style: (instance.delegate.options.textFieldOptions
+                    style: await (instance.delegate.options.textFieldOptions
                                 .getTextStyle(textField.key) ??
                             textField.style)
-                        ?.toPdfTextStyle(),
+                        ?.toPdfTextStyle(instance.delegate.fontData),
                   )),
         ),
         if (label != null)

@@ -5,8 +5,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import 'utils.dart';
+
 late pw.Document pdf;
-final ExportDelegate exportDelegate = ExportDelegate();
+final ExportDelegate exportDelegate = ExportDelegate(ttfFonts: {
+  'LoveDays': './example/assets/fonts/LoveDays-Regular.ttf',
+  'OpenSans': './example/assets/fonts/OpenSans-Regular.ttf',
+});
 
 void main() async {
   setUpAll(() {
@@ -186,6 +191,42 @@ void main() async {
     ));
 
     pdf.addPage(await exportDelegate.exportToPdfPage('text font'));
+  });
+
+  testWidgets('Text Widgets custom TTF Font', (tester) async {
+    final children = <Widget>[];
+    for (final font in [
+      'LoveDays',
+      'OpenSans',
+    ]) {
+      children.add(
+        Text(
+          'Text with FontFamily $font',
+          style: TextStyle(
+            fontFamily: font,
+          ),
+        ),
+      );
+    }
+
+    await tester.pumpWidget(MaterialApp(
+      home: DefaultAssetBundle(
+        bundle: TestAssetBundle(),
+        child: ExportFrame(
+          frameId: 'text custom font',
+          exportDelegate: exportDelegate,
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: children,
+            ),
+          ),
+        ),
+      ),
+    ));
+
+    pdf.addPage(await exportDelegate.exportToPdfPage('text custom font'));
   });
 
   testWidgets('Text Widgets FontStyle', (tester) async {
