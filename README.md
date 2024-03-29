@@ -67,6 +67,18 @@ final widget = await exportDelegate.exportToPdfWidget('someFrameId');
 
 **Note:** If you wish to use types on the variables `pdf`, `page` and `widget`, you can use the `Document`, `Page` and `Widget` classes provided by [PDF-package](https://pub.dev/packages/pdf).
 
+### Custom TTF Fonts
+
+If the widget you want to export contains any custom TTF fonts, you **must** provide the used `ttfFonts` to the `ExportDelegate`.
+
+```dart
+final ExportDelegate exportDelegate = ExportDelegate(
+  ttfFonts: {
+    'SomeFontFamily': 'assets/fonts/someFont.ttf',
+  },
+);
+```
+
 ### TextFields and Checkboxes
 
 If the widget you want to export contains any `TextField`, `TextFormField` or `Checkbox`, a **unique** `Key` must be provided to each `TextField`, `TextFormField` and `Checkbox`.
