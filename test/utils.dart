@@ -1,7 +1,8 @@
 import 'dart:convert';
-import 'dart:typed_data';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// Retruns image bytes or testiung purposes
 Uint8List getImageBytes() {
@@ -16,7 +17,6 @@ void ignoreOverflowErrors(
   bool forceReport = false,
 }) {
   bool ifIsOverflowError = false;
-  // bool isUnableToLoadAsset = false;
 
   // Detect overflow error.
   var exception = details.exception;
@@ -24,9 +24,6 @@ void ignoreOverflowErrors(
     ifIsOverflowError = !exception.diagnostics.any(
       (e) => e.value.toString().startsWith("A RenderFlex overflowed by"),
     );
-    // isUnableToLoadAsset = !exception.diagnostics.any(
-    //   (e) => e.value.toString().startsWith("Unable to load asset"),
-    // );
   }
 
   // Ignore if is overflow error.
@@ -34,5 +31,13 @@ void ignoreOverflowErrors(
     debugPrint('Ignored Overflow-Error');
   } else {
     FlutterError.dumpErrorToConsole(details, forceReport: forceReport);
+  }
+}
+
+class TestAssetBundle extends CachingAssetBundle {
+  @override
+  Future<ByteData> load(String key) async {
+    final bytes = File(key).readAsBytesSync();
+    return bytes.buffer.asByteData();
   }
 }

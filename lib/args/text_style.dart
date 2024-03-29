@@ -1,4 +1,4 @@
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/services.dart' show AssetBundle;
 import 'package:flutter/widgets.dart'
     show
         TextDecoration,
@@ -18,10 +18,11 @@ import 'package:pdf/widgets.dart' as pw
         FontStyle,
         FontWeight;
 
+import '../options/font_data.dart';
 import 'color.dart';
 
 extension TextStyleConverter on TextStyle {
-  Future<pw.TextStyle> toPdfTextStyle(Map<String, String> ttfFonts) async =>
+  Future<pw.TextStyle> toPdfTextStyle(FontData fontData) async =>
       pw.TextStyle(
         color: color?.toPdfColor(),
         fontSize: fontSize,
@@ -36,11 +37,11 @@ extension TextStyleConverter on TextStyle {
         decorationThickness: decorationThickness,
         inherit: inherit,
         font: fontFamily != null
-            ? await resolveFont(fontFamily!, ttfFonts)
+            ? await resolveFont(fontFamily!, fontData)
             : null,
         fontFallback: fontFamilyFallback != null
             ? await Future.wait(fontFamilyFallback!
-                .map((String font) => resolveFont(font, ttfFonts)))
+                .map((String font) => resolveFont(font, fontData)))
             : [],
         background: backgroundColor != null
             ? pw.BoxDecoration(
@@ -49,7 +50,7 @@ extension TextStyleConverter on TextStyle {
             : null,
       );
 
-  Future<pw.Font> resolveFont(String font, Map<String, String> ttfFonts) async {
+  Future<pw.Font> resolveFont(String font, FontData fontData) async {
     switch (font) {
       case 'Courier':
         return pw.Font.courier();
@@ -62,15 +63,15 @@ extension TextStyleConverter on TextStyle {
       case 'Symbol':
         return pw.Font.symbol();
       default:
-        if (!ttfFonts.containsKey(font)) {
+        if (!fontData.ttfFonts.containsKey(font)) {
           throw Exception('Unsupported Font: $font');
         }
-        return await resolveCustomFont(ttfFonts[font]!);
+        return await resolveCustomFont(fontData.ttfFonts[font]!, fontData.assetBundle);
     }
   }
 
-  Future<pw.Font> resolveCustomFont(String ttfFontPath) async {
-    final bytes = await rootBundle.load(ttfFontPath);
+  Future<pw.Font> resolveCustomFont(String ttfFontPath, AssetBundle assetBundle) async {
+    final bytes = await assetBundle.load(ttfFontPath);
     if (bytes.buffer.asInt8List().isEmpty) {
       throw Exception('Font file $ttfFontPath is empty');
     }

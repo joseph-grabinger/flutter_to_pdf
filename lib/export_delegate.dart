@@ -6,16 +6,17 @@ import 'export_frame.dart';
 import 'export_instance.dart';
 import 'utils.dart';
 import 'options/export_options.dart';
+import 'options/font_data.dart';
 
 /// The delegate handling the high-level export of the widget tree.
 class ExportDelegate {
   final ExportOptions options;
-  final Map<String, String> ttfFonts;
+  final FontData fontData;
 
   ExportDelegate({
     this.options = const ExportOptions(),
-    this.ttfFonts = const {},
-  });
+    Map<String, String> ttfFonts = const {},
+  }) : fontData = FontData(ttfFonts);
 
   final Map<String, ExportFrame> _registeredFrames = {};
 
@@ -39,7 +40,7 @@ class ExportDelegate {
   /// Copies the [ExportDelegate] with the given [options].
   ExportDelegate copyWith({ExportOptions? options}) => ExportDelegate(
         options: options ?? this.options,
-        ttfFonts: ttfFonts,
+        ttfFonts: fontData.ttfFonts,
       );
 
   /// Exports the [ExportFrame] with the given [frameId] to a [pw.Document].
@@ -98,6 +99,7 @@ class ExportDelegate {
 
     double? pixelRatio;
     if (context != null) {
+      fontData.setAssetBundleByContext(context);
       pixelRatio = MediaQuery.of(context).devicePixelRatio;
     }
 
