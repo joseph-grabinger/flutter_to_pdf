@@ -1,4 +1,5 @@
-import 'package:flutter/widgets.dart' show Transform, Alignment, AlignmentDirectional;
+import 'package:flutter/widgets.dart'
+    show Transform, Alignment, AlignmentDirectional;
 
 import 'package:pdf/pdf.dart' show PdfPoint;
 import 'package:pdf/widgets.dart' as pw show Transform, Widget;
