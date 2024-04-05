@@ -22,8 +22,7 @@ import '../options/font_data.dart';
 import 'color.dart';
 
 extension TextStyleConverter on TextStyle {
-  Future<pw.TextStyle> toPdfTextStyle(FontData fontData) async =>
-      pw.TextStyle(
+  Future<pw.TextStyle> toPdfTextStyle(FontData fontData) async => pw.TextStyle(
         color: color?.toPdfColor(),
         fontSize: fontSize,
         fontStyle: fontStyle?.toPdfFontStyle(),
@@ -66,11 +65,13 @@ extension TextStyleConverter on TextStyle {
         if (!fontData.ttfFonts.containsKey(font)) {
           throw Exception('Unsupported Font: $font');
         }
-        return await resolveCustomFont(fontData.ttfFonts[font]!, fontData.assetBundle);
+        return await resolveCustomFont(
+            fontData.ttfFonts[font]!, fontData.assetBundle);
     }
   }
 
-  Future<pw.Font> resolveCustomFont(String ttfFontPath, AssetBundle assetBundle) async {
+  Future<pw.Font> resolveCustomFont(
+      String ttfFontPath, AssetBundle assetBundle) async {
     final bytes = await assetBundle.load(ttfFontPath);
     if (bytes.buffer.asInt8List().isEmpty) {
       throw Exception('Font file $ttfFontPath is empty');
