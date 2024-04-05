@@ -1,3 +1,9 @@
+## 0.2.0
+
+* add support for custom TTF fonts
+* add support for `TextAlign` `start` and `end`
+* upgrade package dependencies
+
 ## 0.1.2
 
 * update license to MIT
