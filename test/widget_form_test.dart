@@ -132,9 +132,9 @@ void main() {
           children: <Widget>[
             TextButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.purple),
-                foregroundColor: MaterialStateProperty.all(Colors.green),
-                shape: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(Colors.purple),
+                foregroundColor: WidgetStateProperty.all(Colors.green),
+                shape: WidgetStateProperty.all(
                   const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(4)),
                   ),
@@ -145,9 +145,9 @@ void main() {
             ),
             ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.purple),
-                foregroundColor: MaterialStateProperty.all(Colors.green),
-                shape: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(Colors.purple),
+                foregroundColor: WidgetStateProperty.all(Colors.green),
+                shape: WidgetStateProperty.all(
                   const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(4)),
                   ),
@@ -158,9 +158,9 @@ void main() {
             ),
             OutlinedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.purple),
-                foregroundColor: MaterialStateProperty.all(Colors.green),
-                shape: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(Colors.purple),
+                foregroundColor: WidgetStateProperty.all(Colors.green),
+                shape: WidgetStateProperty.all(
                   const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(4)),
                   ),
@@ -171,9 +171,9 @@ void main() {
             ),
             FilledButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.purple),
-                foregroundColor: MaterialStateProperty.all(Colors.green),
-                shape: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(Colors.purple),
+                foregroundColor: WidgetStateProperty.all(Colors.green),
+                shape: WidgetStateProperty.all(
                   const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(4)),
                   ),
