@@ -1,7 +1,12 @@
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import 'package:pdf/widgets.dart' as pw;
 
+import 'capture.dart';
 import 'export_delegate.dart';
 import 'utils.dart';
 import 'widgets/container.dart';
@@ -247,6 +252,41 @@ class ExportInstance {
         return [
           await (widget as Table).toPdfWidget(await _visit(element, context))
         ];
+      case CaptureWrapper:
+        if (context != null) {
+          if (widget.key == null) {
+            throw Exception('Capture must have a key to be exported');
+          }
+          Element? contextElement =
+              findElement(context, (CaptureWrapper e) => e.key == widget.key);
+
+          assert(contextElement != null);
+          RenderRepaintBoundary? boundary;
+          RenderObject? renderObject = contextElement!.renderObject;
+
+          if (renderObject is RenderRepaintBoundary) {
+            boundary = renderObject;
+          } else {
+            renderObject?.visitChildren((child) {
+              if (child is RenderRepaintBoundary) {
+                boundary = child;
+              }
+            });
+          }
+
+          assert(boundary != null);
+          final ui.Image uiImage = await boundary!.toImage(pixelRatio: 2.0);
+
+          final pngBytes =
+              await uiImage.toByteData(format: ui.ImageByteFormat.png);
+          debugPrint(
+              'Captured image for ${widget.key}, with size: ${uiImage.width}x${uiImage.height}');
+          return [
+            await Image.memory(Uint8List.view(pngBytes!.buffer)).toPdfWidget()
+          ];
+        }
+        assert(context != null);
+        return [];
       default:
         return await _visit(element, context);
     }
