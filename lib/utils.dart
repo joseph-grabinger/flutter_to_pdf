@@ -66,7 +66,8 @@ Element? layoutWidget(Widget widget, Size size, double? pixelRatio) {
 
   RenderView renderView = RenderView(
     configuration: ViewConfiguration(
-      size: size,
+      logicalConstraints: BoxConstraints.tight(size),
+      physicalConstraints: BoxConstraints.tight(size * (pixelRatio ?? 1.0)),
       devicePixelRatio: pixelRatio ?? 1.0,
     ),
     view: WidgetsBinding.instance.platformDispatcher.views.first,
