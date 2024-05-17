@@ -42,8 +42,7 @@ void main() {
     ));
 
     pdf.addPage(await exportDelegate.exportToPdfPage('checkbox basic'));
-    pdf.addPage(await exportDelegate.exportToPdfPage('checkbox basic',
-        overrideOptions: overrideOptions));
+    pdf.addPage(await exportDelegate.exportToPdfPage('checkbox basic', overrideOptions: overrideOptions));
   });
 
   testWidgets('Form Widgets Checkbox Decoration', (tester) async {
@@ -84,8 +83,7 @@ void main() {
     ));
 
     pdf.addPage(await exportDelegate.exportToPdfPage('checkbox decoration'));
-    pdf.addPage(await exportDelegate.exportToPdfPage('checkbox decoration',
-        overrideOptions: overrideOptions));
+    pdf.addPage(await exportDelegate.exportToPdfPage('checkbox decoration', overrideOptions: overrideOptions));
   });
 
   testWidgets('Form Widgets Button Basic', (tester) async {
@@ -132,9 +130,9 @@ void main() {
           children: <Widget>[
             TextButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.purple),
-                foregroundColor: MaterialStateProperty.all(Colors.green),
-                shape: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(Colors.purple),
+                foregroundColor: WidgetStateProperty.all(Colors.green),
+                shape: WidgetStateProperty.all(
                   const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(4)),
                   ),
@@ -145,9 +143,9 @@ void main() {
             ),
             ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.purple),
-                foregroundColor: MaterialStateProperty.all(Colors.green),
-                shape: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(Colors.purple),
+                foregroundColor: WidgetStateProperty.all(Colors.green),
+                shape: WidgetStateProperty.all(
                   const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(4)),
                   ),
@@ -158,9 +156,9 @@ void main() {
             ),
             OutlinedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.purple),
-                foregroundColor: MaterialStateProperty.all(Colors.green),
-                shape: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(Colors.purple),
+                foregroundColor: WidgetStateProperty.all(Colors.green),
+                shape: WidgetStateProperty.all(
                   const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(4)),
                   ),
@@ -171,9 +169,9 @@ void main() {
             ),
             FilledButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.purple),
-                foregroundColor: MaterialStateProperty.all(Colors.green),
-                shape: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(Colors.purple),
+                foregroundColor: WidgetStateProperty.all(Colors.green),
+                shape: WidgetStateProperty.all(
                   const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(4)),
                   ),
