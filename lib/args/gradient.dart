@@ -19,9 +19,9 @@ extension GradientConverter on Gradient {
   pw.Gradient toPdfGradient() {
     debugPrint('GradientConverter: $this');
     switch (runtimeType) {
-      case LinearGradient:
+      case const (LinearGradient):
         return (this as LinearGradient).toPdfLinearGradient();
-      case RadialGradient:
+      case const (RadialGradient):
         return (this as RadialGradient).toPdfRadialGradient();
       // not supported by pdf package:
       // - SweepGradient
