@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_charts/flutter_charts.dart';
+import 'package:flutter_to_pdf/capture.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
@@ -284,6 +286,13 @@ class _QuestionnaireExampleState extends State<QuestionnaireExample> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              CaptureWrapper(
+                key: const Key('captureWrapperKey'),
+                child: SizedBox(
+                  height: 300,
+                  width: 300,
+                  child: buildChart()),
+              ),
               const SizedBox(height: 50),
             ],
           ),
@@ -382,5 +391,37 @@ class _QuestionnaireExampleState extends State<QuestionnaireExample> {
             .toList(),
       );
     }
+  }
+
+  Widget buildChart() {
+    LabelLayoutStrategy? xContainerLabelLayoutStrategy;
+    ChartData chartData;
+    ChartOptions chartOptions = const ChartOptions();
+    // Example shows a mix of positive and negative data values.
+    chartData = ChartData(
+      dataRows: const [
+        [2000.0, 1800.0, 2200.0, 2300.0, 1700.0, 1800.0],
+        [1100.0, 1000.0, 1200.0, 800.0, 700.0, 800.0],
+        [0.0, 100.0, -200.0, 150.0, -100.0, -150.0],
+        [-800.0, -400.0, -300.0, -400.0, -200.0, -250.0],
+      ],
+      xUserLabels: const ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+      dataRowsLegends: const [
+        'Big Corp',
+        'Medium Corp',
+        'Print Shop',
+        'Bar',
+      ],
+      chartOptions: chartOptions,
+    );
+    var lineChartContainer = LineChartTopContainer(
+      chartData: chartData,
+      xContainerLabelLayoutStrategy: xContainerLabelLayoutStrategy,
+    );
+    return LineChart(
+      painter: LineChartPainter(
+        lineChartContainer: lineChartContainer,
+      ),
+    );
   }
 }
