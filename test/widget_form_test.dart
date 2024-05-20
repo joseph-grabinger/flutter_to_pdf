@@ -42,7 +42,8 @@ void main() {
     ));
 
     pdf.addPage(await exportDelegate.exportToPdfPage('checkbox basic'));
-    pdf.addPage(await exportDelegate.exportToPdfPage('checkbox basic', overrideOptions: overrideOptions));
+    pdf.addPage(await exportDelegate.exportToPdfPage('checkbox basic',
+        overrideOptions: overrideOptions));
   });
 
   testWidgets('Form Widgets Checkbox Decoration', (tester) async {
@@ -83,7 +84,8 @@ void main() {
     ));
 
     pdf.addPage(await exportDelegate.exportToPdfPage('checkbox decoration'));
-    pdf.addPage(await exportDelegate.exportToPdfPage('checkbox decoration', overrideOptions: overrideOptions));
+    pdf.addPage(await exportDelegate.exportToPdfPage('checkbox decoration',
+        overrideOptions: overrideOptions));
   });
 
   testWidgets('Form Widgets Button Basic', (tester) async {
