@@ -6,11 +6,16 @@ import 'package:flutter_to_pdf/capture.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
-void main() => runApp(Demo());
+void main() => runApp(const Demo());
 
-class Demo extends StatelessWidget {
-  Demo({super.key});
+class Demo extends StatefulWidget {
+  const Demo({super.key});
 
+  @override
+  State<Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<Demo> {
   final ExportDelegate exportDelegate = ExportDelegate(
     ttfFonts: {
       'LoveDays': 'assets/fonts/LoveDays-Regular.ttf',
@@ -26,59 +31,89 @@ class Demo extends StatelessWidget {
     debugPrint('Saved exported PDF at: ${file.path}');
   }
 
+  String currentFrameId = 'questionaireDemo';
+
   @override
   Widget build(BuildContext context) => MaterialApp(
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
+          tabBarTheme: const TabBarTheme(
+            labelColor: Colors.black87,
+          ),
         ),
-        home: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            title: const Text('Flutter to PDF - Demo'),
-          ),
-          bottomSheet: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextButton(
-                onPressed: () async {
-                  final ExportOptions overrideOptions = ExportOptions(
-                    textFieldOptions: TextFieldOptions.uniform(
-                      interactive: false,
-                    ),
-                    checkboxOptions: CheckboxOptions.uniform(
-                      interactive: false,
-                    ),
-                  );
-                  final pdf = await exportDelegate.exportToPdfDocument('demo',
-                      overrideOptions: overrideOptions);
-                  saveFile(pdf, 'static-example');
+        home: DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            key: GlobalKey<ScaffoldState>(),
+            appBar: AppBar(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              title: const Text('Flutter to PDF - Demo'),
+              bottom: TabBar(
+                indicator: const UnderlineTabIndicator(),
+                tabs: const [
+                  Tab(icon: Icon(Icons.question_answer), text: 'Questionaire',),
+                  Tab(icon: Icon(Icons.ssid_chart), text: 'Charts & Custom Paint'),
+                ],
+                onTap: (int value) {
+                  setState(() {
+                    currentFrameId = value == 0 ? 'questionaireDemo' : 'captureWrapperDemo';
+                  });
                 },
-                child: const Row(
-                  children: [
-                    Text('Export as static'),
-                    Icon(Icons.save_alt_outlined),
-                  ],
-                ),
               ),
-              TextButton(
-                onPressed: () async {
-                  final pdf = await exportDelegate.exportToPdfDocument('demo');
-                  saveFile(pdf, 'interactive-example');
-                },
-                child: const Row(
-                  children: [
-                    Text('Export as interactive'),
-                    Icon(Icons.save_alt_outlined),
-                  ],
+            ),
+            bottomSheet: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  onPressed: () async {
+                    final ExportOptions overrideOptions = ExportOptions(
+                      textFieldOptions: TextFieldOptions.uniform(
+                        interactive: false,
+                      ),
+                      checkboxOptions: CheckboxOptions.uniform(
+                        interactive: false,
+                      ),
+                    );
+                    final pdf = await exportDelegate.exportToPdfDocument(currentFrameId,
+                        overrideOptions: overrideOptions);
+                    saveFile(pdf, 'static-example');
+                  },
+                  child: const Row(
+                    children: [
+                      Text('Export as static'),
+                      Icon(Icons.save_alt_outlined),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          body: ExportFrame(
-            frameId: 'demo',
-            exportDelegate: exportDelegate,
-            child: const QuestionnaireExample(),
+                TextButton(
+                  onPressed: () async {
+                    final pdf = await exportDelegate.exportToPdfDocument(currentFrameId);
+                    saveFile(pdf, 'interactive-example');
+                  },
+                  child: const Row(
+                    children: [
+                      Text('Export as interactive'),
+                      Icon(Icons.save_alt_outlined),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            body: TabBarView(
+              children: [
+                ExportFrame(
+                  frameId: 'questionaireDemo',
+                  exportDelegate: exportDelegate,
+                  child: const QuestionnaireExample(),
+                ),
+                ExportFrame(
+                  frameId: 'captureWrapperDemo',
+                  exportDelegate: exportDelegate,
+                  child: const CaptureWrapperExample(),
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -168,31 +203,31 @@ class _QuestionnaireExampleState extends State<QuestionnaireExample> {
               ),
               const SizedBox(height: 16),
               buildBirthFields(MediaQuery.of(context).size.width),
-              // const Padding(
-              //   padding: EdgeInsets.symmetric(vertical: 16),
-              //   child: Divider(),
-              // ),
-              // const Text(
-              //   'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-              //   style: TextStyle(fontFamily: 'LoveDays'),
-              // ),
-              // const SizedBox(height: 8),
-              // Row(
-              //   children: [
-              //     Checkbox(
-              //       key: const Key('acceptLorem'),
-              //       value: acceptLorem,
-              //       onChanged: (newValue) => setState(() {
-              //         acceptLorem = newValue ?? false;
-              //       }),
-              //     ),
-              //     const SizedBox(width: 8),
-              //     const Text(
-              //       'I hereby accept the terms of the Lorem Ipsum.',
-              //       style: TextStyle(fontFamily: 'OpenSans'),
-              //     ),
-              //   ],
-              // ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16),
+                child: Divider(),
+              ),
+              const Text(
+                'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+                style: TextStyle(fontFamily: 'LoveDays'),
+              ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  Checkbox(
+                    key: const Key('acceptLorem'),
+                    value: acceptLorem,
+                    onChanged: (newValue) => setState(() {
+                      acceptLorem = newValue ?? false;
+                    }),
+                  ),
+                  const SizedBox(width: 8),
+                  const Text(
+                    'I hereby accept the terms of the Lorem Ipsum.',
+                    style: TextStyle(fontFamily: 'OpenSans'),
+                  ),
+                ],
+              ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 16),
                 child: Divider(),
@@ -284,14 +319,6 @@ class _QuestionnaireExampleState extends State<QuestionnaireExample> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                ),
-              ),
-              CaptureWrapper(
-                key: const Key('captureWrapperKey'),
-                child: SizedBox(
-                  height: 200,
-                  width: 200,
-                  child: buildChart(),
                 ),
               ),
               const SizedBox(height: 50),
@@ -393,6 +420,33 @@ class _QuestionnaireExampleState extends State<QuestionnaireExample> {
       );
     }
   }
+}
+
+class CaptureWrapperExample extends StatelessWidget {
+  const CaptureWrapperExample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 400,
+          width: 400,
+          child: CaptureWrapper(
+            key: const Key('Chart'),
+            child: buildChart(),
+          ),
+        ),
+        CaptureWrapper(
+          key: const Key('CustomPaint'),
+          child: CustomPaint(
+            size: const Size(300, 300),
+            painter: HousePainter(),
+          ),
+        ),
+      ],
+    );
+  }
 
   Widget buildChart() {
     LabelLayoutStrategy? xContainerLabelLayoutStrategy;
@@ -426,3 +480,35 @@ class _QuestionnaireExampleState extends State<QuestionnaireExample> {
     );
   }
 }
+
+class HousePainter extends CustomPainter {
+    @override
+    void paint(Canvas canvas, Size size) {
+      final paint = Paint()
+        ..color = Colors.brown
+        ..style = PaintingStyle.fill;
+
+      // Draw the house body
+      const body = Rect.fromLTWH(50, 100, 200, 200);
+      canvas.drawRect(body, paint);
+
+      // Draw the roof
+      final roofPath = Path()
+        ..moveTo(150, 20)
+        ..lineTo(280, 100)
+        ..lineTo(20, 100)
+        ..close();
+      paint.color = Colors.red;
+      canvas.drawPath(roofPath, paint);
+
+      // Draw the door
+      const door = Rect.fromLTWH(125, 230, 50, 70);
+      paint.color = Colors.black;
+      canvas.drawRect(door, paint);
+    }
+
+    @override
+    bool shouldRepaint(covariant CustomPainter oldDelegate) {
+      return false;
+    }
+  }
