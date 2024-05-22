@@ -1,6 +1,7 @@
 ## 0.2.1
 
 - upgrade flutter sdk to 3.22.0
+- fix export of `ListView`
 
 ## 0.2.0
 
