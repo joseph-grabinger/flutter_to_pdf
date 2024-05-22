@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
@@ -253,7 +252,6 @@ class ExportInstance {
           await (widget as Table).toPdfWidget(await _visit(element, context))
         ];
       case const (CaptureWrapper):
-        print('In capture wrapper!');
         if (context != null) {
           if (widget.key == null) {
             throw Exception('Capture must have a key to be exported');
@@ -282,8 +280,13 @@ class ExportInstance {
               await uiImage.toByteData(format: ui.ImageByteFormat.png);
           debugPrint(
               'Captured image for ${widget.key}, with size: ${uiImage.width}x${uiImage.height}');
+          debugPrint('Using size: ${uiImage.width/2.0}x${uiImage.height/2.0}');
           return [
-            await Image.memory(Uint8List.view(pngBytes!.buffer)).toPdfWidget()
+            await Image.memory(
+              pngBytes!.buffer.asUint8List(),
+              width: uiImage.width/2.0,
+              height: uiImage.height/2.0,
+            ).toPdfWidget()
           ];
         }
         assert(context != null);

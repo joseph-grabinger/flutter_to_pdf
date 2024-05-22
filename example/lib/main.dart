@@ -168,31 +168,31 @@ class _QuestionnaireExampleState extends State<QuestionnaireExample> {
               ),
               const SizedBox(height: 16),
               buildBirthFields(MediaQuery.of(context).size.width),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 16),
-                child: Divider(),
-              ),
-              const Text(
-                'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-                style: TextStyle(fontFamily: 'LoveDays'),
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  Checkbox(
-                    key: const Key('acceptLorem'),
-                    value: acceptLorem,
-                    onChanged: (newValue) => setState(() {
-                      acceptLorem = newValue ?? false;
-                    }),
-                  ),
-                  const SizedBox(width: 8),
-                  const Text(
-                    'I hereby accept the terms of the Lorem Ipsum.',
-                    style: TextStyle(fontFamily: 'OpenSans'),
-                  ),
-                ],
-              ),
+              // const Padding(
+              //   padding: EdgeInsets.symmetric(vertical: 16),
+              //   child: Divider(),
+              // ),
+              // const Text(
+              //   'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+              //   style: TextStyle(fontFamily: 'LoveDays'),
+              // ),
+              // const SizedBox(height: 8),
+              // Row(
+              //   children: [
+              //     Checkbox(
+              //       key: const Key('acceptLorem'),
+              //       value: acceptLorem,
+              //       onChanged: (newValue) => setState(() {
+              //         acceptLorem = newValue ?? false;
+              //       }),
+              //     ),
+              //     const SizedBox(width: 8),
+              //     const Text(
+              //       'I hereby accept the terms of the Lorem Ipsum.',
+              //       style: TextStyle(fontFamily: 'OpenSans'),
+              //     ),
+              //   ],
+              // ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 16),
                 child: Divider(),
@@ -289,9 +289,10 @@ class _QuestionnaireExampleState extends State<QuestionnaireExample> {
               CaptureWrapper(
                 key: const Key('captureWrapperKey'),
                 child: SizedBox(
-                  height: 300,
-                  width: 300,
-                  child: buildChart()),
+                  height: 200,
+                  width: 200,
+                  child: buildChart(),
+                ),
               ),
               const SizedBox(height: 50),
             ],
