@@ -1,11 +1,11 @@
 [![codecov](https://codecov.io/gh/joseph-grabinger/flutter_to_pdf/branch/main/graph/badge.svg?token=5WIYFJ6VND)](https://codecov.io/gh/joseph-grabinger/flutter_to_pdf)
 [![Pub](https://img.shields.io/pub/v/flutter_to_pdf.svg)](https://pub.dev/packages/flutter_to_pdf)
 
-
 The [FlutterToPDF](https://pub.dev/packages/flutter_to_pdf) package lets you export any Flutter widget to PDF Documents and is written natively in Dart.
 
 ## Installing
-### Depend on it 
+
+### Depend on it
 
 Run this command:
 
@@ -17,12 +17,13 @@ This will add a line like this to your package's pubspec.yaml (and run an implic
 
 ```yaml
 dependencies:
-    flutter_to_pdf: ^0.2.0
+  flutter_to_pdf: ^0.2.1
 ```
 
 Alternatively, your editor might support `flutter pub get`. Check the docs for your editor to learn more.
 
 ### Import it
+
 Now in your Dart code, you can use:
 
 ```dart
@@ -35,10 +36,9 @@ import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 - export to PDF Page
 - export to PDF Widget
 - export with options
-    - Page format options
-    - Text field options
-    - Checkbox options
-
+  - Page format options
+  - Text field options
+  - Checkbox options
 
 ## Usage
 
@@ -96,6 +96,7 @@ Checkbox(
   ...
 )
 ```
+
 ## Export Options
 
 The `ExportDelegate`´s constructor has a named optional parameter `options` which can be used to customize the export process.
@@ -114,7 +115,8 @@ final ExportOptions options = ExportOptions(
 final ExportDelegate exportDelegate = ExportDelegate(options: options);
 ```
 
-The  `ExportDelegate`´s `options` can also be overriden using the named optional parameter `overrideOptions` in the export function.
+The `ExportDelegate`´s `options` can also be overriden using the named optional parameter `overrideOptions` in the export function.
+
 ```dart
 final ExportOptions options = ExportOptions(
   pageFormatOptions: PageFormatOptions.a3(),
@@ -149,24 +151,26 @@ final widget = await exportDelegate.exportToPdfWidget('someFrameId', overrideOpt
 ```
 
 ### Page Format Options
+
 The `PageFormatOptions` class can be used to customize the page format of the exported PDF Document.
 
 All constructors have an optional parameter `clip` which can be used to define if the content of the page should be clipped to the page format. The default value is `true`.
 
 For the `PageFormatOptions` class there are several predefined constructors available:
 
--   `PageFormatOptions.a3` - A3 page format
--   `PageFormatOptions.a4` - A4 page format
--   `PageFormatOptions.a5` - A5 page format
--   `PageFormatOptions.a6` - A6 page format
--   `PageFormatOptions.letter` - Letter page format
--   `PageFormatOptions.legal` - Legal page format
--   `PageFormatOptions.roll57` - Roll57 page format
--   `PageFormatOptions.roll80` - Roll80 page format
--   `PageFormatOptions.custom` - Custom page format
-    > The custom page format can be used to define a custom page format. <br> It therefore requires at least the `width` parameter, and has the following optional parameters: `height`, `marginTop`, `marginBottom`, `marginLeft`, `marginRight` and `marginAll`.
+- `PageFormatOptions.a3` - A3 page format
+- `PageFormatOptions.a4` - A4 page format
+- `PageFormatOptions.a5` - A5 page format
+- `PageFormatOptions.a6` - A6 page format
+- `PageFormatOptions.letter` - Letter page format
+- `PageFormatOptions.legal` - Legal page format
+- `PageFormatOptions.roll57` - Roll57 page format
+- `PageFormatOptions.roll80` - Roll80 page format
+- `PageFormatOptions.custom` - Custom page format
+  > The custom page format can be used to define a custom page format. <br> It therefore requires at least the `width` parameter, and has the following optional parameters: `height`, `marginTop`, `marginBottom`, `marginLeft`, `marginRight` and `marginAll`.
 
 ### Text Field Options
+
 The `TextFieldOptions` class can be used to customize the text fields of the exported PDF Document.
 
 All constructors have an optional parameter `interactive` which can be used to define if the text fields should be interactive. The default value is `true`.
@@ -174,16 +178,19 @@ If `interactive` is set to `false`, the text fields will be rendered as Text.
 
 For the `TextFieldOptions` class there are several predefined constructors available:
 
--   `TextFieldOptions.uniform` - Uniform text field options
-    > The uniform text field options can be used to define a uniform `TextStyle` for **all** text fields. <br> It therefore has an optional parameter `textstyle` which can be used to define a custom `TextStyle` for **all** text fields.
+- `TextFieldOptions.uniform` - Uniform text field options
 
--  `TextFieldOptions.individual` - Individual text field options
-    > The individual text field options can be used to define an individual `TextStyle` for **each** text field. <br> It has an optional parameter `styleMap` which maps the textfield´s `Key` to a `TextStyle`.  <br> **Note:** The TextField therefore requires a `Key` to be able to map the `TextStyle` to the text field.
+  > The uniform text field options can be used to define a uniform `TextStyle` for **all** text fields. <br> It therefore has an optional parameter `textstyle` which can be used to define a custom `TextStyle` for **all** text fields.
 
--  `TextFieldOptions.none` - No text field options
-    > The text fields will be interactive and will be styled as found in the widget tree.
+- `TextFieldOptions.individual` - Individual text field options
+
+  > The individual text field options can be used to define an individual `TextStyle` for **each** text field. <br> It has an optional parameter `styleMap` which maps the textfield´s `Key` to a `TextStyle`. <br> **Note:** The TextField therefore requires a `Key` to be able to map the `TextStyle` to the text field.
+
+- `TextFieldOptions.none` - No text field options
+  > The text fields will be interactive and will be styled as found in the widget tree.
 
 ### Checkbox Options
+
 The `CheckboxOptions` class can be used to customize the checkboxes of the exported PDF Document.
 
 All constructors have an optional parameter `interactive` which can be used to define if the checkboxes should be interactive. The default value is `true`.
@@ -191,11 +198,13 @@ If `interactive` is set to `false`, the checkboxes will be rendered as a Contain
 
 For the `CheckboxOptions` class there are several predefined constructors available:
 
--   `CheckboxOptions.uniform` - Uniform checkbox options
-    > The uniform checkbox options can be used to define a uniform `BoxDecoration` for **all** checkboxes. <br> It therefore has an optional parameter `boxDecoration` which can be used to define a custom `BoxDecoration` for **all** checkboxes.
+- `CheckboxOptions.uniform` - Uniform checkbox options
 
--  `CheckboxOptions.individual` - Individual checkbox options
-    > The individual checkbox options can be used to define an individual `BoxDecoration` for **each** checkbox. <br> It has an optional parameter `decorationMap` which maps the checkbox´s `Key` to a `BoxDecoration`.  <br> **Note:** The Checkbox therefore requires a `Key` to be able to map the `BoxDecoration` to the checkbox.
+  > The uniform checkbox options can be used to define a uniform `BoxDecoration` for **all** checkboxes. <br> It therefore has an optional parameter `boxDecoration` which can be used to define a custom `BoxDecoration` for **all** checkboxes.
 
--  `CheckboxOptions.none` - No checkbox options
-    > The checkboxes will be interactive and will be styled as found in the widget tree.
+- `CheckboxOptions.individual` - Individual checkbox options
+
+  > The individual checkbox options can be used to define an individual `BoxDecoration` for **each** checkbox. <br> It has an optional parameter `decorationMap` which maps the checkbox´s `Key` to a `BoxDecoration`. <br> **Note:** The Checkbox therefore requires a `Key` to be able to map the `BoxDecoration` to the checkbox.
+
+- `CheckboxOptions.none` - No checkbox options
+  > The checkboxes will be interactive and will be styled as found in the widget tree.
