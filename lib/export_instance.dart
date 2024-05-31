@@ -51,8 +51,7 @@ class ExportInstance {
   Future<List<pw.Widget>> _visit(Element element, BuildContext? context) async {
     List<Element> elements = [];
 
-    element
-        .visitChildElements((Element e) async => elements.add(e));
+    element.visitChildElements((Element e) async => elements.add(e));
 
     List<pw.Widget> children = [];
     for (Element e in elements) {
@@ -233,10 +232,10 @@ class ExportInstance {
       case const (Stack):
         return [(widget as Stack).toPdfWidget(await _visit(element, context))];
       case const (ListView):
-        Element? contextElement = findElement(
-                context!, (e) => e is SliverList);
+        Element? contextElement = findElement(context!, (e) => e is SliverList);
         return [
-            (widget as ListView).toPdfWidget(await _visit(contextElement!, context))
+          (widget as ListView)
+              .toPdfWidget(await _visit(contextElement!, context))
         ];
       case const (GridView):
         final constraints = BoxConstraints(
