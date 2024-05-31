@@ -15,6 +15,8 @@ migrate_working_dir/
 *.ipr
 *.iws
 .idea/
+.fvm*
+.vscode*
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
@@ -28,9 +30,13 @@ migrate_working_dir/
 .dart_tool/
 .packages
 build/
+/linux/**
 
 # Coverage directory
 coverage/
 
 # Test output directory
 test/output/
+
+# FVM Version Cache
+.fvm/
