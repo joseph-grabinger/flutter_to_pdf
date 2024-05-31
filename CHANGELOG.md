@@ -1,3 +1,7 @@
+## 0.2.1
+
+* add support for widgets like `CustomPaint` and `Charts` by introducing a `CaptureWrapper` widget
+
 ## 0.2.0
 
 * add support for custom TTF fonts
