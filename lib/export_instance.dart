@@ -1,7 +1,11 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import 'package:pdf/widgets.dart' as pw;
 
+import 'capture_wrapper.dart';
 import 'export_delegate.dart';
 import 'utils.dart';
 import 'widgets/container.dart';
@@ -66,112 +70,112 @@ class ExportInstance {
     final Widget widget = element.widget;
 
     switch (widget.runtimeType) {
-      case MergeSemantics: //anchor: end of widget tree
+      case const (MergeSemantics): //anchor: end of widget tree
         return [];
-      case Container:
+      case const (Container):
         final List children = await _visit(element, context);
         return [
           await (widget as Container)
               .toPdfWidget(children.isNotEmpty ? children.first : null)
         ];
-      case Center:
+      case const (Center):
         final List children = await _visit(element, context);
         return [
           (widget as Center)
               .toPdfWidget(children.isNotEmpty ? children.first : null)
         ];
-      case SizedBox:
+      case const (SizedBox):
         final List children = await _visit(element, context);
         return [
           (widget as SizedBox)
               .toPdfWidget(children.isNotEmpty ? children.first : null)
         ];
-      case FittedBox:
+      case const (FittedBox):
         final List children = await _visit(element, context);
         return [
           (widget as FittedBox)
               .toPdfWidget(children.isNotEmpty ? children.first : null)
         ];
-      case LimitedBox:
+      case const (LimitedBox):
         final List children = await _visit(element, context);
         return [
           (widget as LimitedBox)
               .toPdfWidget(children.isNotEmpty ? children.first : null)
         ];
-      case ConstrainedBox:
+      case const (ConstrainedBox):
         final List children = await _visit(element, context);
         return [
           (widget as ConstrainedBox)
               .toPdfWidget(children.isNotEmpty ? children.first : null)
         ];
-      case ClipRect:
+      case const (ClipRect):
         final List children = await _visit(element, context);
         return [
           (widget as ClipRect)
               .toPdfWidget(children.isNotEmpty ? children.first : null)
         ];
-      case ClipRRect:
+      case const (ClipRRect):
         final List children = await _visit(element, context);
         return [
           (widget as ClipRRect)
               .toPdfWidget(children.isNotEmpty ? children.first : null)
         ];
-      case ClipOval:
+      case const (ClipOval):
         final List children = await _visit(element, context);
         return [
           (widget as ClipOval)
               .toPdfWidget(children.isNotEmpty ? children.first : null)
         ];
-      case Transform:
+      case const (Transform):
         final List children = await _visit(element, context);
         return [
           (widget as Transform)
               .toPdfWidget(children.isNotEmpty ? children.first : null)
         ];
-      case Opacity:
+      case const (Opacity):
         final List children = await _visit(element, context);
         return [
           (widget as Opacity)
               .toPdfWidget(children.isNotEmpty ? children.first : null)
         ];
-      case Padding:
+      case const (Padding):
         final List children = await _visit(element, context);
         return [
           (widget as Padding)
               .toPdfWidget(children.isNotEmpty ? children.first : null)
         ];
-      case Align:
+      case const (Align):
         final List children = await _visit(element, context);
         return [
           (widget as Align)
               .toPdfWidget(children.isNotEmpty ? children.first : null)
         ];
-      case Positioned:
+      case const (Positioned):
         final List children = await _visit(element, context);
         return [
           (widget as Positioned).toPdfWidget(
             children.isNotEmpty ? children.first : pw.Container(),
           )
         ];
-      case Expanded:
+      case const (Expanded):
         final List children = await _visit(element, context);
         return [
           (widget as Expanded).toPdfWidget(
             children.isNotEmpty ? children.first : pw.Container(),
           )
         ];
-      case Flexible:
+      case const (Flexible):
         final List children = await _visit(element, context);
         return [
           (widget as Flexible).toPdfWidget(
             children.isNotEmpty ? children.first : pw.Container(),
           )
         ];
-      case Placeholder:
+      case const (Placeholder):
         return [(widget as Placeholder).toPdfWidget()];
-      case Text:
+      case const (Text):
         return [await (widget as Text).toPdfWidget(this)];
-      case TextField:
+      case const (TextField):
         TextField? contextWidget;
         if (context != null) {
           TextFormField? textFormField;
@@ -196,11 +200,11 @@ class ExportInstance {
           }
         }
         return [await (widget as TextField).toPdfWidget(this, contextWidget)];
-      case Divider:
+      case const (Divider):
         return [(widget as Divider).toPdfWidget()];
-      case Image:
+      case const (Image):
         return [await (widget as Image).toPdfWidget()];
-      case Checkbox:
+      case const (Checkbox):
         Checkbox? contextWidget;
         if (context != null) {
           if (widget.key == null) {
@@ -214,27 +218,27 @@ class ExportInstance {
           await (widget as Checkbox)
               .toPdfWidget(delegate.options.checkboxOptions, contextWidget)
         ];
-      case TextButton:
-      case ElevatedButton:
-      case OutlinedButton:
-      case FilledButton:
+      case const (TextButton):
+      case const (ElevatedButton):
+      case const (OutlinedButton):
+      case const (FilledButton):
         return [
           (widget as ButtonStyleButton)
               .toPdfWidget((await _visit(element, context)).first)
         ];
-      case Column:
+      case const (Column):
         return [(widget as Column).toPdfWidget(await _visit(element, context))];
-      case Row:
+      case const (Row):
         return [(widget as Row).toPdfWidget(await _visit(element, context))];
-      case Stack:
+      case const (Stack):
         return [(widget as Stack).toPdfWidget(await _visit(element, context))];
-      case ListView:
+      case const (ListView):
         Element? contextElement = findElement(
                 context!, (e) => e is SliverList);
         return [
             (widget as ListView).toPdfWidget(await _visit(contextElement!, context))
         ];
-      case GridView:
+      case const (GridView):
         final constraints = BoxConstraints(
           maxWidth: element.renderObject!.paintBounds.right,
           maxHeight: element.renderObject!.paintBounds.bottom,
@@ -243,12 +247,48 @@ class ExportInstance {
           (widget as GridView)
               .toPdfWidget(await _visit(element, context), constraints)
         ];
-      case Wrap:
+      case const (Wrap):
         return [(widget as Wrap).toPdfWidget(await _visit(element, context))];
-      case Table:
+      case const (Table):
         return [
           await (widget as Table).toPdfWidget(await _visit(element, context))
         ];
+      case const (CaptureWrapper):
+        if (widget.key == null) {
+          throw Exception('Capture must have a key to be exported');
+        }
+        Element? contextElement =
+            findElement(context!, (CaptureWrapper e) => e.key == widget.key);
+
+        assert(contextElement != null);
+        RenderRepaintBoundary? boundary;
+        RenderObject? renderObject = contextElement!.renderObject;
+
+        if (renderObject is RenderRepaintBoundary) {
+          boundary = renderObject;
+        } else {
+          renderObject?.visitChildren((child) {
+            if (child is RenderRepaintBoundary) {
+              boundary = child;
+            }
+          });
+        }
+
+        assert(boundary != null);
+        final ui.Image uiImage = await boundary!.toImage(pixelRatio: 2.0);
+
+        final pngBytes =
+            await uiImage.toByteData(format: ui.ImageByteFormat.png);
+        debugPrint(
+            'Captured image for ${widget.key}, with size: ${uiImage.width}x${uiImage.height}');
+        return [
+          await Image.memory(
+            pngBytes!.buffer.asUint8List(),
+            width: uiImage.width / 2.0,
+            height: uiImage.height / 2.0,
+          ).toPdfWidget(),
+        ];
+
       default:
         return await _visit(element, context);
     }

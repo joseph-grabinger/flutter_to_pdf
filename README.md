@@ -97,6 +97,21 @@ Checkbox(
 )
 ```
 
+### Other widgets like CustomPaint and Charts 
+
+If the widget you want to export contains any custom widgets like `CustomPaint` or `Charts`, the widgets you want to export must be wrapped in a `CaptureWrapper` widget. Furthermore, the `CaptureWrapper` must have a **unique** `Key`.
+These widgets will then be captured as an image and exported to the PDF Document.
+
+```dart
+CaptureWrapper()
+  key: const Key('someUniqueCustomPaintKey'),
+  child: CustomPaint(
+    size: const Size(300, 300),
+    painter: SomePainter(),
+  ),
+)
+```
+
 ## Export Options
 
 The `ExportDelegate`´s constructor has a named optional parameter `options` which can be used to customize the export process.

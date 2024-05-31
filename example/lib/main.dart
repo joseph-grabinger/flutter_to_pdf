@@ -1,14 +1,20 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_charts/flutter_charts.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
-void main() => runApp(Demo());
+void main() => runApp(const Demo());
 
-class Demo extends StatelessWidget {
-  Demo({super.key});
+class Demo extends StatefulWidget {
+  const Demo({super.key});
 
+  @override
+  State<Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<Demo> {
   final ExportDelegate exportDelegate = ExportDelegate(
     ttfFonts: {
       'LoveDays': 'assets/fonts/LoveDays-Regular.ttf',
@@ -24,59 +30,98 @@ class Demo extends StatelessWidget {
     debugPrint('Saved exported PDF at: ${file.path}');
   }
 
+  String currentFrameId = 'questionaireDemo';
+
   @override
   Widget build(BuildContext context) => MaterialApp(
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
+          tabBarTheme: const TabBarTheme(
+            labelColor: Colors.black87,
+          ),
         ),
-        home: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            title: const Text('Flutter to PDF - Demo'),
-          ),
-          bottomSheet: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextButton(
-                onPressed: () async {
-                  final ExportOptions overrideOptions = ExportOptions(
-                    textFieldOptions: TextFieldOptions.uniform(
-                      interactive: false,
-                    ),
-                    checkboxOptions: CheckboxOptions.uniform(
-                      interactive: false,
-                    ),
-                  );
-                  final pdf = await exportDelegate.exportToPdfDocument('demo',
-                      overrideOptions: overrideOptions);
-                  saveFile(pdf, 'static-example');
+        home: DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            key: GlobalKey<ScaffoldState>(),
+            appBar: AppBar(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              title: const Text('Flutter to PDF - Demo'),
+              bottom: TabBar(
+                indicator: const UnderlineTabIndicator(),
+                tabs: const [
+                  Tab(
+                    icon: Icon(Icons.question_answer),
+                    text: 'Questionaire',
+                  ),
+                  Tab(
+                    icon: Icon(Icons.ssid_chart),
+                    text: 'Charts & Custom Paint',
+                  ),
+                ],
+                onTap: (int value) {
+                  setState(() {
+                    currentFrameId =
+                        value == 0 ? 'questionaireDemo' : 'captureWrapperDemo';
+                  });
                 },
-                child: const Row(
-                  children: [
-                    Text('Export as static'),
-                    Icon(Icons.save_alt_outlined),
-                  ],
-                ),
               ),
-              TextButton(
-                onPressed: () async {
-                  final pdf = await exportDelegate.exportToPdfDocument('demo');
-                  saveFile(pdf, 'interactive-example');
-                },
-                child: const Row(
-                  children: [
-                    Text('Export as interactive'),
-                    Icon(Icons.save_alt_outlined),
-                  ],
+            ),
+            bottomSheet: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  onPressed: () async {
+                    final ExportOptions overrideOptions = ExportOptions(
+                      textFieldOptions: TextFieldOptions.uniform(
+                        interactive: false,
+                      ),
+                      checkboxOptions: CheckboxOptions.uniform(
+                        interactive: false,
+                      ),
+                    );
+                    final pdf = await exportDelegate.exportToPdfDocument(
+                        currentFrameId,
+                        overrideOptions: overrideOptions);
+                    saveFile(pdf, 'static-example');
+                  },
+                  child: const Row(
+                    children: [
+                      Text('Export as static'),
+                      Icon(Icons.save_alt_outlined),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          body: ExportFrame(
-            frameId: 'demo',
-            exportDelegate: exportDelegate,
-            child: const QuestionnaireExample(),
+                TextButton(
+                  onPressed: () async {
+                    final pdf = await exportDelegate
+                        .exportToPdfDocument(currentFrameId);
+                    saveFile(pdf, 'interactive-example');
+                  },
+                  child: const Row(
+                    children: [
+                      Text('Export as interactive'),
+                      Icon(Icons.save_alt_outlined),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            body: TabBarView(
+              children: [
+                ExportFrame(
+                  frameId: 'questionaireDemo',
+                  exportDelegate: exportDelegate,
+                  child: const QuestionnaireExample(),
+                ),
+                ExportFrame(
+                  frameId: 'captureWrapperDemo',
+                  exportDelegate: exportDelegate,
+                  child: const CaptureWrapperExample(),
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -382,5 +427,98 @@ class _QuestionnaireExampleState extends State<QuestionnaireExample> {
             .toList(),
       );
     }
+  }
+}
+
+class CaptureWrapperExample extends StatelessWidget {
+  const CaptureWrapperExample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SizedBox(
+            height: 400,
+            width: 400,
+            child: CaptureWrapper(
+              key: const Key('Chart'),
+              child: buildChart(),
+            ),
+          ),
+          CaptureWrapper(
+            key: const Key('CustomPaint'),
+            child: CustomPaint(
+              size: const Size(300, 300),
+              painter: HousePainter(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildChart() {
+    LabelLayoutStrategy? xContainerLabelLayoutStrategy;
+    ChartData chartData;
+    ChartOptions chartOptions = const ChartOptions();
+    // Example shows a mix of positive and negative data values.
+    chartData = ChartData(
+      dataRows: const [
+        [2000.0, 1800.0, 2200.0, 2300.0, 1700.0, 1800.0],
+        [1100.0, 1000.0, 1200.0, 800.0, 700.0, 800.0],
+        [0.0, 100.0, -200.0, 150.0, -100.0, -150.0],
+        [-800.0, -400.0, -300.0, -400.0, -200.0, -250.0],
+      ],
+      xUserLabels: const ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+      dataRowsLegends: const [
+        'Big Corp',
+        'Medium Corp',
+        'Print Shop',
+        'Bar',
+      ],
+      chartOptions: chartOptions,
+    );
+    var lineChartContainer = LineChartTopContainer(
+      chartData: chartData,
+      xContainerLabelLayoutStrategy: xContainerLabelLayoutStrategy,
+    );
+    return LineChart(
+      painter: LineChartPainter(
+        lineChartContainer: lineChartContainer,
+      ),
+    );
+  }
+}
+
+class HousePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.brown
+      ..style = PaintingStyle.fill;
+
+    // Draw the house body
+    const body = Rect.fromLTWH(50, 100, 200, 200);
+    canvas.drawRect(body, paint);
+
+    // Draw the roof
+    final roofPath = Path()
+      ..moveTo(150, 20)
+      ..lineTo(280, 100)
+      ..lineTo(20, 100)
+      ..close();
+    paint.color = Colors.red;
+    canvas.drawPath(roofPath, paint);
+
+    // Draw the door
+    const door = Rect.fromLTWH(125, 230, 50, 70);
+    paint.color = Colors.black;
+    canvas.drawRect(door, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
   }
 }
