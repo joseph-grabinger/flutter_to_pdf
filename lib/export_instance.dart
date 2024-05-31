@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 
 import 'package:pdf/widgets.dart' as pw;
 
-import 'capture.dart';
+import 'capture_wrapper.dart';
 import 'export_delegate.dart';
 import 'utils.dart';
 import 'widgets/container.dart';
@@ -252,45 +252,41 @@ class ExportInstance {
           await (widget as Table).toPdfWidget(await _visit(element, context))
         ];
       case const (CaptureWrapper):
-        if (context != null) {
-          if (widget.key == null) {
-            throw Exception('Capture must have a key to be exported');
-          }
-          Element? contextElement =
-              findElement(context, (CaptureWrapper e) => e.key == widget.key);
-
-          assert(contextElement != null);
-          RenderRepaintBoundary? boundary;
-          RenderObject? renderObject = contextElement!.renderObject;
-
-          if (renderObject is RenderRepaintBoundary) {
-            boundary = renderObject;
-          } else {
-            renderObject?.visitChildren((child) {
-              if (child is RenderRepaintBoundary) {
-                boundary = child;
-              }
-            });
-          }
-
-          assert(boundary != null);
-          final ui.Image uiImage = await boundary!.toImage(pixelRatio: 2.0);
-
-          final pngBytes =
-              await uiImage.toByteData(format: ui.ImageByteFormat.png);
-          debugPrint(
-              'Captured image for ${widget.key}, with size: ${uiImage.width}x${uiImage.height}');
-          debugPrint('Using size: ${uiImage.width/2.0}x${uiImage.height/2.0}');
-          return [
-            await Image.memory(
-              pngBytes!.buffer.asUint8List(),
-              width: uiImage.width/2.0,
-              height: uiImage.height/2.0,
-            ).toPdfWidget()
-          ];
+        if (widget.key == null) {
+          throw Exception('Capture must have a key to be exported');
         }
-        assert(context != null);
-        return [];
+        Element? contextElement =
+            findElement(context!, (CaptureWrapper e) => e.key == widget.key);
+
+        assert(contextElement != null);
+        RenderRepaintBoundary? boundary;
+        RenderObject? renderObject = contextElement!.renderObject;
+
+        if (renderObject is RenderRepaintBoundary) {
+          boundary = renderObject;
+        } else {
+          renderObject?.visitChildren((child) {
+            if (child is RenderRepaintBoundary) {
+              boundary = child;
+            }
+          });
+        }
+
+        assert(boundary != null);
+        final ui.Image uiImage = await boundary!.toImage(pixelRatio: 2.0);
+
+        final pngBytes =
+            await uiImage.toByteData(format: ui.ImageByteFormat.png);
+        debugPrint(
+            'Captured image for ${widget.key}, with size: ${uiImage.width}x${uiImage.height}');
+        return [
+          await Image.memory(
+            pngBytes!.buffer.asUint8List(),
+            width: uiImage.width / 2.0,
+            height: uiImage.height / 2.0,
+          ).toPdfWidget(),
+        ];
+
       default:
         return await _visit(element, context);
     }

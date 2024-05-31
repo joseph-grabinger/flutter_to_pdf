@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_charts/flutter_charts.dart';
-import 'package:flutter_to_pdf/capture.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
@@ -52,12 +51,19 @@ class _DemoState extends State<Demo> {
               bottom: TabBar(
                 indicator: const UnderlineTabIndicator(),
                 tabs: const [
-                  Tab(icon: Icon(Icons.question_answer), text: 'Questionaire',),
-                  Tab(icon: Icon(Icons.ssid_chart), text: 'Charts & Custom Paint'),
+                  Tab(
+                    icon: Icon(Icons.question_answer),
+                    text: 'Questionaire',
+                  ),
+                  Tab(
+                    icon: Icon(Icons.ssid_chart),
+                    text: 'Charts & Custom Paint',
+                  ),
                 ],
                 onTap: (int value) {
                   setState(() {
-                    currentFrameId = value == 0 ? 'questionaireDemo' : 'captureWrapperDemo';
+                    currentFrameId =
+                        value == 0 ? 'questionaireDemo' : 'captureWrapperDemo';
                   });
                 },
               ),
@@ -75,7 +81,8 @@ class _DemoState extends State<Demo> {
                         interactive: false,
                       ),
                     );
-                    final pdf = await exportDelegate.exportToPdfDocument(currentFrameId,
+                    final pdf = await exportDelegate.exportToPdfDocument(
+                        currentFrameId,
                         overrideOptions: overrideOptions);
                     saveFile(pdf, 'static-example');
                   },
@@ -88,7 +95,8 @@ class _DemoState extends State<Demo> {
                 ),
                 TextButton(
                   onPressed: () async {
-                    final pdf = await exportDelegate.exportToPdfDocument(currentFrameId);
+                    final pdf = await exportDelegate
+                        .exportToPdfDocument(currentFrameId);
                     saveFile(pdf, 'interactive-example');
                   },
                   child: const Row(
@@ -427,24 +435,26 @@ class CaptureWrapperExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 400,
-          width: 400,
-          child: CaptureWrapper(
-            key: const Key('Chart'),
-            child: buildChart(),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SizedBox(
+            height: 400,
+            width: 400,
+            child: CaptureWrapper(
+              key: const Key('Chart'),
+              child: buildChart(),
+            ),
           ),
-        ),
-        CaptureWrapper(
-          key: const Key('CustomPaint'),
-          child: CustomPaint(
-            size: const Size(300, 300),
-            painter: HousePainter(),
+          CaptureWrapper(
+            key: const Key('CustomPaint'),
+            child: CustomPaint(
+              size: const Size(300, 300),
+              painter: HousePainter(),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -482,33 +492,33 @@ class CaptureWrapperExample extends StatelessWidget {
 }
 
 class HousePainter extends CustomPainter {
-    @override
-    void paint(Canvas canvas, Size size) {
-      final paint = Paint()
-        ..color = Colors.brown
-        ..style = PaintingStyle.fill;
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.brown
+      ..style = PaintingStyle.fill;
 
-      // Draw the house body
-      const body = Rect.fromLTWH(50, 100, 200, 200);
-      canvas.drawRect(body, paint);
+    // Draw the house body
+    const body = Rect.fromLTWH(50, 100, 200, 200);
+    canvas.drawRect(body, paint);
 
-      // Draw the roof
-      final roofPath = Path()
-        ..moveTo(150, 20)
-        ..lineTo(280, 100)
-        ..lineTo(20, 100)
-        ..close();
-      paint.color = Colors.red;
-      canvas.drawPath(roofPath, paint);
+    // Draw the roof
+    final roofPath = Path()
+      ..moveTo(150, 20)
+      ..lineTo(280, 100)
+      ..lineTo(20, 100)
+      ..close();
+    paint.color = Colors.red;
+    canvas.drawPath(roofPath, paint);
 
-      // Draw the door
-      const door = Rect.fromLTWH(125, 230, 50, 70);
-      paint.color = Colors.black;
-      canvas.drawRect(door, paint);
-    }
-
-    @override
-    bool shouldRepaint(covariant CustomPainter oldDelegate) {
-      return false;
-    }
+    // Draw the door
+    const door = Rect.fromLTWH(125, 230, 50, 70);
+    paint.color = Colors.black;
+    canvas.drawRect(door, paint);
   }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
+  }
+}

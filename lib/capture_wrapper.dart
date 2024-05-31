@@ -10,9 +10,5 @@ class CaptureWrapper extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return RepaintBoundary(
-      child: child,
-    );
-  }
+  Widget build(BuildContext context) => RepaintBoundary(child: child);
 }
