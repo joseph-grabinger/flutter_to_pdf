@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart'
-    show Align, Alignment, AlignmentDirectional;
+    show Align, Alignment, AlignmentDirectional, AlignmentGeometry, debugPrint;
 
 import 'package:pdf/widgets.dart' as pw show Align, Widget;
 
@@ -9,11 +9,18 @@ import '/args/alignment.dart';
 extension AlignConverter on Align {
   /// Converts the [Align] to a [pw.Align].
   pw.Align toPdfWidget(pw.Widget? child) => pw.Align(
-        alignment: (alignment is Alignment)
-            ? (alignment as Alignment).toPdfAlignment()
-            : (alignment as AlignmentDirectional).toPdfAlignment(),
+        alignment: _convertAlignment(alignment),
         widthFactor: widthFactor,
         heightFactor: heightFactor,
         child: child,
       );
+
+  _convertAlignment(AlignmentGeometry? alignment) {
+    if (alignment is Alignment) return alignment.toPdfAlignment();
+    if (alignment is AlignmentDirectional) return alignment.toPdfAlignment();
+    debugPrint(
+      'Unsupported AlignmentGeometry: $this; defaulting to Alignment.centerRight',
+    );
+    return Alignment.centerRight.toPdfAlignment();
+  }
 }
