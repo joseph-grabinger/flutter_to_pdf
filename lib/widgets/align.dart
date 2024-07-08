@@ -1,4 +1,5 @@
-import 'package:flutter/widgets.dart' show Align, Alignment;
+import 'package:flutter/widgets.dart'
+    show Align, Alignment, AlignmentDirectional;
 
 import 'package:pdf/widgets.dart' as pw show Align, Widget;
 
@@ -8,7 +9,9 @@ import '/args/alignment.dart';
 extension AlignConverter on Align {
   /// Converts the [Align] to a [pw.Align].
   pw.Align toPdfWidget(pw.Widget? child) => pw.Align(
-        alignment: (alignment as Alignment).toPdfAlignment(),
+        alignment: (alignment is Alignment)
+            ? (alignment as Alignment).toPdfAlignment()
+            : (alignment as AlignmentDirectional).toPdfAlignment(),
         widthFactor: widthFactor,
         heightFactor: heightFactor,
         child: child,
