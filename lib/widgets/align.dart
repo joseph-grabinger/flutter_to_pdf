@@ -8,7 +8,9 @@ import '/args/alignment.dart';
 extension AlignConverter on Align {
   /// Converts the [Align] to a [pw.Align].
   pw.Align toPdfWidget(pw.Widget? child) => pw.Align(
-        alignment: (alignment as Alignment).toPdfAlignment(),
+        alignment: (alignment is Alignment)
+            ? (alignment as Alignment).toPdfAlignment()
+            : Alignment.centerRight.toPdfAlignment(),
         widthFactor: widthFactor,
         heightFactor: heightFactor,
         child: child,
