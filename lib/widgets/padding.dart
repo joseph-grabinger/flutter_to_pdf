@@ -1,4 +1,6 @@
-import 'package:flutter/widgets.dart' show EdgeInsets, Padding;
+import 'package:flutter/widgets.dart'
+    show EdgeInsets, EdgeInsetsDirectional, Padding;
+import 'package:flutter_to_pdf/args/edge_insets_directional.dart';
 
 import 'package:pdf/widgets.dart' as pw show Padding, Widget;
 
@@ -8,7 +10,9 @@ import '/args/edge_insets.dart';
 extension PaddingConverter on Padding {
   /// Converts the [Padding] to a [pw.Padding].
   pw.Padding toPdfWidget(pw.Widget? child) => pw.Padding(
-        padding: (padding as EdgeInsets).toPdfEdgeInsets(),
+        padding: (padding is EdgeInsets)
+            ? (padding as EdgeInsets).toPdfEdgeInsets()
+            : (padding as EdgeInsetsDirectional).toPdfEdgeInsetsDirectional(),
         child: child,
       );
 }
