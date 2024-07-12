@@ -1,4 +1,5 @@
-import 'package:flutter/widgets.dart' show Alignment, AlignmentDirectional;
+import 'package:flutter/widgets.dart'
+    show Alignment, AlignmentDirectional, AlignmentGeometry, debugPrint;
 
 import 'package:pdf/widgets.dart' as pw show Alignment;
 
