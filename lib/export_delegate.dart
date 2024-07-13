@@ -139,4 +139,9 @@ class ExportDelegate {
 
     return pdf;
   }
+
+  // Wrap the private method _exportWidget
+  // Exports unbuilted [widget].
+  Future<pw.Widget> exportUnbuiltWidget(Widget widget) async =>
+      await _exportWidget(widget, null);
 }
