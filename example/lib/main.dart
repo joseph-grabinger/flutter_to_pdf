@@ -448,10 +448,7 @@ class CaptureWrapperExample extends StatelessWidget {
           ),
           CaptureWrapper(
             key: const Key('CustomPaint'),
-            child: CustomPaint(
-              size: const Size(300, 300),
-              painter: HousePainter(),
-            ),
+            child: Text("Hello", key: GlobalKey()),
           ),
         ],
       ),
