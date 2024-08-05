@@ -103,7 +103,7 @@ If the widget you want to export contains any custom widgets like `CustomPaint` 
 These widgets will then be captured as an image and exported to the PDF Document.
 
 ```dart
-CaptureWrapper()
+CaptureWrapper(
   key: const Key('someUniqueCustomPaintKey'),
   child: CustomPaint(
     size: const Size(300, 300),
