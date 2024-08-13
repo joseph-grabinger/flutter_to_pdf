@@ -1,3 +1,8 @@
+## 0.2.2
+
+- fix widget args cast type error
+- fix typo in `CaptureWrapper` example
+
 ## 0.2.1
 
 - upgrade flutter sdk to 3.22.0
