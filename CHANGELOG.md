@@ -1,3 +1,7 @@
+## 0.2.3
+
+- fix unsupported font error for AppleSystemUI font
+
 ## 0.2.2
 
 - fix widget args cast type error

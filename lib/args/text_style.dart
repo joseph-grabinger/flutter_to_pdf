@@ -22,7 +22,11 @@ import '../options/font_data.dart';
 import 'color.dart';
 
 extension TextStyleConverter on TextStyle {
-  Future<pw.TextStyle> toPdfTextStyle(FontData fontData) async => pw.TextStyle(
+  Future<pw.TextStyle> toPdfTextStyle(FontData fontData) async {
+    pw.Font? font = fontFamily != null 
+      ? await resolveFont(fontFamily!, fontData)
+      : null;
+    return pw.TextStyle(
         color: color?.toPdfColor(),
         fontSize: fontSize,
         fontStyle: fontStyle?.toPdfFontStyle(),
@@ -34,13 +38,12 @@ extension TextStyleConverter on TextStyle {
         decorationColor: decorationColor?.toPdfColor(),
         decorationStyle: decorationStyle?.toPdfTextDecorationStyle(),
         decorationThickness: decorationThickness,
-        inherit: inherit,
-        font: fontFamily != null
-            ? await resolveFont(fontFamily!, fontData)
-            : null,
+        inherit: !inherit && font == null ? true : inherit,
+        font: font,
         fontFallback: fontFamilyFallback != null
-            ? await Future.wait(fontFamilyFallback!
-                .map((String font) => resolveFont(font, fontData)))
+            ? (await Future.wait(fontFamilyFallback!
+                .map((String font) => resolveFont(font, fontData))))
+                .whereType<pw.Font>().toList()
             : [],
         background: backgroundColor != null
             ? pw.BoxDecoration(
@@ -48,9 +51,12 @@ extension TextStyleConverter on TextStyle {
               )
             : null,
       );
+  }
 
-  Future<pw.Font> resolveFont(String font, FontData fontData) async {
+  Future<pw.Font?> resolveFont(String font, FontData fontData) async {
     switch (font) {
+      case '.AppleSystemUIFont':
+        null;
       case 'Courier':
         return pw.Font.courier();
       case 'Helvetica':
