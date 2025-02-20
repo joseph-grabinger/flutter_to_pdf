@@ -1,6 +1,7 @@
 ## 0.2.3
 
 - fix unsupported font error for AppleSystemUI font
+- fix incorrect `BuildContext` used for multiple `ExportFrame`s in widget tree
 
 ## 0.2.2
 
