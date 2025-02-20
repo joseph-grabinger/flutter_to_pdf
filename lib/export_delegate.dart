@@ -20,13 +20,13 @@ class ExportDelegate {
 
   final Map<String, ExportFrameContext> _registeredFrames = {};
 
-  /// Registers a new [ExportFrame] to the [ExportDelegate].
-  void registerFrame(ExportFrameContext frame) {
-    _registeredFrames[frame.frameId] = frame;
+  /// Registers a new [ExportFrame] with the given [ExportFrameContext] to the [ExportDelegate].
+  void registerFrame(ExportFrameContext frameContext) {
+    _registeredFrames[frameContext.frameId] = frameContext;
   }
 
-  /// Returns the [ExportFrame] with the given [frameId].
-  /// Throws an [Exception] if no [ExportFrame] is found.
+  /// Returns the [ExportFrameContext] with the given [frameId].
+  /// Throws an [Exception] if no [ExportFrameContext] is found.
   ExportFrameContext getFrame(String frameId) {
     final ExportFrameContext? frame = _registeredFrames[frameId];
 
