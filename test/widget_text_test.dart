@@ -318,6 +318,41 @@ void main() async {
     pdf.addPage(await exportDelegate.exportToPdfPage('text overflow'));
   });
 
+  testWidgets('Rich Text Widgets', (tester) async {
+    await tester.pumpWidget(ExportFrame(
+      frameId: 'rich text',
+      exportDelegate: exportDelegate,
+      child: const Directionality(
+        textDirection: TextDirection.ltr,
+        child: Text.rich(
+          TextSpan(
+            text: '',
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w400,
+              color: Colors.green,
+            ),
+            children: [
+              TextSpan(
+                text: 'Green text',
+              ),
+              TextSpan(
+                  text: 'Red text',
+                  style: TextStyle(
+                    color: Colors.red,
+                  )),
+              TextSpan(
+                text: 'Green text',
+              ),
+            ],
+          ),
+        ),
+      ),
+    ));
+
+    pdf.addPage(await exportDelegate.exportToPdfPage('rich text'));
+  });
+
   testWidgets('Text Widgets Direction', (tester) async {
     await tester.pumpWidget(ExportFrame(
       frameId: 'text direction',
