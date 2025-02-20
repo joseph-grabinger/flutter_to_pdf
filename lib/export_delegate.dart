@@ -54,7 +54,7 @@ class ExportDelegate {
           frame.exportWidget, frame.exportContext);
     }
 
-    return await _exportDocument(frame.exportWidget, frame.exportContext!);
+    return await _exportDocument(frame.exportWidget, frame.exportContext);
   }
 
   /// Exports the [ExportFrame] with the given [frameId] to a [pw.Page].

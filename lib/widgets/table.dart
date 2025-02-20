@@ -74,13 +74,13 @@ extension TableColumnWidthConverter on TableColumnWidth {
   /// Converts the [TableColumnWidth] to a [pw.TableColumnWidth].
   pw.TableColumnWidth toPdfTableColumnWidth() {
     switch (runtimeType) {
-      case IntrinsicColumnWidth:
+      case const (IntrinsicColumnWidth):
         return pw.IntrinsicColumnWidth(flex: flex([]));
-      case FixedColumnWidth:
+      case const (FixedColumnWidth):
         return pw.FixedColumnWidth((this as FixedColumnWidth).value);
-      case FlexColumnWidth:
+      case const (FlexColumnWidth):
         return pw.FlexColumnWidth((this as FlexColumnWidth).value);
-      case FractionColumnWidth:
+      case const (FractionColumnWidth):
         return pw.FractionColumnWidth((this as FractionColumnWidth).value);
       default:
         debugPrint(

@@ -56,7 +56,7 @@ extension TextStyleConverter on TextStyle {
   Future<pw.Font?> resolveFont(String font, FontData fontData) async {
     switch (font) {
       case '.AppleSystemUIFont':
-        null;
+        return null;
       case 'Courier':
         return pw.Font.courier();
       case 'Helvetica':

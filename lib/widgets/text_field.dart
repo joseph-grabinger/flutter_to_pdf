@@ -124,9 +124,9 @@ extension InputBorderConverter on InputBorder {
   /// Converts the [InputBorder] to a [pw.BoxDecoration].
   pw.BoxDecoration toPdfInputBorder() {
     switch (runtimeType) {
-      case OutlineInputBorder:
+      case const (OutlineInputBorder):
         return (this as OutlineInputBorder).toPdfOutlineInputBorder();
-      case UnderlineInputBorder:
+      case const (UnderlineInputBorder):
         return (this as UnderlineInputBorder).toPdfUnderlineInputBorder();
       default:
         debugPrint(
