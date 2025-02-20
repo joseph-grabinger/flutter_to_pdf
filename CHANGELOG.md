@@ -1,3 +1,7 @@
+## 0.3.0
+
+- add support for `Text.rich` widget
+
 ## 0.2.3
 
 - fix unsupported font error for AppleSystemUI font
