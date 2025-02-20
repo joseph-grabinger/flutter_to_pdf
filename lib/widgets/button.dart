@@ -59,15 +59,15 @@ extension OutlinedBorderConverter on OutlinedBorder {
   /// Converts the [OutlinedBorder] to a [pw.BoxShape].
   pw.BoxShape toPdfBoxShape() {
     switch (runtimeType) {
-      case CircleBorder:
+      case const (CircleBorder):
         return pw.BoxShape.circle;
-      case StadiumBorder:
+      case const (StadiumBorder):
         return pw.BoxShape.circle;
-      case RoundedRectangleBorder:
+      case const (RoundedRectangleBorder):
         return pw.BoxShape.rectangle;
-      case BeveledRectangleBorder:
+      case const (BeveledRectangleBorder):
         return pw.BoxShape.rectangle;
-      case ContinuousRectangleBorder:
+      case const (ContinuousRectangleBorder):
         return pw.BoxShape.rectangle;
       // unsupported by pdf package:
       // - StadiumBorder
@@ -84,17 +84,17 @@ extension OutlinedBorderConverter on OutlinedBorder {
   /// Converts the [OutlinedBorder] to a [pw.BorderRadius].
   pw.BorderRadius toPdfBorderRadius() {
     switch (runtimeType) {
-      case CircleBorder:
+      case const (CircleBorder):
         return pw.BorderRadius.circular(1000);
-      case StadiumBorder:
+      case const (StadiumBorder):
         return pw.BorderRadius.circular(10);
-      case RoundedRectangleBorder:
+      case const (RoundedRectangleBorder):
         return ((this as RoundedRectangleBorder).borderRadius as BorderRadius)
             .toPdfBorderRadius();
-      case BeveledRectangleBorder:
+      case const (BeveledRectangleBorder):
         return ((this as BeveledRectangleBorder).borderRadius as BorderRadius)
             .toPdfBorderRadius();
-      case ContinuousRectangleBorder:
+      case const (ContinuousRectangleBorder):
         return ((this as ContinuousRectangleBorder).borderRadius
                 as BorderRadius)
             .toPdfBorderRadius();
