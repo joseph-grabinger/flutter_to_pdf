@@ -1,3 +1,7 @@
+## 0.4.0
+
+- add support for `overflow` in `Stack` widget
+
 ## 0.3.0
 
 - add support for `Text.rich` widget
