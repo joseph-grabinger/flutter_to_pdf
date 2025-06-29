@@ -90,13 +90,13 @@ extension TextDecorationConverter on TextDecoration {
   pw.TextDecoration toPdfTextDecoration() {
     pw.TextDecoration textDecoration = pw.TextDecoration.none;
     if (contains(TextDecoration.underline)) {
-      textDecoration.merge(pw.TextDecoration.underline);
+      textDecoration = textDecoration.merge(pw.TextDecoration.underline);
     }
     if (contains(TextDecoration.overline)) {
-      textDecoration.merge(pw.TextDecoration.overline);
+      textDecoration = textDecoration.merge(pw.TextDecoration.overline);
     }
     if (contains(TextDecoration.lineThrough)) {
-      textDecoration.merge(pw.TextDecoration.lineThrough);
+      textDecoration = textDecoration.merge(pw.TextDecoration.lineThrough);
     }
 
     return textDecoration;
