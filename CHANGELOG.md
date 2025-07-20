@@ -1,3 +1,7 @@
+## 0.4.1
+
+- fix export of `TextDecoration`
+
 ## 0.4.0
 
 - add support for `overflow` in `Stack` widget
